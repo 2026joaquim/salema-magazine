@@ -10,8 +10,8 @@ body{margin:0}
   --title:#6B4C33; --section:#4A6D57;
   --c-rest:#8A5A3A; --c-alma:#7A4C6E; --c-ser:#4A6D57; --c-store:#8A6A36; --c-ativ:#2F6475;
   --ok:#3F7A3A; --warn:#A8641A; --danger:#A33A2E;
-  --display:"Baloo 2", system-ui, sans-serif;
-  --body:"Baloo 2", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display:"Baloo Thambi 2", system-ui, sans-serif;
+  --body:"Baloo Thambi 2", system-ui, -apple-system, "Segoe UI", sans-serif;
   --r:6px;
   color-scheme:light;
 }
@@ -281,7 +281,7 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .carta{background:#FBF8F1;border-radius:14px;padding:22px 18px;display:flex;flex-direction:column;gap:18px;box-shadow:0 1px 0 rgba(0,0,0,.04)}
 .carta-top{display:flex;align-items:center;gap:12px;justify-content:center}
 .carta-ramo{height:64px;width:auto}
-.carta-titulo{font-family:"Caveat Brush","Baloo 2",cursive;font-size:2.6rem;line-height:1;color:#557A65;letter-spacing:.06em;text-transform:uppercase}
+.carta-titulo{font-family:"Baloo Thambi 2",sans-serif;font-size:2.6rem;line-height:1;color:#557A65;letter-spacing:.06em;text-transform:uppercase}
 .carta-sub{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#7FAF92}
 .carta-horas{list-style:none;margin:0;padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;background:#EEF5EF;border-radius:10px;font-size:.85rem}
 .carta-horas li{display:flex;flex-direction:column}
@@ -290,10 +290,10 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .carta-nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .carta-nav button{flex:none;border:1.5px solid #A3CDB0;background:transparent;color:#3F5F4E;border-radius:999px;padding:5px 12px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
 .carta-sec{display:flex;flex-direction:column;gap:6px;scroll-margin-top:80px}
-.carta-h{font-family:"Caveat Brush","Baloo 2",cursive;font-size:2rem;font-weight:400;color:#557A65;letter-spacing:.05em;text-transform:uppercase;text-align:center;margin:6px 0 0;display:flex;align-items:center;gap:12px}
+.carta-h{font-family:"Baloo Thambi 2",sans-serif;font-size:2rem;font-weight:400;color:#557A65;letter-spacing:.05em;text-transform:uppercase;text-align:center;margin:6px 0 0;display:flex;align-items:center;gap:12px}
 .carta-h::before,.carta-h::after{content:"";flex:1;height:2px;background:#A3CDB0;border-radius:2px}
 .carta-subsec{text-align:center;font-size:.8rem;color:#7FAF92;letter-spacing:.06em;text-transform:uppercase;margin-top:-4px}
-.carta-g{margin:10px 0 0;font-family:"Caveat Brush","Baloo 2",cursive;font-weight:400;font-size:1.35rem;color:#6B8F78;letter-spacing:.04em}
+.carta-g{margin:10px 0 0;font-family:"Baloo Thambi 2",sans-serif;font-weight:400;font-size:1.35rem;color:#6B8F78;letter-spacing:.04em}
 .carta-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .carta-linha{display:flex;align-items:baseline;gap:6px}
 .carta-nome{font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -314,8 +314,15 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .sec.tile:hover .ph{transform:scale(1.04)}
 .sec.tile .tile-cap{position:absolute;left:0;right:0;bottom:0;padding:34px 12px 12px;display:flex;flex-direction:column;gap:2px;
   background:linear-gradient(to top,rgba(20,35,26,.88) 0%,rgba(20,35,26,.6) 55%,rgba(20,35,26,0) 100%);text-align:left}
-.sec.tile .tile-cap b{font-family:"Caveat Brush","Baloo 2",cursive;font-weight:400;font-size:1.65rem;line-height:1;letter-spacing:.05em;text-transform:uppercase;color:#fff}
+.sec.tile .tile-cap b{font-family:"Baloo Thambi 2",sans-serif;font-weight:400;font-size:1.65rem;line-height:1;letter-spacing:.05em;text-transform:uppercase;color:#fff}
 .sec.tile .tile-cap small{color:#CEE7D1;font-size:.78rem;line-height:1.25}
 .sec.tile.missing-photo{background:#557A65}
 @media (min-width:900px){ .sec.tile{aspect-ratio:3/4} .sec.tile.wide{aspect-ratio:3/4} .sec.tile .tile-cap b{font-size:1.9rem} }
 .sec.tile .tile-cap b{overflow-wrap:anywhere}
+
+/* lettering do site: Baloo Thambi 2 */
+.sec.tile .tile-cap b{font-weight:800;font-size:1.25rem;letter-spacing:.02em;line-height:1.05}
+.carta-titulo{font-weight:800;font-size:2.2rem;letter-spacing:.04em}
+.carta-h{font-weight:800;font-size:1.5rem;letter-spacing:.04em}
+.carta-g{font-weight:700;font-size:1.1rem;letter-spacing:.02em}
+@media (min-width:900px){ .sec.tile .tile-cap b{font-size:1.45rem} }
