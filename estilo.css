@@ -250,7 +250,7 @@ h1,h2,h3{color:var(--title);font-weight:700}
   main .wrap{gap:28px}
   .sections{grid-template-columns:repeat(3,1fr);gap:16px}
   .sec.wide{grid-column:auto}
-  .hero img{max-height:560px;object-fit:cover}
+  .hero img{max-height:none;object-fit:contain}
   #reservar-detail > .block, #v-anuncios, #v-parque, #v-ecoliving{max-width:760px;margin-inline:auto;width:100%}
   .gallery{gap:10px}
   .el-gallery{grid-template-columns:repeat(3,1fr)}
