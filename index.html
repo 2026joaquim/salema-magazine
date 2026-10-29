@@ -7,8 +7,12 @@
 <meta name="theme-color" content="#274F37">
 <title>Salema Eco Camp Magazine</title>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icone.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icone-192.png">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="icone-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Salema Magazine">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="estilo.css">
@@ -96,6 +100,11 @@
   <section class="block">
     <h1>O parque</h1>
   </section>
+  <div class="card" id="install-card">
+    <h2>Guardar no telemóvel</h2>
+    <p>Tenha o Magazine sempre à mão, com um ícone no ecrã como uma aplicação. Não ocupa espaço nem precisa de loja de aplicações.</p>
+    <button class="btn" type="button" data-install>Como guardar</button>
+  </div>
   <div class="card">
     <h2>Mapa do parque</h2>
     <p>As zonas do parque, numeradas. Diga o número da sua zona quando pedir ajuda ou avisar uma avaria.</p>
@@ -286,6 +295,13 @@
   <a href="#anuncios" data-tab="anuncios"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Anúncios</a>
   <a href="#parque" data-tab="parque"><svg viewBox="0 0 24 24"><path d="M12 3l7 10H5z"/><path d="M12 13v8M8 21h8"/></svg>Parque</a>
 </div></nav>
+
+<div class="install-bar" id="install-bar" hidden role="dialog" aria-label="Guardar o Magazine no telemóvel">
+  <img src="icone-192.png" alt="">
+  <div><b>Guarde o Magazine no telemóvel</b><small>Fica com um ícone no ecrã, como uma aplicação.</small></div>
+  <button class="btn small" type="button" data-install>Guardar</button>
+  <button class="x" type="button" id="install-close" aria-label="Agora não">×</button>
+</div>
 
 <div class="sheet" id="sheet" hidden>
   <form id="req-form" novalidate></form>

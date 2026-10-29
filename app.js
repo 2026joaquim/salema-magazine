@@ -487,3 +487,72 @@ addEventListener("hashchange",()=>{ route(); scrollTo(0,0); });
 renderSections(); renderTopics(); renderAds(); route(); loadDados();
 setInterval(loadDados, 5*60*1000);
 })();
+
+/* ---------- guardar no telemóvel ---------- */
+(function(){
+  const $=s=>document.querySelector(s);
+  const ua=navigator.userAgent||"";
+  const isIOS=/iPhone|iPad|iPod/.test(ua) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+  const isAndroid=/Android/.test(ua);
+  const isMobile=isIOS||isAndroid;
+  const standalone=window.matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
+  let deferred=null;
+  const get=k=>{ try{ return localStorage.getItem(k); }catch{ return null; } };
+  const set=(k,v)=>{ try{ localStorage.setItem(k,v); }catch{} };
+
+  if(standalone){ const c=$("#install-card"); if(c) c.hidden=true; return; }
+
+  addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferred=e; });
+  addEventListener("appinstalled",()=>{ $("#install-bar").hidden=true; set("instalado","1"); });
+
+  const ico=(path)=>'<span class="kbd"><svg viewBox="0 0 24 24">'+path+'</svg></span>';
+  const SHARE=ico('<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>');
+  const DOTS=ico('<circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/>');
+  const PLUS=ico('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/>');
+
+  function showHelp(){
+    const f=$("#req-form"); f.replaceChildren(); f.onsubmit=null;
+    const h=document.createElement("h2"); h.textContent="Guardar o Magazine no telemóvel"; f.append(h);
+    const p=document.createElement("p"); p.className="lead"; p.textContent="Fica com um ícone no ecrã principal e abre como uma aplicação, em ecrã inteiro."; f.append(p);
+    const ol=document.createElement("ol"); ol.className="steps-install";
+    let steps;
+    if(isIOS) steps=[
+      "Abra esta página no <b>Safari</b> (no iPhone, só o Safari permite guardar).",
+      "Toque no botão <b>Partilhar</b> "+SHARE+", em baixo no ecrã.",
+      "Deslize e escolha <b>Adicionar ao ecrã principal</b> "+PLUS+".",
+      "Toque em <b>Adicionar</b>. O ícone Salema Magazine aparece no ecrã."];
+    else if(isAndroid) steps=[
+      "No <b>Chrome</b>, toque no menu "+DOTS+", no canto de cima.",
+      "Escolha <b>Instalar aplicação</b> ou <b>Adicionar ao ecrã principal</b>.",
+      "Confirme. O ícone Salema Magazine aparece no ecrã."];
+    else steps=[
+      "No telemóvel, leia o QR code da receção ou abra <b>ecomagazine.pt</b>.",
+      "<b>iPhone:</b> no Safari, toque em Partilhar "+SHARE+" e depois em Adicionar ao ecrã principal.",
+      "<b>Android:</b> no Chrome, toque no menu "+DOTS+" e depois em Instalar aplicação.",
+      "No computador, guarde a página nos favoritos."];
+    steps.forEach(t=>{ const li=document.createElement("li"); li.innerHTML=t; ol.append(li); });
+    f.append(ol);
+    const a=document.createElement("div"); a.className="actions";
+    const close=document.createElement("button"); close.type="button"; close.className="btn"; close.textContent="Percebi";
+    close.onclick=()=>{ $("#sheet").hidden=true; f.replaceChildren(); };
+    a.append(close); f.append(a);
+    $("#sheet").hidden=false;
+  }
+  async function install(){
+    if(deferred){ deferred.prompt(); const r=await deferred.userChoice; deferred=null; if(r&&r.outcome==="accepted"){ $("#install-bar").hidden=true; set("instalado","1"); } return; }
+    showHelp();
+  }
+  document.querySelectorAll("[data-install]").forEach(b=>b.addEventListener("click",install));
+  $("#install-close").addEventListener("click",()=>{ $("#install-bar").hidden=true; set("installAdiado",String(Date.now())); });
+
+  const adiado=parseInt(get("installAdiado")||"0",10);
+  const semana=7*24*3600*1000;
+  if(isMobile && !get("instalado") && Date.now()-adiado>semana){
+    setTimeout(()=>{ if($("#sheet").hidden) $("#install-bar").hidden=false; }, 4000);
+  }
+})();
+
+/* guarda as páginas para abrirem mesmo com pouca rede */
+if("serviceWorker" in navigator && location.protocol==="https:"){
+  addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}

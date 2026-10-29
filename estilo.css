@@ -257,3 +257,15 @@ h1,h2,h3{color:var(--title);font-weight:700}
 }
 .card.insta{flex-direction:row;align-items:center}
 .contacts b{white-space:nowrap}
+
+/* aviso para guardar no telemóvel */
+.install-bar{position:fixed;left:8px;right:8px;bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:7;max-width:620px;margin:0 auto;
+  background:var(--surface);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:10px 12px;display:grid;grid-template-columns:44px 1fr auto auto;gap:10px;align-items:center}
+.install-bar img{width:44px;height:44px;border-radius:10px}
+.install-bar b{display:block;color:var(--title);font-size:.95rem;line-height:1.2}
+.install-bar small{display:block;color:var(--muted);font-size:.8rem;line-height:1.25}
+.install-bar .x{background:none;border:0;font-size:1.4rem;line-height:1;color:var(--muted);cursor:pointer;padding:4px 6px}
+.steps-install{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:10px}
+.steps-install li{line-height:1.4}
+.kbd{display:inline-flex;align-items:center;justify-content:center;vertical-align:-4px;width:24px;height:24px;border-radius:6px;background:var(--surface-2);margin:0 2px}
+.kbd svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
