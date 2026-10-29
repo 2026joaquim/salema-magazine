@@ -101,12 +101,13 @@ window.OUTDOOR=[
   ["Moto-4 ao pôr do sol","sob consulta","","","O pôr do sol visto da costa."]]]
 ];
 window.CATALOG=[
-  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", foto:"nazari.jpg", curto:"Mesas, refeições e pequeno-almoço",
+  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:30; às terças só há pequeno-almoço e pizzas.",
    itens:[
     {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, das 12:00 às 21:30", campos:["telefone","data","hora","pessoas","notas"]},
     {id:"encomenda", nome:"Encomendar refeição", desc:"Para levar ou entregar no alojamento ou na sua zona · caixa 0,5 €", campos:["telefone","data","hora","pedido","entrega"]},
     {id:"pequeno-almoco", nome:"Pequeno-almoço", desc:"Buffet 13 € por pessoa · 8:00–10:30", campos:["telefone","data","hora","pessoas","notas"]},
+    {id:"eventos", nome:"Festas e eventos", desc:"Aniversários, almoços e jantares de Natal, jantares temáticos e workshops", campos:["telefone","tipo","data","pessoas","notas"], tipoLabel:"Que tipo de evento?", tipoOpts:["Aniversário","Almoço de Natal","Jantar de Natal","Almoço ou jantar temático","Workshop","Outro evento"]},
     {id:"perdidos", nome:"Perdidos e achados", desc:"Esqueceu-se de alguma coisa? Vai para a receção", campos:["objeto","data"], destino:"rececao"}
    ]},
   {id:"alma", nome:"Alma Mater", cor:"--c-alma", email:"almamater@salemaecocamp.com", whatsapp:"+351 961 956 143", foto:"alma-mater.jpg", curto:"Massagens, terapias e yoga",
@@ -768,7 +769,7 @@ window.PADARIAS = [
 window.PAO_NOTA = "A Eco Store aceita encomendas de pão e pastelaria para o dia seguinte, até às 17h30. Assim garante que os produtos que quer estão disponíveis.";
 
 window.GALERIAS = {
-  restaurante: [["nazari-esplanada.jpg","Na esplanada"],["nazari-almoco.jpg","Almoço no Nazari"],["nazari-jantar.jpg","Jantar em família"]],
+  restaurante: [["nazari-2.jpg","A esplanada ao anoitecer"],["nazari-9.jpg","A entrada do Nazari"],["nazari-10.jpg","A sala"],["nazari-4.jpg","Sob a buganvília"],["nazari-3.jpg","Pizza no forno a lenha"],["nazari-8.jpg","Poke bowls"],["nazari-7.jpg","Smoothies"],["nazari-5.jpg","A sala à noite"],["nazari-6.jpg","Recanto da esplanada"]],
   alma: [["alma-yoga-meditacao.jpg","Aula de yoga no Alma Mater"],["alma-yoga-aula.jpg","Hatha Flow"]],
   ser: [["ser-porta.jpg","A casa do SER"],["ser-plantacao.jpg","Plantação no parque"],["ser-angela-green-key.jpg","Ângela e o certificado Green Key"]],
   store: [["loja-cosmetica-cestos.jpg","Cosmética, cestos e calçado"],["loja-mercearia.jpg","Mercearia biológica"],["loja-entrada.jpg","Mantas e artesanato à entrada"]],

@@ -64,6 +64,9 @@ const table = rows => el("ul",{class:"contacts"}, ...rows.map(r=>el("li",{}, el(
 function extraFor(id){
   if(id==="restaurante") return el("div",{style:"display:flex;flex-direction:column;gap:10px"},
     GALERIAS.restaurante ? gallery(GALERIAS.restaurante) : null,
+    el("div",{class:"card",style:"background:#EEF5EF"}, el("h3",{text:"Festas e eventos no Nazari"}),
+      el("p",{text:"Organizamos aniversários, almoços e jantares de Natal, jantares temáticos e workshops, na sala ou na esplanada. Diga-nos a data, o número de pessoas e o que imagina, e preparamos uma proposta."}),
+      el("button",{class:"btn",type:"button",style:"align-self:flex-start",onclick:()=>openForm("restaurante","eventos"),text:"Pedir proposta"})),
     menuCarta());
   if(id==="alma"){
     const descs = list => el("div",{style:"display:flex;flex-direction:column;gap:8px"}, ...list.map(([n,d])=>el("div",{}, el("b",{text:n}), el("p",{style:"font-size:.92rem;color:var(--muted)",text:d}))));
