@@ -52,8 +52,9 @@ if(C.INSTAGRAM) $("#insta-link").href=C.INSTAGRAM;
 
 /* ---------- secções ---------- */
 function sectionCard(s, wide){
-  return el("button",{class:"sec"+(wide?" wide":""),type:"button",style:`--sc:var(${s.cor})`,onclick:()=>{location.hash="reservar";openSection(s.id);}},
-    s.foto?img(s.foto,"",{class:"ph"}):el("span",{class:"dot"}), el("b",{text:s.nome}), el("small",{text:s.curto}));
+  const ph=s.foto?el("img",{src:(/^https?:/.test(s.foto)?s.foto:"imagens/"+s.foto),alt:"",class:"ph",loading:"eager"}):null;
+  return el("button",{class:"sec tile"+(wide?" wide":""),type:"button",style:`--sc:var(${s.cor})`,onclick:()=>{location.hash="reservar";openSection(s.id);}},
+    ph, el("span",{class:"tile-cap"}, el("b",{text:s.nome}), el("small",{text:s.curto})));
 }
 function renderSections(){
   CATALOG.forEach((s,i)=>{ const w=i===CATALOG.length-1; $("#home-sections").append(sectionCard(s,w)); $("#all-sections").append(sectionCard(s,w)); });
