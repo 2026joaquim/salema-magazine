@@ -58,7 +58,7 @@ function sectionCard(s, wide){
 function renderSections(){
   CATALOG.forEach((s,i)=>{ const w=i===CATALOG.length-1; $("#home-sections").append(sectionCard(s,w)); $("#all-sections").append(sectionCard(s,w)); });
 }
-const gallery = list => el("div",{class:"gallery"}, ...list.map(([f,leg])=>el("figure",{}, img(f,leg), el("figcaption",{text:leg}))));
+const gallery = list => el("div",{class:"gallery"}, ...list.map(([f,leg])=>{ const i=img(f,leg); const fig=el("figure",{}, i, el("figcaption",{text:leg})); i.addEventListener("error",()=>fig.remove()); return fig; }));
 const table = rows => el("ul",{class:"contacts"}, ...rows.map(r=>el("li",{}, el("span",{text:r[0]}), el("b",{text:r[1]}))));
 
 function extraFor(id){
