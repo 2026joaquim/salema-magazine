@@ -20,7 +20,7 @@ const el = (tag, attrs={}, ...kids) => {
   return e;
 };
 const img = (src, alt, attrs={}) => {
-  const i=el("img",{src:"imagens/"+src, alt:alt||"", loading:"lazy", ...attrs});
+  const i=el("img",{src:(/^https?:/.test(src)?src:"imagens/"+src), alt:alt||"", loading:"lazy", ...attrs});
   i.addEventListener("error",()=>i.classList.add("missing"));
   return i;
 };
@@ -63,6 +63,7 @@ const table = rows => el("ul",{class:"contacts"}, ...rows.map(r=>el("li",{}, el(
 
 function extraFor(id){
   if(id==="restaurante") return el("div",{style:"display:flex;flex-direction:column;gap:10px"},
+    GALERIAS.restaurante ? gallery(GALERIAS.restaurante) : null,
     menuCarta());
   if(id==="alma"){
     const descs = list => el("div",{style:"display:flex;flex-direction:column;gap:8px"}, ...list.map(([n,d])=>el("div",{}, el("b",{text:n}), el("p",{style:"font-size:.92rem;color:var(--muted)",text:d}))));

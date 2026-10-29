@@ -101,7 +101,7 @@ window.OUTDOOR=[
   ["Moto-4 ao pôr do sol","sob consulta","","","O pôr do sol visto da costa."]]]
 ];
 window.CATALOG=[
-  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", foto:"nazari.jpg", curto:"Mesas, refeições e pequeno-almoço",
+  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", foto:"https://www.salemaecocamp.com/wp-content/uploads/2024/10/show-restaurant-scaled.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:30; às terças só há pequeno-almoço e pizzas.",
    itens:[
     {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, das 12:00 às 21:30", campos:["telefone","data","hora","pessoas","notas"]},
@@ -768,6 +768,7 @@ window.PADARIAS = [
 window.PAO_NOTA = "A Eco Store aceita encomendas de pão e pastelaria para o dia seguinte, até às 17h30. Assim garante que os produtos que quer estão disponíveis.";
 
 window.GALERIAS = {
+  restaurante: [["https://www.salemaecocamp.com/wp-content/uploads/2024/12/nazari-restaurant.jpg","Na esplanada"],["https://www.salemaecocamp.com/wp-content/uploads/2025/01/almoco-nazari.jpeg","Almoço no Nazari"],["https://www.salemaecocamp.com/wp-content/uploads/2025/01/familia-jantando-nazari.jpeg","Jantar em família"]],
   alma: [["alma-yoga-meditacao.jpg","Aula de yoga no Alma Mater"],["alma-yoga-aula.jpg","Hatha Flow"]],
   ser: [["ser-porta.jpg","A casa do SER"],["ser-plantacao.jpg","Plantação no parque"],["ser-angela-green-key.jpg","Ângela e o certificado Green Key"]],
   store: [["loja-cosmetica-cestos.jpg","Cosmética, cestos e calçado"],["loja-mercearia.jpg","Mercearia biológica"],["loja-entrada.jpg","Mantas e artesanato à entrada"]],
