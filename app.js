@@ -312,7 +312,7 @@ function openEco(){
   const f=$("#req-form"); f.replaceChildren();
   f.append(el("div",{class:"sechead",style:"--sc:var(--brand)"}, el("span",{class:"eyebrow",text:"Eco Living"}), el("h2",{text:"I'd like to know more"})),
     el("div",{class:"pair"}, fld("e-nome","Name","text",{required:"",autocomplete:"name"}), fld("e-pais","Country","text",{autocomplete:"country-name"})),
-    fld("e-interesse","I'm interested in","select",{},["A new mobile home","Bringing my tiny house","Both / not sure yet"]),
+    fld("e-interesse","I'm interested in","select",{},["Karlotte (Essential)","Manyara (Family)","Atoll (Signature)","Not sure yet"]),
     fld("e-notas","Anything you'd like to tell us (optional)","textarea"),
     el("div",{class:"msg",id:"f-msg",hidden:""}),
     el("div",{class:"actions"}, cancelBtn("Cancel"), el("button",{class:"btn",type:"submit",text:"Prepare message"})));
