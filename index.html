@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#274F37">
+<title>Salema Eco Camp Magazine</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icone-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="brand-row"><img id="logo" src="imagens/logo.png" alt="Salema Eco Camp"><div class="brand"><b>Salema Eco Camp</b><span>Magazine</span></div></div>
+  <div class="who">Praia da Salema · Algarve</div>
+</div></header>
+
+<main><div class="wrap">
+
+<!-- INÍCIO -->
+<div class="view" id="v-inicio">
+  <figure class="hero" id="hero"><img id="hero-img" src="imagens/capa-desenho-pedro-pereira.jpg" alt="Desenho do Salema Eco Camp por Pedro Pereira, com o vale, os alojamentos, a Alma Mater, a Eco Store e as atividades"><figcaption>Desenho de Pedro Pereira</figcaption></figure>
+  <section class="block">
+    <h1>Bem-vindo a Salema</h1>
+    <p class="lead">Fique, descanse e vá. Avisos do dia, eventos, reservas e os anúncios de quem está cá, num só sítio.</p>
+  </section>
+  <section class="block">
+    <div class="eyebrow">Avisos do parque</div>
+    <div class="avisos" id="avisos"><div class="empty">A carregar avisos…</div></div>
+  </section>
+  <section class="block">
+    <div class="eyebrow">Próximos eventos</div>
+    <div class="events" id="eventos"><div class="empty">A carregar eventos…</div></div>
+  </section>
+  <section class="ask" id="ask">
+    <h2>Pergunte ao parque</h2>
+    <p class="lead" style="font-size:.9rem">Horários, regras, atividades, como chegar à praia. Responde em qualquer língua.</p>
+    <form id="ask-form"><input id="ask-q" maxlength="300" placeholder="Ex.: A que horas abre a Eco Store?" aria-label="A sua pergunta"><button class="btn" type="submit">Perguntar</button></form>
+    <div class="suggest" id="ask-sug"></div>
+    <div class="answer" id="ask-a" hidden></div>
+  </section>
+  <section class="block">
+    <div class="eyebrow">Reservar e encomendar</div>
+    <div class="sections" id="home-sections"></div>
+  </section>
+  <a class="card el-teaser" href="#ecoliving">
+    <img class="secphoto" src="imagens/ecoliving-casa.jpg" alt="" loading="lazy">
+    <span class="eyebrow">Eco Living</span>
+    <b>Your own home in the park, by the ocean</b>
+    <p class="lead" style="font-size:.9rem">Tiny houses and new mobile homes on spacious plots inside Salema Eco Camp.</p>
+  </a>
+  <div class="card insta">
+    <div><b>Siga-nos no Instagram</b><p class="lead" style="font-size:.9rem">@salemaecocamp: o vale, a praia e a vida no parque.</p></div>
+    <a class="btn" style="text-decoration:none" id="insta-link" href="https://www.instagram.com/salemaecocamp" target="_blank" rel="noopener">Seguir</a>
+  </div>
+  <div class="card insta">
+    <div><b>Alguma coisa avariada?</b><p class="lead" style="font-size:.9rem">Diga-nos o local e envie a foto. Só a equipa vê.</p></div>
+    <button class="btn ghost" type="button" data-avaria>Avisar a equipa</button>
+  </div>
+</div>
+
+<!-- RESERVAR -->
+<div class="view" id="v-reservar" hidden>
+  <div id="reservar-list">
+    <section class="block">
+      <h1>Reservar</h1>
+      <p class="lead">Faça o seu pedido: abre-se o WhatsApp ou o email da secção certa, com a mensagem já escrita. Não paga nada agora; a equipa confirma consigo.</p>
+      <div class="sections" id="all-sections"></div>
+    </section>
+  </div>
+  <div id="reservar-detail" hidden></div>
+</div>
+
+<!-- ANÚNCIOS -->
+<div class="view" id="v-anuncios" hidden>
+  <section class="block">
+    <h1>Anúncios</h1>
+    <p class="lead">Como numa revista: boleias para a praia, coisas para emprestar, ajuda que procura ou oferece. Quem quiser responde pelo contacto do anúncio.</p>
+    <div class="topics" id="topics" role="group" aria-label="Categorias"></div>
+    <div class="note" id="topic-note" hidden></div>
+    <div class="actions" style="justify-content:flex-start">
+      <button class="btn" id="new-ad" type="button">Pôr um anúncio</button>
+      <button class="btn ghost" id="remove-ad" type="button">Retirar o meu anúncio</button>
+    </div>
+  </section>
+  <div class="posts" id="ads"><div class="empty">A carregar anúncios…</div></div>
+</div>
+
+<!-- PARQUE -->
+<div class="view" id="v-parque" hidden>
+  <section class="block">
+    <h1>O parque</h1>
+  </section>
+  <div class="card">
+    <h2>Mapa do parque</h2>
+    <p>As zonas do parque, numeradas. Diga o número da sua zona quando pedir ajuda ou avisar uma avaria.</p>
+    <a class="map" href="imagens/capa-desenho-pedro-pereira.jpg" target="_blank" rel="noopener"><img src="imagens/capa-desenho-pedro-pereira.jpg" alt="Mapa do Salema Eco Camp com as zonas numeradas de 1 a 30, desenhado por Pedro Pereira" loading="lazy"></a>
+    <small class="lead" style="font-size:.8rem">Desenho de Pedro Pereira. Toque no mapa para o ver em tamanho grande.</small>
+  </div>
+  <div class="card">
+    <h2>Regulamento interno</h2>
+    <p>As regras do parque, como estão no regulamento do Salema Eco Camp. Ao entrar no Magazine, o hóspede confirma que as conhece.</p>
+    <div class="note">Protótipo: o texto completo do regulamento entra aqui assim que for colado. Até lá, consulte-o no site.</div>
+    <a href="https://salemaecocamp.com" target="_blank" rel="noopener">Abrir o regulamento no site</a>
+  </div>
+  <div class="card">
+    <h2>Receção</h2>
+    <p>Prolongar a estadia ou reservar nova visita: o alojamento reserva-se no nosso site.</p>
+    <a href="https://salemaecocamp.com" target="_blank" rel="noopener">Reservar alojamento</a>
+  </div>
+  <div class="card">
+    <span class="eyebrow">Salema Eco Camp Base Camp</span>
+    <h2>Trilho dos Pescadores</h2>
+    <p><b>Uma base. Cinco etapas. Zero stress.</b> Durma na mesma cama todas as noites: levamo-lo de manhã ao início da etapa e vamos buscá-lo ao fim do dia. De Carrapateira a Lagos, 77,5 km.</p>
+    <p class="lead" style="font-size:.9rem">Membro associado da Rota Vicentina.</p>
+    <a class="map" href="imagens/mapa-trilho.jpg" target="_blank" rel="noopener"><img src="imagens/mapa-trilho.jpg" alt="Mapa do Trilho dos Pescadores, de Carrapateira a Lagos, com as 5 etapas e 23 pontos de interesse" loading="lazy"></a>
+    <small class="lead" style="font-size:.8rem">Toque no mapa para o ver em tamanho grande.</small>
+    <div class="eyebrow">Etapas</div>
+    <ol class="stages" id="stages"></ol>
+    <button class="btn" type="button" data-open="atividades:transfer">Pedir transfer para o início da etapa</button>
+    <details class="poi"><summary>23 pontos de interesse</summary><ol id="pois"></ol></details>
+    <a href="https://rotavicentina.com/en/fishermens-trail" target="_blank" rel="noopener">Mais sobre o trilho na Rota Vicentina</a>
+  </div>
+  <div class="card">
+    <h2>Contactos úteis</h2>
+    <ul class="contacts">
+      <li><span>Emergência</span><b>112</b></li>
+      <li><span>Saúde 24</span><b>808 24 24 24</b></li>
+      <li><span>Salema Eco Camp</span><b>+351 282 695 201</b></li>
+      <li><span>Receção (WhatsApp)</span><b>+351 926 636 033</b></li>
+      <li><span>Quiosque de Atividades (WhatsApp)</span><b>+351 961 956 143</b></li>
+      <li><span>Restaurante Nazari</span><b>nazari@salemaecocamp.com</b></li>
+      <li><span>Eco Store (WhatsApp)</span><b>+351 968 727 036</b></li>
+      <li><span>Eco Store</span><b>sales@salemaecostore.com</b></li>
+      <li><span>Atividades, Alma Mater e SER</span><b>atividades@salemaecocamp.com</b></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Avarias</h2>
+    <p>Algo estragado no seu alojamento ou nos espaços comuns? Escreva o local e o que se passa; abre-se o WhatsApp da equipa e pode juntar a foto. Só a equipa vê.</p>
+    <button class="btn ghost" type="button" data-avaria>Avisar a equipa</button>
+  </div>
+  <div class="card">
+    <h2>Perdidos e achados</h2>
+    <p>Esqueceu-se de alguma coisa no parque ou no restaurante? Descreva o objeto e nós procuramos.</p>
+    <button class="btn ghost" type="button" data-open="restaurante:perdidos">Fazer pedido</button>
+  </div>
+  <div class="card">
+    <img class="secphoto" src="imagens/glamping.jpg" alt="Tendas de glamping do Salema Eco Camp" loading="lazy">
+    <h2>Onde estamos</h2>
+    <p>Salema é uma vila piscatória milenar da freguesia de Budens. O nome vem do árabe Salam, porto seguro.</p>
+    <p>Quinta dos Carriços, Praia da Salema, 8650-196 Budens. A 1 km da praia, no coração do Trilho dos Pescadores. Aberto todo o ano.</p>
+  </div>
+</div>
+
+
+<!-- ECO LIVING -->
+<div class="view" id="v-ecoliving" hidden>
+  <a class="back" href="#inicio">← Back</a>
+  <figure class="el-hero"><img src="imagens/ecoliving-casa.jpg" alt="Timber house under a cork oak, with a pergola and garden"></figure>
+  <section class="block">
+    <span class="eyebrow">Eco Living by Salema Eco Camp</span>
+    <h1>Be part of our Eco Living project, here at Salema Eco Camp.</h1>
+    <p class="lead">Your tiny house or a new mobile home, good neighbours and a simpler way of life, by the ocean.</p>
+    <button class="btn" type="button" data-eco>I'd like to know more</button>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">The concept</span>
+    <h2>Your own home, in a park that cares for its place</h2>
+    <div class="el-grid">
+      <div class="el-card"><b>Mobile home or tiny house</b><p>A new timber mobile home from France, or your own tiny house, with installation and connections included.</p></div>
+      <div class="el-card"><b>Spacious plot</b><p>Always roomy, with a garden and free irrigation water. No cars in the residential area.</p></div>
+      <div class="el-card"><b>A regenerative park</b><p>Carbon neutral and zero waste, with its own sustainability department.</p></div>
+      <div class="el-card"><b>Neighbourhood</b><p>Neighbours who share the same rhythm: the sea, nature and slow living.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <img class="secphoto" src="imagens/ecoliving-lodges.jpg" alt="Aerial view of lodges at Salema Eco Camp, among the trees" loading="lazy">
+    <span class="eyebrow">The place</span>
+    <h2>Salema, the safe harbour</h2>
+    <p>Salema comes from the Arabic Salam: safe harbour. It was given that name many centuries ago and still is one, a harbour that embraces those who seek comfort, friendship and simplicity.</p>
+    <p>At the south-western tip of Europe, by the ocean, in a natural park, with incredible surf spots and next to one of the most beautiful hiking trails in Europe. Here, peace and nature are the mentors of the project.</p>
+    <div class="el-stats"><div><b>Natural park</b><span>by the ocean</span></div><div><b>Beach</b><span>a short walk away</span></div><div><b>Zero</b><span>waste and carbon neutral</span></div></div>
+  </section>
+
+  <section class="el-dark">
+    <span class="eyebrow">Who it is for</span>
+    <h2>For those who live in connection with the sea and nature, and value the real and simple things in life</h2>
+    <p>People who are active, physically and mentally, with a holistic view of life. At heart, we are creating a concept of cooperation and a fusion of cultures, built around sustainability, sharing and quality.</p>
+    <div class="el-grid">
+      <div class="el-line"><b>At sea</b><p>Surfing, kitesurfing, windsurfing, diving and snorkelling.</p></div>
+      <div class="el-line"><b>On land</b><p>Hiking, trekking, birdwatching and yoga.</p></div>
+      <div class="el-line"><b>As a family</b><p>Families with children and couples who want continuity.</p></div>
+      <div class="el-line"><b>With values</b><p>Sustainability, sharing and quality, in a regenerative vision of the place.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">Two ways in</span>
+    <h2>Two ways to be part of Eco Living</h2>
+    <div class="el-card"><span class="eyebrow">Bring your own</span><b>Your tiny house</b><p>We host a limited number of existing tiny houses, because we want to keep the place calm and spacious. Admission is case by case.</p></div>
+    <div class="el-card el-inv"><span class="eyebrow">Buy new</span><b>A new mobile home</b><p>Built in timber in France and installed on your plot, with the connections included. Three ranges to choose from.</p></div>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">The mobile homes</span>
+    <h2>Three ranges for every way of living</h2>
+    <div class="el-card"><span class="eyebrow">Essential</span><b>Karlotte</b><p>Compact and cosy, for the whole family. Nordic timber chalet whose front canopy opens into a lounge terrace.</p></div>
+    <div class="el-card"><span class="eyebrow">Family</span><b>Manyara</b><p>Several sizes, from a couple's retreat to a family home. Timber with reinforced thermal insulation, covered terrace and solarium.</p></div>
+    <div class="el-card el-inv"><span class="eyebrow">Signature</span><b>Atoll</b><p>Spacious and generous, for living all year round. Modular: a living module and a sleeping module, well separated.</p></div>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">Inside and out</span>
+    <h2>Timber, light and outdoor living</h2>
+    <div class="el-gallery">
+      <figure><img src="imagens/ecoliving-atoll-terraco.jpg" alt="Covered terrace of an Atoll, with an outdoor lounge" loading="lazy"><figcaption><b>Atoll</b> · covered terrace</figcaption></figure>
+      <figure><img src="imagens/ecoliving-atoll-sala.jpg" alt="Bright dining room of an Atoll" loading="lazy"><figcaption><b>Atoll</b> · dining room</figcaption></figure>
+      <figure><img src="imagens/ecoliving-karlotte.jpg" alt="Karlotte with pergola and deck" loading="lazy"><figcaption><b>Karlotte</b> · deck and pergola</figcaption></figure>
+    </div>
+    <small class="lead" style="font-size:.8rem">3D renders and photographs from the manufacturer Samibois, illustrative and non-contractual.</small>
+  </section>
+
+  <section class="el-dark">
+    <span class="eyebrow">Your tiny house</span>
+    <h2>Which tiny houses we accept</h2>
+    <p>Places are limited and admission is decided by us, case by case. We give priority to tiny houses from Salema Eco Camp's partner company in Portugal.</p>
+    <ul class="el-checks"><li>Built to the partner company's standards</li><li>New or in good condition</li><li>Design that blends into the landscape</li><li>Road-legal and licensed</li><li>Chassis inspection up to date</li><li>Gas inspection up to date</li><li>Valid, up-to-date insurance</li><li>Fits the park's model and concept</li></ul>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">The plot</span>
+    <h2>Your plot: a life lived more outdoors</h2>
+    <div class="el-grid">
+      <div class="el-card"><b>Spacious plot</b><p>Always roomy, with free irrigation water from the park's treatment plant for the garden and vegetable patch.</p></div>
+      <div class="el-card"><b>No-car zone</b><p>Cars do not drive in the residential area. Shared parking is close by.</p></div>
+      <div class="el-card"><b>Outdoor living</b><p>Your own deck, outdoor kitchen, garden and vegetable patch.</p></div>
+      <div class="el-card"><b>Metered use</b><p>Water and electricity on individual meters. You can generate solar energy.</p></div>
+      <div class="el-card"><b>Shared spaces</b><p>Coworking, yoga room and shared fire pits, already running in the park.</p></div>
+      <div class="el-card el-inv"><b>Clarity</b><p>Clear, transparent terms, set out in the contract from day one.</p></div>
+    </div>
+  </section>
+
+  <section class="el-dark">
+    <span class="eyebrow">Income</span>
+    <h2>Your investment also works while you are away</h2>
+    <p>We can make your home earn from visitors, in a shared and harmonious way, with an attractive return.</p>
+    <div class="el-grid"><div class="el-line"><b>Optional</b><p>You take part only if you wish, and decide when to make it available.</p></div><div class="el-line"><b>Worry-free</b><p>We handle the management, so you find it ready when you return.</p></div></div>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">The process</span>
+    <h2>From first visit to keys in hand</h2>
+    <ol class="el-steps">
+      <li><b>Visit</b><p>See the park and tell us what you have in mind: your tiny house or a new mobile home.</p></li>
+      <li><b>Proposal</b><p>You receive a personalised proposal, tailored to you.</p></li>
+      <li><b>Admission or order</b><p>Your tiny house is approved, or your mobile home is built in France once the sale is confirmed.</p></li>
+      <li><b>Installation</b><p>We place it on your plot and make all the connections.</p></li>
+      <li><b>Arrival</b><p>You sign the plot contract and start living in Eco Living.</p></li>
+    </ol>
+  </section>
+
+  <section class="el-dark el-contact">
+    <img src="imagens/ecoliving-contacto.jpg" alt="Dark timber house with open doors" loading="lazy">
+    <h2>Shall we talk?</h2>
+    <p>Come and see the park and your future plot.</p>
+    <ul class="contacts"><li><span>Email</span><b>joaquimlourenco@salemaecocamp.com</b></li><li><span>WhatsApp</span><b>+351 969 000 575</b></li></ul>
+    <button class="btn" type="button" data-eco>I'd like to know more</button>
+    <small style="font-size:.78rem;opacity:.8">For information only, not a contract. Details and terms shared in a personal conversation.</small>
+  </section>
+</div>
+
+
+</div></main>
+
+<nav class="tabs" aria-label="Navegação"><div class="in">
+  <a href="#inicio" data-tab="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Início</a>
+  <a href="#reservar" data-tab="reservar"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Reservar</a>
+  <a href="#anuncios" data-tab="anuncios"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Anúncios</a>
+  <a href="#parque" data-tab="parque"><svg viewBox="0 0 24 24"><path d="M12 3l7 10H5z"/><path d="M12 13v8M8 21h8"/></svg>Parque</a>
+</div></nav>
+
+<div class="sheet" id="sheet" hidden>
+  <form id="req-form" novalidate></form>
+</div>
+
+<script src="config.js"></script>
+<script src="conteudo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

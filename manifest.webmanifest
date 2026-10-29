@@ -1,0 +1,13 @@
+{
+  "name": "Salema Eco Camp Magazine",
+  "short_name": "Salema Magazine",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ECE4D0",
+  "theme_color": "#274F37",
+  "lang": "pt",
+  "icons": [
+    {"src": "icone-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icone-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
