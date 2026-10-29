@@ -63,7 +63,7 @@ const table = rows => el("ul",{class:"contacts"}, ...rows.map(r=>el("li",{}, el(
 
 function extraFor(id){
   if(id==="restaurante") return el("div",{style:"display:flex;flex-direction:column;gap:10px"},
-    el("div",{class:"eyebrow",text:"Menu"}), el("div",{class:"menu-text",text:window.MENU_NAZARI||""}));
+    menuCarta());
   if(id==="alma"){
     const descs = list => el("div",{style:"display:flex;flex-direction:column;gap:8px"}, ...list.map(([n,d])=>el("div",{}, el("b",{text:n}), el("p",{style:"font-size:.92rem;color:var(--muted)",text:d}))));
     const flyer = (f,alt) => el("a",{href:"imagens/"+f,target:"_blank",rel:"noopener"}, img(f,alt,{style:"width:100%;border-radius:12px;display:block"}));
@@ -92,6 +92,26 @@ function extraFor(id){
         el("p",{class:"note",text:PAO_NOTA}))));
   if(id==="atividades") return ativExtra();
   return null;
+}
+function menuCarta(){
+  const M=window.MENU; if(!M) return el("div",{class:"menu-text",text:window.MENU_NAZARI||""});
+  const tag=t=>t==="vg"?el("span",{class:"mtag vg",title:"Vegan",text:"VG"}):t==="v"?el("span",{class:"mtag v",title:"Vegetariano",text:"V"}):null;
+  const carta=el("div",{class:"carta"},
+    el("div",{class:"carta-top"}, img("logo-ramo.png","",{class:"carta-ramo"}), el("div",{}, el("div",{class:"carta-titulo",text:"Nazari"}), el("div",{class:"carta-sub",text:"Restaurante · Salema Eco Camp"}))),
+    el("ul",{class:"carta-horas"}, ...M.horario.map(([a,b])=>el("li",{}, el("span",{text:a}), el("b",{text:b})))),
+    el("nav",{class:"carta-nav"}, ...M.seccoes.map(sc=>el("button",{type:"button",onclick:()=>document.getElementById("menu-"+sc.id).scrollIntoView({behavior:"smooth",block:"start"}),text:sc.titulo}))));
+  M.seccoes.forEach(sc=>{
+    const sec=el("section",{class:"carta-sec",id:"menu-"+sc.id}, el("h3",{class:"carta-h",text:sc.titulo}), sc.sub?el("div",{class:"carta-subsec",text:sc.sub}):null);
+    sc.grupos.forEach(g=>{
+      if(g.nome) sec.append(el("h4",{class:"carta-g",text:g.nome}));
+      sec.append(el("ul",{class:"carta-lista"}, ...g.itens.map(([n,p,d,t])=>el("li",{},
+        el("div",{class:"carta-linha"}, el("span",{class:"carta-nome"}, n, tag(t)), el("span",{class:"carta-dots"}), p?el("span",{class:"carta-preco",text:p}):null),
+        d?el("p",{class:"carta-desc",text:d}):null))));
+    });
+    carta.append(sec);
+  });
+  carta.append(el("p",{class:"carta-nota"}, el("span",{class:"mtag v",text:"V"})," vegetariano  ", el("span",{class:"mtag vg",text:"VG"})," vegan · "+M.nota));
+  return carta;
 }
 function ativExtra(){
   const g=gallery(GALERIAS.atividades); g.style.gridTemplateColumns="1fr 1fr";

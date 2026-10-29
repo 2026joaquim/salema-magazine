@@ -173,7 +173,586 @@ window.STAGES=[
 
 window.POIS=["Miradouro da Cordoama","Museu do Mar e da Terra da Carrapateira","Igreja de Nossa Senhora da Conceição · Aljezur","Farol do Cabo de São Vicente · Sagres","Fortaleza de Sagres","Farol da Baleeira · Sagres","Forte do Beliche · Sagres","Museu de Vila do Bispo","Centro de Interpretação de Vila do Bispo","Ermida de Nossa Senhora de Guadalupe","Menires de Vila do Bispo","Ruínas do Forte de Almadena","Pegadas de dinossauros da Praia da Salema","Estação Arqueológica Romana Boca do Rio · Budens","Forte da Figueira · Budens","Menir da Praia da Ingrina","Ponta da Piedade · Lagos","Praça do Infante · Lagos","Centro Cultural de Lagos","Igreja de Santo António · Lagos","Igreja de Santa Maria · Lagos","Museu de Lagos","Museu dos Escravos · Lagos"];
 
-/* Menu do Restaurante Nazari (texto corrido) */
+/* Menu do Restaurante Nazari, por secções: [nome, preço, descrição, "v" vegetariano | "vg" vegan] */
+window.MENU = {
+ "horario": [
+  [
+   "Aberto",
+   "8:00–21:30"
+  ],
+  [
+   "Pequeno-almoço",
+   "8:00–10:30"
+  ],
+  [
+   "Almoço e jantar",
+   "12:00–21:30"
+  ],
+  [
+   "Terças",
+   "só pequeno-almoço e pizzas"
+  ],
+  [
+   "Café e chá",
+   "até às 18:00"
+  ]
+ ],
+ "seccoes": [
+  {
+   "id": "pequeno-almoco",
+   "titulo": "Pequeno-almoço",
+   "sub": "Das 8:00 às 10:30",
+   "grupos": [
+    {
+     "itens": [
+      [
+       "Buffet de pequeno-almoço",
+       "13 €",
+       "Pão, croissant, panquecas, fiambre, cogumelos salteados, queijo, chouriço, compota, mel, ovos mexidos, iogurte, granola, cereais, fruta, bolo caseiro, café, leite, sumos e chá. Preço por pessoa; não se pode partilhar nem levar.",
+       ""
+      ],
+      [
+       "Bowl de iogurte",
+       "4,50 €",
+       "Iogurte grego, fruta, granola de chocolate e mel",
+       "v"
+      ],
+      [
+       "Bolo do dia",
+       "4 €",
+       "",
+       "v"
+      ],
+      [
+       "Croissant de manteiga ou compota",
+       "3,50 €",
+       "",
+       "v"
+      ],
+      [
+       "Croissant misto",
+       "3,50 €",
+       "Fiambre e queijo",
+       ""
+      ],
+      [
+       "Pastel de nata",
+       "1,90 €",
+       "",
+       "v"
+      ],
+      [
+       "Torrada",
+       "3 €",
+       "",
+       "v"
+      ],
+      [
+       "Tosta de queijo",
+       "4,90 €",
+       "",
+       "v"
+      ],
+      [
+       "Tosta mista",
+       "4,90 €",
+       "",
+       ""
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "entradas",
+   "titulo": "Entradas",
+   "grupos": [
+    {
+     "itens": [
+      [
+       "Azeitonas",
+       "1,50 €",
+       "",
+       "vg"
+      ],
+      [
+       "Sopa do dia",
+       "4 €",
+       "",
+       ""
+      ],
+      [
+       "Guacamole com nachos",
+       "6 €",
+       "",
+       "vg"
+      ],
+      [
+       "Húmus",
+       "5 €",
+       "",
+       "vg"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pratos",
+   "titulo": "Pratos",
+   "sub": "Das 12:00 às 21:30",
+   "grupos": [
+    {
+     "itens": [
+      [
+       "Moussaka",
+       "15 €",
+       "Beringela assada, carne picada em molho de tomate e creme de feta gratinado",
+       ""
+      ],
+      [
+       "Moussaka vegan",
+       "16 €",
+       "Beringela assada, \"beyond meat\" em molho de tomate e gratinado de queijo vegetal",
+       "vg"
+      ],
+      [
+       "Batata-doce e beterraba assadas",
+       "16 €",
+       "Com burrata e pesto de nozes",
+       "v"
+      ],
+      [
+       "Souvlaki",
+       "16 €",
+       "Espetadas de frango com pimentos, tzatziki e pão pita",
+       ""
+      ],
+      [
+       "Salada mediterrânica de couscous",
+       "14 €",
+       "Salada quente de couscous salteado com legumes e hortelã",
+       "vg"
+      ],
+      [
+       "Poke bowl de frango",
+       "15 €",
+       "Arroz de sashimi, abacate, manga, batata-doce, edamame, gengibre, coentros e sésamo",
+       ""
+      ],
+      [
+       "Poke bowl de salmão",
+       "17 €",
+       "",
+       ""
+      ],
+      [
+       "Poke bowl de tofu",
+       "15 €",
+       "",
+       "vg"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pizzas",
+   "titulo": "Pizzas",
+   "sub": "Massa sem glúten +4 € · caixa take away 0,50 €",
+   "grupos": [
+    {
+     "nome": "Clássicas",
+     "itens": [
+      [
+       "Duo",
+       "9 €",
+       "Tomate, mozzarella e fiambre",
+       ""
+      ],
+      [
+       "Calabresa",
+       "9,50 €",
+       "Tomate, mozzarella, chouriço e cebola",
+       ""
+      ],
+      [
+       "Havaiana",
+       "10 €",
+       "Tomate, mozzarella, fiambre e ananás",
+       ""
+      ],
+      [
+       "Salami",
+       "10 €",
+       "Tomate, mozzarella e salami",
+       ""
+      ],
+      [
+       "Napolitana",
+       "9,90 €",
+       "Tomate, mozzarella, anchovas e azeitonas",
+       ""
+      ],
+      [
+       "Al Tonno",
+       "9,50 €",
+       "Tomate, mozzarella e atum",
+       ""
+      ],
+      [
+       "Algarve",
+       "10,50 €",
+       "Tomate, mozzarella, sardinha, alcaparras e tomate cherry",
+       ""
+      ],
+      [
+       "Nazari",
+       "9,50 €",
+       "Tomate, mozzarella, gorgonzola, bechamel, nozes e mel",
+       "v"
+      ],
+      [
+       "Calzone",
+       "9,90 €",
+       "Tomate, mozzarella, fiambre, cogumelos e cebola",
+       ""
+      ]
+     ]
+    },
+    {
+     "nome": "Vegetarianas",
+     "itens": [
+      [
+       "Margarita",
+       "9 €",
+       "Tomate e mozzarella",
+       "v"
+      ],
+      [
+       "Quattro Formaggi",
+       "12 €",
+       "Tomate, mozzarella, queijo de cabra, roquefort e parmesão",
+       "v"
+      ],
+      [
+       "Al Funghi",
+       "9,50 €",
+       "Tomate, mozzarella e cogumelos",
+       "v"
+      ]
+     ]
+    },
+    {
+     "nome": "Veganas",
+     "itens": [
+      [
+       "Las Vegans",
+       "12 €",
+       "Tomate, mozzarella vegan, cogumelos, courgette, tomate cherry e rúcula",
+       "vg"
+      ],
+      [
+       "Al Funghi vegan",
+       "9,50 €",
+       "Tomate, mozzarella vegan e cogumelos",
+       "vg"
+      ],
+      [
+       "Margarita vegan",
+       "9,50 €",
+       "Tomate e mozzarella vegan",
+       "vg"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "infantil",
+   "titulo": "Menu infantil",
+   "grupos": [
+    {
+     "itens": [
+      [
+       "Esparguete à bolonhesa",
+       "9 €",
+       "",
+       ""
+      ],
+      [
+       "Mini pizza margarita",
+       "8 €",
+       "",
+       "v"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bebidas",
+   "titulo": "Bebidas",
+   "grupos": [
+    {
+     "nome": "Sem álcool",
+     "itens": [
+      [
+       "Água filtrada 1 L",
+       "1 €",
+       "",
+       ""
+      ],
+      [
+       "Água com gás 0,25 L",
+       "2,50 €",
+       "",
+       ""
+      ],
+      [
+       "Água com gás 0,75 L",
+       "4 €",
+       "",
+       ""
+      ],
+      [
+       "Sumo do dia",
+       "3,50 €",
+       "",
+       ""
+      ],
+      [
+       "Limonada",
+       "3 €",
+       "",
+       ""
+      ],
+      [
+       "Ice tea caseiro",
+       "3 €",
+       "",
+       ""
+      ]
+     ]
+    },
+    {
+     "nome": "Smoothies · 5,90 €",
+     "itens": [
+      [
+       "Hiperproteico",
+       "",
+       "Bebida de soja, aveia, banana, whey e canela",
+       ""
+      ],
+      [
+       "Detox",
+       "",
+       "Ananás, espinafres, spirulina, gengibre e hortelã",
+       "vg"
+      ],
+      [
+       "Tropicolada",
+       "",
+       "Banana, ananás, leite de coco e hortelã",
+       "vg"
+      ],
+      [
+       "Morango",
+       "",
+       "Iogurte natural, banana e morango",
+       "v"
+      ],
+      [
+       "Café",
+       "",
+       "Amêndoas, nozes, banana, cacau e café",
+       "vg"
+      ]
+     ]
+    },
+    {
+     "nome": "Café e chá biológicos · até às 18:00",
+     "itens": [
+      [
+       "Espresso",
+       "1,20 €",
+       "",
+       ""
+      ],
+      [
+       "Americano",
+       "1,80 €",
+       "",
+       ""
+      ],
+      [
+       "Galão",
+       "2,50 €",
+       "",
+       ""
+      ],
+      [
+       "Cappuccino",
+       "2,80 €",
+       "",
+       ""
+      ],
+      [
+       "Iced coffee",
+       "2,80 €",
+       "",
+       ""
+      ],
+      [
+       "Iced latte",
+       "2,80 €",
+       "",
+       ""
+      ],
+      [
+       "Tisana, bule pequeno",
+       "3 €",
+       "Camomila, erva-príncipe, cidreira, carqueja ou lúcia-lima",
+       ""
+      ],
+      [
+       "Tisana, bule grande",
+       "5 €",
+       "",
+       ""
+      ]
+     ]
+    },
+    {
+     "nome": "Cerveja e sidra",
+     "itens": [
+      [
+       "Imperial",
+       "2,50 €",
+       "",
+       ""
+      ],
+      [
+       "Caneca",
+       "4,50 €",
+       "",
+       ""
+      ],
+      [
+       "IPA artesanal 0,25 L / pint",
+       "4 € / 6 €",
+       "",
+       ""
+      ],
+      [
+       "Stout artesanal 0,25 L / pint",
+       "4 € / 6 €",
+       "",
+       ""
+      ],
+      [
+       "Sidra local 0,25 L / pint",
+       "4 € / 6 €",
+       "",
+       ""
+      ],
+      [
+       "Sem álcool",
+       "2,50 €",
+       "",
+       ""
+      ]
+     ]
+    },
+    {
+     "nome": "Cocktails",
+     "itens": [
+      [
+       "Gin tónico",
+       "7 €",
+       "",
+       ""
+      ],
+      [
+       "Porto tónico",
+       "7 €",
+       "",
+       ""
+      ],
+      [
+       "Caipirinha",
+       "9 €",
+       "",
+       ""
+      ],
+      [
+       "Mojito",
+       "9 €",
+       "",
+       ""
+      ],
+      [
+       "Aperol Spritz",
+       "7 €",
+       "",
+       ""
+      ],
+      [
+       "Vodka com sumo natural",
+       "7 €",
+       "",
+       ""
+      ]
+     ]
+    },
+    {
+     "nome": "Vinhos",
+     "itens": [
+      [
+       "Vinho da casa a copo",
+       "5 €",
+       "Qta Vale Santa Luzia: branco, rosé ou tinto",
+       ""
+      ],
+      [
+       "Tinto reserva a copo",
+       "6 €",
+       "",
+       ""
+      ],
+      [
+       "Garrafas",
+       "16 € a 26 €",
+       "Seleção de vinhos portugueses, incluindo biológicos e um vinho natural",
+       ""
+      ],
+      [
+       "Vinhos do Porto",
+       "5 € a 6 €",
+       "",
+       ""
+      ],
+      [
+       "Aguardentes",
+       "5 € a 8 €",
+       "",
+       ""
+      ],
+      [
+       "Licores artesanais e portugueses",
+       "4 € a 6 €",
+       "",
+       ""
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "nota": "IVA incluído. Se tiver alguma alergia ou intolerância alimentar, avise antes de pedir. Cada prato mostra a sua pegada de carbono no menu do restaurante."
+};
+
+/* Menu do Restaurante Nazari (texto corrido, usado pelo assistente) */
 window.MENU_NAZARI = "RESTAURANTE NAZARI — cozinha mediterrânica (grega, italiana, Médio Oriente) com produtos do Algarve e de Portugal. Cada prato mostra a sua pegada de carbono.\n\nHORÁRIO\nAberto das 8:00 às 21:30\nPequeno-almoço: 8:00–10:30\nAlmoço e jantar: 12:00–21:30\nÀs terças-feiras só há pequeno-almoço e pizzas.\nCafés orgânicos e chás até às 18:00.\n\nPEQUENO-ALMOÇO\nBuffet de pequeno-almoço · 13 € por pessoa (não se pode partilhar nem levar)\n  Pão, croissant, panquecas, fiambre, cogumelos salteados, queijo, chouriço, compota, mel, ovos mexidos, iogurte, granola, cereais, fruta, bolo caseiro, café, leite, sumos de fruta, chá\nBowl de iogurte (iogurte grego, fruta, granola de chocolate e mel) · 4,5 €\nBolo do dia · 4 €\nCroissant de manteiga ou compota / croissant misto · 3,5 €\nPastel de nata · 1,9 €\nTorrada · 3 €\nTosta de queijo · 4,9 €\nTosta mista · 4,9 €\n\nENTRADAS\nAzeitonas · 1,5 €\nSopa do dia · 4 €\nGuacamole com nachos · 6 €\nHúmus · 5 €\n\nPRATOS\nMoussaka (beringela assada, carne picada, molho de tomate, creme de feta gratinado) · 15 €\nMoussaka vegan (beringela, \"beyond meat\", queijo vegetal) · 16 €\nBatata-doce e beterraba assadas com burrata e pesto de nozes · 16 €\nSouvlaki (espetadas de frango com pimentos, tzatziki e pão pita) · 16 €\nSalada mediterrânica de couscous (quente, com legumes e hortelã) · 14 €\nPoke bowl (arroz de sashimi, abacate, manga, batata-doce, edamame, gengibre, coentros, sésamo): frango 15 € · salmão 17 € · tofu 15 €\n\nPIZZAS — CLÁSSICAS\nDuo (tomate, mozzarella, fiambre) · 9 €\nCalabresa (tomate, mozzarella, chouriço, cebola) · 9,5 €\nHavaiana (tomate, mozzarella, fiambre, ananás) · 10 €\nSalami · 10 €\nNapolitana (anchovas e azeitonas) · 9,9 €\nAl Tonno (atum) · 9,5 €\nAlgarve (sardinha, alcaparras, tomate cherry) · 10,5 €\nNazari (tomate, mozzarella, gorgonzola, bechamel, nozes e mel) · 9,5 €\nCalzone (fiambre, cogumelos, cebola) · 9,9 €\n\nPIZZAS — VEGETARIANAS\nMargarita · 9 €\nQuattro Formaggi (cabra, roquefort, parmesão) · 12 €\nAl Funghi (cogumelos) · 9,5 €\n\nPIZZAS — VEGANAS\nLas Vegans (mozzarella vegan, cogumelos, courgette, tomate cherry, rúcula) · 12 €\nAl Funghi vegan · 9,5 €\nMargarita vegan · 9,5 €\n\nMassa sem glúten · +4 €\nCaixa take away · 0,5 €\n\nMENU INFANTIL\nEsparguete à bolonhesa · 9 €\nMini pizza margarita · 8 €\n\nBEBIDAS SEM ÁLCOOL\nÁgua filtrada 1 L · 1 € · Água com gás 0,25 L · 2,5 € / 0,75 L · 4 €\nSumo do dia · 3,5 € · Limonada · 3 € · Ice tea caseiro · 3 €\nSmoothies · 5,9 € (Hiperproteico, Detox, Tropicolada, Morango, Café)\n\nCAFÉ E CHÁ (orgânicos, até às 18:00)\nEspresso 1,2 € · Americano 1,8 € · Galão 2,5 € · Cappuccino 2,8 € · Iced coffee 2,8 € · Iced latte 2,8 €\nTisanas (camomila, erva-príncipe, cidreira, carqueja, lúcia-lima): bule pequeno 3 € · bule grande 5 €\n\nCERVEJA E SIDRA\nImperial 2,5 € · Caneca 4,5 € · IPA artesanal 4 € / pint 6 € · Stout artesanal 4 € / pint 6 € · Sidra local 4 € / pint 6 € · Sem álcool 2,5 €\n\nCOCKTAILS\nGin tónico 7 € · Porto tónico 7 € · Caipirinha 9 € · Mojito 9 € · Aperol Spritz 7 € · Vodka com sumo natural 7 €\n\nVINHOS\nVinho da casa (Qta Vale Santa Luzia) a copo: branco, rosé ou tinto 5 € · tinto reserva 6 €\nSangria branca ou tinta\nGarrafas de 16 € a 26 €, incluindo vinhos biológicos e um vinho natural (Beyras).\nVinhos do Porto 5–6 € · Aguardentes 5–8 € · Licores artesanais e portugueses 4–6 €\n\nIVA incluído. Se tiver alguma alergia ou intolerância alimentar, avise antes de pedir.";
 
 /* Galerias de fotos de cada secção */
