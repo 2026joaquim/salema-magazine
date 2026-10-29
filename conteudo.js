@@ -104,9 +104,9 @@ window.CATALOG=[
   {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", foto:"nazari.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:30; às terças só há pequeno-almoço e pizzas.",
    itens:[
-    {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, das 12:00 às 21:30", campos:["data","hora","pessoas","notas"]},
-    {id:"encomenda", nome:"Encomendar refeição", desc:"Para levar · caixa 0,5 €", campos:["data","hora","pedido","entrega"]},
-    {id:"pequeno-almoco", nome:"Pequeno-almoço", desc:"Buffet 13 € por pessoa · 8:00–10:30", campos:["data","hora","pessoas","notas"]},
+    {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, das 12:00 às 21:30", campos:["telefone","data","hora","pessoas","notas"]},
+    {id:"encomenda", nome:"Encomendar refeição", desc:"Para levar ou entregar no alojamento ou na sua zona · caixa 0,5 €", campos:["telefone","data","hora","pedido","entrega"]},
+    {id:"pequeno-almoco", nome:"Pequeno-almoço", desc:"Buffet 13 € por pessoa · 8:00–10:30", campos:["telefone","data","hora","pessoas","notas"]},
     {id:"perdidos", nome:"Perdidos e achados", desc:"Esqueceu-se de alguma coisa? Vai para a receção", campos:["objeto","data"], destino:"rececao"}
    ]},
   {id:"alma", nome:"Alma Mater", cor:"--c-alma", email:"almamater@salemaecocamp.com", whatsapp:"+351 961 956 143", foto:"alma-mater.jpg", curto:"Massagens, terapias e yoga",

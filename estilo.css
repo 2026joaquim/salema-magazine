@@ -272,3 +272,7 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .brand-row img{height:40px;width:auto}
 .brand b{white-space:nowrap}
 @media (max-width:420px){ header.top .who{display:none} }
+/* campos de data e hora no iPhone não saem do ecrã */
+.field input[type="date"],.field input[type="time"]{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%;display:block;text-align:left;min-height:46px}
+.field input::-webkit-date-and-time-value{text-align:left}
+.field{min-width:0}

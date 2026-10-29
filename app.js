@@ -155,7 +155,25 @@ const FIELD = {
   tipo:   (it)=>it.tipoOpts ? fld("f-tipo",it.tipoLabel||"Tipo","select",{},it.tipoOpts) : fld("f-tipo",it.tipoLabel||"Tipo","text"),
   tamanho:()=>fld("f-tam","Tamanho","select",{},["S","M","L","XL"]),
   destino:()=>fld("f-destino","Praia de destino","text",{placeholder:"Ex.: Praia do Zavial"}),
-  entrega:()=>fld("f-entrega","Como recebe?","select",{},["Levantar no restaurante","Entregar no alojamento"]),
+  telefone:()=>fld("f-tel","Telemóvel / WhatsApp","tel",{required:"",autocomplete:"tel",inputmode:"tel",placeholder:"+351 …"}),
+  entrega:()=>{
+    const box=el("div",{style:"display:flex;flex-direction:column;gap:14px"},
+      fld("f-entrega","Como recebe?","select",{},["Levantar no restaurante","Entregar no alojamento","Entregar na minha zona do campismo"]),
+      el("div",{id:"f-local-wrap",hidden:""},
+        fld("f-local","Número do alojamento","text",{placeholder:"Ex.: Tenda Tipi 3, Apartamento 2"}),
+        el("small",{class:"lead",id:"f-local-dica",style:"display:block;margin-top:4px",text:"O número está na porta ou na entrada do seu alojamento."})));
+    const sel=box.querySelector("#f-entrega"), wrap=box.querySelector("#f-local-wrap"), inp=box.querySelector("#f-local"), lab=box.querySelector('label[for="f-local"]'), dica=box.querySelector("#f-local-dica");
+    const upd=()=>{
+      const v=sel.value;
+      wrap.hidden = v.startsWith("Levantar");
+      if(v.startsWith("Levantar")){ inp.removeAttribute("required"); return; }
+      inp.setAttribute("required","");
+      if(v.includes("zona")){ lab.textContent="Número da zona do campismo"; inp.placeholder="Ex.: Zona 13"; inp.inputMode="numeric"; dica.textContent="Veja o número da sua zona no mapa do parque (separador Parque)."; }
+      else { lab.textContent="Número do alojamento"; inp.placeholder="Ex.: Tenda Tipi 3, Apartamento 2"; inp.inputMode="text"; dica.textContent="O número está na porta ou na entrada do seu alojamento."; }
+    };
+    sel.addEventListener("change",upd); upd();
+    return box;
+  },
   periodo:()=>el("div",{class:"pair"}, fld("f-de","Desde","date",{required:""}), fld("f-ate","Até","date")),
   paes:   ()=>el("div",{style:"display:flex;flex-direction:column;gap:12px"},
             el("p",{class:"note",text:PAO_NOTA}),
@@ -168,7 +186,7 @@ const FIELD = {
             fld("f-envio","Entrega","select",{},["Levantar na Eco Store","Enviar por correio"]),
             fld("f-morada","Morada de envio (se for por correio)","textarea",{placeholder:"Rua, código postal, cidade, país"}))
 };
-const LABELS = {"f-cliente":"Nº de cliente","f-nome":"Nome","f-tel":"Telemóvel","f-tipo":"Escolha","f-data":"Data","f-de":"Desde","f-ate":"Até","f-hora":"Hora","f-pessoas":"Pessoas","f-qtd":"Quantidade","f-tam":"Tamanho","f-destino":"Praia","f-entrega":"Entrega","f-envio":"Entrega","f-morada":"Morada","f-pedido":"Pedido","f-objeto":"Objeto","f-notas":"Notas"};
+const LABELS = {"f-cliente":"Nº de cliente","f-nome":"Nome","f-tel":"Telemóvel","f-tipo":"Escolha","f-data":"Data","f-de":"Desde","f-ate":"Até","f-hora":"Hora","f-pessoas":"Pessoas","f-qtd":"Quantidade","f-tam":"Tamanho","f-destino":"Praia","f-entrega":"Entrega","f-local":"Onde entregar","f-envio":"Entrega","f-morada":"Morada","f-pedido":"Pedido","f-objeto":"Objeto","f-notas":"Notas"};
 
 function openSheet(){ $("#sheet").hidden=false; }
 function closeForm(){ $("#sheet").hidden=true; $("#req-form").onsubmit=null; $("#req-form").replaceChildren(); }
@@ -207,7 +225,7 @@ function openForm(sid,iid){
   const s=sec(sid), it=s.itens.find(i=>i.id===iid);
   const f=$("#req-form"); f.replaceChildren();
   const clienteReq = !it.loja;
-  f.append(
+  f.append(...[
     el("div",{class:"sechead",style:`--sc:var(${s.cor})`}, el("span",{class:"eyebrow",text:s.nome}), el("h2",{text:it.nome})),
     it.fotos ? el("div",{class:"prodfotos"}, ...it.fotos.map(p=>img(p,it.nome))) : null,
     it.detalhe ? el("p",{text:it.detalhe}) : null,
@@ -217,7 +235,7 @@ function openForm(sid,iid){
     ...it.campos.map(c=>FIELD[c](it)),
     el("p",{class:"note",text:it.fotos?"Isto é um pedido, não um pagamento. A Eco Store confirma consigo a disponibilidade e, se for por correio, o custo do envio.":"Isto é um pedido, não um pagamento. A equipa confirma a disponibilidade e o preço consigo."}),
     el("div",{class:"msg",id:"f-msg",hidden:""}),
-    el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"})));
+    el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"}))].filter(Boolean));
   const today=new Date().toISOString().slice(0,10);
   f.querySelectorAll('input[type="date"]').forEach(i=>{ if(iid!=="perdidos") i.min=today; });
   if(it.campos.includes("paes")){ const d=new Date(); d.setDate(d.getDate()+1); const t=d.toISOString().slice(0,10); const di=f.querySelector("#f-data"); di.value=t; di.min=t; f.querySelector('label[for="f-data"]').textContent="Para o dia"; }
@@ -225,7 +243,7 @@ function openForm(sid,iid){
     e.preventDefault();
     const miss=missingField(f); if(miss){ showMsg("Falta preencher: "+miss+".",false); return; }
     const linhas=["Olá! Pedido pelo Salema Eco Camp Magazine:", s.nome+" · "+it.nome, ""];
-    f.querySelectorAll("input,select,textarea").forEach(i=>{ let v=i.value.trim(); if(i.type==="date"&&v) v=v.split("-").reverse().join("/"); if(v && LABELS[i.id]) linhas.push(LABELS[i.id]+": "+v); });
+    f.querySelectorAll("input,select,textarea").forEach(i=>{ if(i.closest("[hidden]")) return; let v=i.value.trim(); if(i.type==="date"&&v) v=v.split("-").reverse().join("/"); if(v && LABELS[i.id]) linhas.push((i.id==="f-local" ? (f.querySelector("#f-entrega").value.includes("zona")?"Zona do campismo":"Alojamento") : LABELS[i.id])+": "+v); });
     const paes=[...f.querySelectorAll("[data-pao]")].filter(i=>(parseInt(i.value,10)||0)>0);
     if(it.campos.includes("paes")){
       if(!paes.length){ showMsg("Escolha pelo menos um produto.",false); return; }
