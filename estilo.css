@@ -29,7 +29,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
 .brand{display:flex;flex-direction:column;line-height:1.1}
 .brand b{font-family:var(--display);font-weight:600;font-size:1.25rem}
-.brand-row.has-logo .brand b{display:none}
+
 .brand span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
 .who{font-size:.8rem;opacity:.9;text-align:right}
 
@@ -269,3 +269,6 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .steps-install li{line-height:1.4}
 .kbd{display:inline-flex;align-items:center;justify-content:center;vertical-align:-4px;width:24px;height:24px;border-radius:6px;background:var(--surface-2);margin:0 2px}
 .kbd svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.brand-row img{height:40px;width:auto}
+.brand b{white-space:nowrap}
+@media (max-width:420px){ header.top .who{display:none} }
