@@ -327,3 +327,5 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .carta-h{font-weight:800;font-size:1.5rem;letter-spacing:.04em}
 .carta-g{font-weight:700;font-size:1.1rem;letter-spacing:.02em}
 @media (min-width:900px){ .sec.tile .tile-cap b{font-size:1.45rem} }
+.event .ev-preco{color:var(--ink,#2a2a2a);font-weight:600}
+.event a.btn{text-decoration:none;margin-top:4px}

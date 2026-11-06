@@ -376,17 +376,33 @@ function renderAvisos(list){
       el("p",{}, a.setor?el("b",{text:a.setor+": "}):null, a.texto||""), el("time",{text:fmtDate(a.data)})));
   });
 }
+function contactoHref(c){
+  if(c.wa) return "https://wa.me/"+c.wa.replace(/\D/g,"");
+  if(c.tel) return "tel:"+c.tel.replace(/[^\d+]/g,"");
+  return c.url||"";
+}
 function renderEventos(list){
   const box=$("#eventos"); box.replaceChildren();
   const hoje=new Date().toISOString().slice(0,10);
-  const prox=list.filter(e=>(e.data||"")>=hoje).sort((a,b)=>((a.data||"")+(a.hora||"")).localeCompare((b.data||"")+(b.hora||"")));
+  const prox=[];
+  list.forEach(e=>{
+    if(e.datas){ const fut=e.datas.filter(d=>d>=hoje).sort(); if(fut.length) prox.push({...e,data:fut[0],outras:fut.slice(1)}); }
+    else if((e.data||"")>=hoje) prox.push(e);
+  });
+  prox.sort((a,b)=>((a.data||"")+(a.hora||"")).localeCompare((b.data||"")+(b.hora||"")));
   if(!prox.length){ box.append(el("div",{class:"empty",text:"Sem eventos marcados. Festas, música ao vivo e workshops aparecem aqui."})); return; }
   prox.forEach(e=>{
     const [y,m,d]=(e.data||"").split("-");
+    const outras=(e.outras||[]).map(x=>{const [,mm,dd]=x.split("-");return (+dd)+" "+MESES[(+mm||1)-1];});
+    const c=e.contacto, href=c&&contactoHref(c);
     box.append(el("article",{class:"event"},
-      el("div",{class:"date"}, el("b",{text:String(+d||"")}), el("span",{text:MESES[(+m||1)-1]})),
+      el("div",{class:"date"}, el("b",{text:String(+d||"")}), el("span",{text:MESES[(+m||1)-1]}), y&&y!==hoje.slice(0,4)?el("span",{text:y}):null),
       el("div",{class:"body"}, el("span",{class:"pill",style:"align-self:flex-start",text:e.tipo||"Evento"}), el("b",{text:e.titulo||""}),
-        el("small",{text:[e.hora,e.local].filter(Boolean).join(" · ")}), e.descricao?el("p",{text:e.descricao}):null)));
+        el("small",{text:[e.hora,e.local].filter(Boolean).join(" · ")}),
+        outras.length?el("small",{text:"Também a "+outras.join(", ").replace(/, ([^,]*)$/," e $1")}):null,
+        e.descricao?el("p",{text:e.descricao}):null,
+        e.preco?el("small",{class:"ev-preco",text:e.preco}):null,
+        href?el("a",{class:"btn small",style:"align-self:flex-start",href,target:"_blank",rel:"noopener",text:c.texto||"Reservar"}):null)));
   });
 }
 
@@ -500,7 +516,7 @@ function contexto(){
   t.push("\nAVARIAS: botão «Avisar a equipa» (vai por WhatsApp, com foto). ANÚNCIOS entre hóspedes: separador «Anúncios».");
   t.push("Contactos úteis: emergência 112; Saúde 24 808 24 24 24.");
   if(avisosAtuais.length) t.push("\nAVISOS ATUAIS:\n"+avisosAtuais.map(a=>"- "+(a.setor?a.setor+": ":"")+a.texto).join("\n"));
-  if(eventosAtuais.length) t.push("\nPRÓXIMOS EVENTOS:\n"+eventosAtuais.map(e=>"- "+e.data+(e.hora?" "+e.hora:"")+": "+e.titulo+(e.local?" ("+e.local+")":"")+(e.descricao?" — "+e.descricao:"")).join("\n"));
+  if(eventosAtuais.length) t.push("\nPRÓXIMOS EVENTOS:\n"+eventosAtuais.map(e=>"- "+(e.datas?e.datas.join(", "):e.data)+(e.hora?" "+e.hora:"")+": "+e.titulo+(e.local?" ("+e.local+")":"")+(e.descricao?" — "+e.descricao:"")+(e.preco?" Preço: "+e.preco+".":"")+(e.contacto?" "+e.contacto.texto+(e.contacto.wa?" "+e.contacto.wa:""):"")).join("\n"));
   return t.join("\n");
 }
 async function ask(q){
@@ -558,15 +574,16 @@ function aplicarConteudo(c){
 /* ---------- carregar dados ---------- */
 let avisosAtuais=[], eventosAtuais=[];
 async function loadDados(){
-  if(!API){ renderAvisos([]); renderEventos([]); renderAds(); return; }
+  eventosAtuais=[...(window.EVENTOS||[])];
+  if(!API){ renderAvisos([]); renderEventos(eventosAtuais); renderAds(); return; }
   try{
     const d=await apiGet({acao:"dados"});
-    avisosAtuais=d.avisos||[]; eventosAtuais=d.eventos||[]; ads=d.anuncios||[]; adsLoaded=true;
+    avisosAtuais=d.avisos||[]; eventosAtuais=[...(window.EVENTOS||[]),...(d.eventos||[])]; ads=d.anuncios||[]; adsLoaded=true;
     try{ aplicarConteudo(d.conteudo); }catch(e){ console.warn("conteúdo da folha",e); }
     renderAvisos(avisosAtuais); renderEventos(eventosAtuais); renderAds();
   }catch{
     $("#avisos").replaceChildren(el("div",{class:"empty",text:"Não foi possível carregar os avisos agora."}));
-    $("#eventos").replaceChildren(el("div",{class:"empty",text:"Não foi possível carregar os eventos agora."}));
+    renderEventos(eventosAtuais);
     adsLoaded=true; renderAds();
   }
 }
