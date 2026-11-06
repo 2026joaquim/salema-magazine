@@ -115,6 +115,7 @@ a{color:var(--accent);font-weight:600}
   padding-top:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .field{display:flex;flex-direction:column;gap:4px}
 .field label{font-size:.85rem;font-weight:600}
+.field .hint{display:block;font-size:.75rem;color:#6B4C33;margin-top:3px;line-height:1.25}
 .field input,.field select,.field textarea{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
 .field textarea{min-height:84px;resize:vertical}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
