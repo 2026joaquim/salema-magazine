@@ -564,7 +564,8 @@ function aplicarConteudo(c){
     const outro=fixos.filter(i=>i.id==="outro"), resto=fixos.filter(i=>i.id!=="outro");
     const norm=s=>String(s||"").toLowerCase().replace(/\s+/g," ").trim();
     const doSite=store.itens.filter(i=>i.loja&&i.id!=="outro");
-    const prods=c.produtos.filter(r=>r.nome).map((r,k)=>{
+    const subst=new Set(doSite.flatMap(i=>i.substitui||[]).map(norm));
+    const prods=c.produtos.filter(r=>r.nome && !subst.has(norm(r.nome))).map((r,k)=>{
       const n=norm(r.nome), base=doSite.find(i=>n===norm(i.nome)||n.startsWith(norm(i.nome)));
       const fotosFolha=[r.foto1,r.foto2].filter(Boolean);
       const fotos = base?.fotos && (!fotosFolha.length || base.fotos.includes(fotosFolha[0])) ? base.fotos : fotosFolha;
