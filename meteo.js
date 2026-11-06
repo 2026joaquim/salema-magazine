@@ -4,20 +4,36 @@
    ===================================================================== */
 (function(){
 const PRAIAS=[
-  {nome:"Salema",            lat:37.0647, lon:-8.8236, virada:165, costa:"Costa sul", aqui:true},
-  {nome:"Boca do Rio",       lat:37.0655, lon:-8.8106, virada:180, costa:"Costa sul"},
-  {nome:"Burgau",            lat:37.0710, lon:-8.7740, virada:170, costa:"Costa sul"},
-  {nome:"Praia da Luz",      lat:37.0855, lon:-8.7290, virada:180, costa:"Costa sul"},
-  {nome:"Zavial",            lat:37.0510, lon:-8.8730, virada:200, costa:"Costa sul"},
-  {nome:"Ingrina",           lat:37.0480, lon:-8.8800, virada:180, costa:"Costa sul"},
-  {nome:"Martinhal",         lat:37.0190, lon:-8.9255, virada:140, costa:"Sagres"},
-  {nome:"Tonel",             lat:37.0040, lon:-8.9440, virada:225, costa:"Sagres"},
-  {nome:"Beliche",           lat:37.0275, lon:-8.9690, virada:240, costa:"Sagres"},
-  {nome:"Cordoama",          lat:37.1080, lon:-8.9440, virada:275, costa:"Costa oeste"},
-  {nome:"Castelejo",         lat:37.0990, lon:-8.9460, virada:270, costa:"Costa oeste"},
-  {nome:"Amado",             lat:37.1680, lon:-8.9030, virada:280, costa:"Costa oeste"},
-  {nome:"Arrifana",          lat:37.2940, lon:-8.8660, virada:290, costa:"Costa oeste"}
+  {nome:"Salema",            lat:37.0647, lon:-8.8236, virada:165, costa:"Costa sul", aqui:true, ativ:"banhos,snorkel,pesca"},
+  {nome:"Boca do Rio",       lat:37.0655, lon:-8.8106, virada:180, costa:"Costa sul", ativ:"surf,pesca"},
+  {nome:"Burgau",            lat:37.0710, lon:-8.7740, virada:170, costa:"Costa sul", ativ:"banhos,snorkel,pesca"},
+  {nome:"Praia da Luz",      lat:37.0855, lon:-8.7290, virada:180, costa:"Costa sul", ativ:"banhos,windsurf,snorkel"},
+  {nome:"Zavial",            lat:37.0510, lon:-8.8730, virada:200, costa:"Costa sul", ativ:"surf"},
+  {nome:"Ingrina",           lat:37.0480, lon:-8.8800, virada:180, costa:"Costa sul", ativ:"surf,snorkel,banhos"},
+  {nome:"Martinhal",         lat:37.0190, lon:-8.9255, virada:140, costa:"Sagres", ativ:"windsurf,surf,banhos"},
+  {nome:"Tonel",             lat:37.0040, lon:-8.9440, virada:225, costa:"Sagres", ativ:"surf"},
+  {nome:"Beliche",           lat:37.0275, lon:-8.9690, virada:240, costa:"Sagres", ativ:"surf,banhos"},
+  {nome:"Cordoama",          lat:37.1080, lon:-8.9440, virada:275, costa:"Costa oeste", ativ:"surf"},
+  {nome:"Castelejo",         lat:37.0990, lon:-8.9460, virada:270, costa:"Costa oeste", ativ:"surf,pesca"},
+  {nome:"Amado",             lat:37.1680, lon:-8.9030, virada:280, costa:"Costa oeste", ativ:"surf"},
+  {nome:"Arrifana",          lat:37.2940, lon:-8.8660, virada:290, costa:"Costa oeste", ativ:"surf,pesca"}
 ];
+const NS="http://www.w3.org/2000/svg";
+const ICONES={
+  surf:["Surf",'<ellipse cx="12" cy="9" rx="2.8" ry="7.5" transform="rotate(40 12 9)"/><path d="M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/>'],
+  windsurf:["Windsurf",'<path d="M3 19h18"/><path d="M5 17h13"/><path d="M11 17V3l7 12z"/>'],
+  pesca:["Pesca",'<path d="M3 21C8 14 13 8 19 3"/><path d="M19 3v10"/><path d="M14 16.5c2-2.4 5-2.4 7 0-2 2.4-5 2.4-7 0z"/><path d="M14 16.5l-2.2-1.6v3.2z"/>'],
+  snorkel:["Snorkel e mergulho",'<rect x="3" y="7" width="15" height="8" rx="4"/><path d="M10.5 10v2"/><path d="M20 4v12a3 3 0 0 1-3 3h-2"/>'],
+  banhos:["Praia de banhos e família",'<path d="M12 12V21"/><path d="M3 12a9 7 0 0 1 18 0z"/><path d="M5 21h14"/>']
+};
+function icones(lista){
+  const box=el("div",{class:"mt-ativ"});
+  (lista||"").split(",").filter(Boolean).forEach(k=>{ const [t,d]=ICONES[k]||[];
+    if(!t) return;
+    const s=document.createElementNS(NS,"svg"); s.setAttribute("viewBox","0 0 24 24"); s.setAttribute("aria-label",t); s.setAttribute("role","img");
+    s.innerHTML="<title>"+t+"</title>"+d; box.append(s); });
+  return box;
+}
 const DIAS=5, CHAVE="meteo-v1", VALIDADE=60*60*1000;
 const SEMANA=["dom","seg","ter","qua","qui","sex","sáb"];
 const ROTULO=["Plano","Fraco","Razoável","Bom","Muito bom","Excelente"];
@@ -136,9 +152,11 @@ function desenhar(){
       return el("button",{class:"chip",type:"button","aria-pressed":String(i===diaSel),onclick:()=>{diaSel=i;desenhar();},text:i===0?"Hoje":i===1?"Amanhã":SEMANA[dt.getDay()]+" "+dt.getDate()}); })),
     el("ol",{class:"mt-praias"}, ...(todas?lista:lista.slice(0,6)).map(({p,n})=>el("li",{class:p.aqui?"aqui":""},
       el("div",{class:"mt-pnome"}, el("b",{text:p.nome+(p.aqui?" · aqui":"")}), el("small",{text:p.costa})),
+      icones(p.ativ),
       el("div",{class:"mt-pnota"}, estrelas(n.s), el("small",{text:ROTULO[n.s]})),
       el("small",{class:"mt-pdet",text: n.s===0?"Mar sem ondas para surf": r1(n.h)+" m"+(n.T?" · "+Math.round(n.T)+" s":"")+(n.tipoVento?" · vento "+n.tipoVento:"")})))),
     lista.length>6 ? el("button",{class:"btn ghost small",type:"button",style:"align-self:flex-start",onclick:()=>{todas=!todas;desenhar();},text:todas?"Mostrar menos":"Ver as "+lista.length+" praias"}) : null,
+    el("div",{class:"mt-legenda"}, ...Object.keys(ICONES).map(k=>el("span",{}, icones(k), ICONES[k][0]))),
     el("p",{class:"note",text:"Previsão automática e aproximada, para a manhã (7h–13h). Antes de entrar na água, veja as condições no local e respeite as bandeiras e o nadador-salvador. Aulas de surf com a Surf Planet: Reservar › Atividades."})));
 
   /* resumo para a assistente */

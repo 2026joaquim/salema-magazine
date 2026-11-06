@@ -372,7 +372,7 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .mt-surf h3{margin:0;font-family:var(--display);font-size:1.15rem}
 .mt-chips{display:flex;flex-wrap:wrap;gap:6px}
 .mt-praias{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.mt-praias li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)}
+.mt-praias li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)}
 .mt-praias li:first-child{border-top:0}
 .mt-praias li.aqui .mt-pnome b{color:var(--brand)}
 .mt-pnome{display:flex;flex-direction:column;min-width:0}
@@ -392,3 +392,8 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .van-mini{width:72px;height:auto;flex:none}
 .shuttle-mini{align-items:center}
 @media (prefers-reduced-motion:no-preference){.shuttle .van{animation:anda 3.5s ease-in-out infinite}@keyframes anda{50%{transform:translateX(6px)}}}
+.mt-ativ{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.mt-ativ svg{width:25px;height:25px;fill:none;stroke:var(--brand);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mt-legenda{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted)}
+.mt-legenda span{display:inline-flex;align-items:center;gap:4px}
+.mt-legenda .mt-ativ svg{width:18px;height:18px}
