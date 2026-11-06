@@ -132,7 +132,7 @@ window.EVENTOS=[
 ];
 /* Horários do shuttle grátis para a Praia da Salema (ex.: ["10:00","12:00"]).
    Vazio: o hóspede escreve a hora que prefere. */
-window.SHUTTLE_HORAS=[];
+window.SHUTTLE_HORAS=["10:00","12:00","15:00","17:00"];
 window.CATALOG=[
   {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:30; às terças só há pequeno-almoço e pizzas.",
@@ -222,7 +222,7 @@ window.CATALOG=[
    itens:[
     {id:"prancha", nome:"Prancha de surf", desc:"1 dia 20 € · 2 dias 30 € · 3 dias 40 € · dia extra 10 € · com fato", campos:["periodo","quantidade"]},
     {id:"fato", nome:"Fato de surf", desc:"1 dia 10 € · 2 dias 18 € · 3 dias 24 €", campos:["periodo","quantidade","tamanho"]},
-    {id:"shuttle", nome:"Shuttle grátis para a Praia da Salema", desc:"Grátis para hóspedes · reserva na receção", destino:"rececao", campos:["data","hora","pessoas","notas"]},
+    {id:"shuttle", nome:"Shuttle grátis para a Praia da Salema", desc:"Grátis · 10:00, 12:00, 15:00 e 17:00, ida e volta · reserva na receção", destino:"rececao", campos:["data","hora","pessoas","notas"]},
     {id:"transfer", nome:"Transfer para as praias", desc:"Ida e volta", campos:["data","hora","pessoas","destino"]},
     {id:"bicicleta", nome:"Bicicleta", desc:"1 h 6 € · meio dia 10 € · 1 dia 18 €", campos:["periodo","quantidade"]},
     {id:"ebike", nome:"Bicicleta elétrica", desc:"Meio dia 15 € · 1 dia 22 €", campos:["periodo","quantidade"]},
