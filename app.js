@@ -265,6 +265,7 @@ function openForm(sid,iid){
     el("div",{class:"sechead",style:`--sc:var(${s.cor})`}, el("span",{class:"eyebrow",text:s.nome}), el("h2",{text:it.nome})),
     it.fotos ? el("div",{class:"prodfotos"}, ...it.fotos.map(p=>img(p,it.nome))) : null,
     it.detalhe ? el("p",{text:it.detalhe}) : null,
+    it.site ? el("a",{class:"btn ghost",style:"align-self:flex-start;text-decoration:none",href:it.site.url,target:"_blank",rel:"noopener",text:it.site.texto}) : null,
     el("div",{class:"pair"},
       fldInscricao(),
       fld("f-nome","Nome","text",{required:"",autocomplete:"name"})),
