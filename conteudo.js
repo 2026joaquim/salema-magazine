@@ -234,7 +234,7 @@ window.TOPICS=[
   {id:"boleias", nome:"Boleias", nota:"Vai à praia ou à vila? Ofereça os lugares livres do carro. Menos carros, menos emissões."},
   {id:"entreajuda", nome:"Entreajuda", nota:"Peça ou ofereça uma mão: emprestar uma ferramenta, partilhar comida, ajudar a montar a tenda."},
   {id:"arranjos", nome:"Arranjos", nota:"Ajuda entre hóspedes, por conta própria. O parque não se responsabiliza por serviços combinados entre hóspedes. Para avarias do parque, fale com a receção."},
-  {id:"babysitting", nome:"Babysitting", nota:"Combinado diretamente entre famílias. O parque não verifica nem se responsabiliza por estes serviços."},
+  {id:"babysitting", nome:"Playdates", nota:"Para combinar brincadeiras entre crianças, sempre com os pais ou um adulto responsável presente. Combinado diretamente entre famílias; o parque não organiza nem se responsabiliza por estes encontros."},
   {id:"geral", nome:"Outros"}
 ];
 window.STAGES=[
