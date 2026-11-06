@@ -131,7 +131,6 @@ window.CATALOG=[
    itens:[
     {id:"pao", nome:"Encomendar pão e pastelaria", desc:"Para o dia seguinte · encomendas até às 17h30", thumb:"pao-nicolay.jpg", campos:["data","paes","notas"]},
     {id:"manta", nome:"Manta", desc:"Peça única · preço sob consulta", campos:["quantidade","envio","notas"], loja:true},
-    {id:"perfume", nome:"Perfume", desc:"Peça única · preço sob consulta", campos:["quantidade","envio","notas"], loja:true},
     {id:"allmatters-gel", nome:"AllMatters · Intimate wash for your body and menstrual cup, 75 ml", desc:"6,30 € · vegan e biológico", fotos:["produto-allmatters-1.jpg","produto-allmatters-2.jpg"],
      detalhe:"Gel de limpeza 2 em 1: serve para limpar o copo menstrual antes da inserção/após a remoção e também como sabão de higiene íntima. Com pH equilibrado, o gel contém ingredientes biológicos e naturais, sem perfume. Vegan e Certificado Hipoalergénico pelo Allergy-Certified™. Apropriado para todos os tipos de pele.",
      campos:["quantidade","envio","notas"], loja:true},
