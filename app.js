@@ -381,29 +381,47 @@ function contactoHref(c){
   if(c.tel) return "tel:"+c.tel.replace(/[^\d+]/g,"");
   return c.url||"";
 }
-function renderEventos(list){
-  const box=$("#eventos"); box.replaceChildren();
-  const hoje=new Date().toISOString().slice(0,10);
-  const prox=[];
+function proximosEventos(list){
+  const hoje=new Date().toISOString().slice(0,10), prox=[];
   list.forEach(e=>{
     if(e.datas){ const fut=e.datas.filter(d=>d>=hoje).sort(); if(fut.length) prox.push({...e,data:fut[0],outras:fut.slice(1)}); }
     else if((e.data||"")>=hoje) prox.push(e);
   });
-  prox.sort((a,b)=>((a.data||"")+(a.hora||"")).localeCompare((b.data||"")+(b.hora||"")));
+  return prox.sort((a,b)=>((a.data||"")+(a.hora||"")).localeCompare((b.data||"")+(b.hora||"")));
+}
+function diaMes(iso,ano){ const [y,m,d]=(iso||"").split("-"); const ext=(+d||"")+" "+MESES[(+m||1)-1]; return ano&&y&&y!==new Date().toISOString().slice(0,4)?ext+" "+y:ext; }
+function quandoTexto(e){
+  const ds=[e.data,...(e.outras||[])].map(x=>diaMes(x,true));
+  return (ds.length>1?ds.slice(0,-1).join(", ")+" e "+ds[ds.length-1]:ds[0])+(e.hora?" · "+e.hora:"");
+}
+function renderEventos(list){
+  const box=$("#eventos"); box.replaceChildren();
+  const prox=proximosEventos(list);
   if(!prox.length){ box.append(el("div",{class:"empty",text:"Sem eventos marcados. Festas, música ao vivo e workshops aparecem aqui."})); return; }
   prox.forEach(e=>{
-    const [y,m,d]=(e.data||"").split("-");
-    const outras=(e.outras||[]).map(x=>{const [,mm,dd]=x.split("-");return (+dd)+" "+MESES[(+mm||1)-1];});
-    const c=e.contacto, href=c&&contactoHref(c);
-    box.append(el("article",{class:"event"},
-      el("div",{class:"date"}, el("b",{text:String(+d||"")}), el("span",{text:MESES[(+m||1)-1]}), y&&y!==hoje.slice(0,4)?el("span",{text:y}):null),
-      el("div",{class:"body"}, el("span",{class:"pill",style:"align-self:flex-start",text:e.tipo||"Evento"}), el("b",{text:e.titulo||""}),
-        el("small",{text:[e.hora,e.local].filter(Boolean).join(" · ")}),
-        outras.length?el("small",{text:"Também a "+outras.join(", ").replace(/, ([^,]*)$/," e $1")}):null,
-        e.descricao?el("p",{text:e.descricao}):null,
-        e.preco?el("small",{class:"ev-preco",text:e.preco}):null,
-        href?el("a",{class:"btn small",style:"align-self:flex-start",href,target:"_blank",rel:"noopener",text:c.texto||"Reservar"}):null)));
+    const [,m,d]=(e.data||"").split("-");
+    const capa = e.cartaz
+      ? el("img",{src:fotoURL(e.cartaz),alt:"Cartaz: "+(e.titulo||""),loading:"lazy"})
+      : el("div",{class:"ev-sem"}, el("b",{text:String(+d||"")}), el("span",{text:MESES[(+m||1)-1]}));
+    box.append(el("button",{class:"evcard",type:"button",onclick:()=>abrirEvento(e)},
+      el("span",{class:"ev-capa"}, capa, el("span",{class:"ev-data",text:diaMes(e.data,true)})),
+      el("span",{class:"ev-cap"}, el("small",{text:e.tipo||"Evento"}), el("b",{text:e.titulo||""}))));
   });
+}
+function abrirEvento(e){
+  const f=$("#req-form"); f.replaceChildren(); f.onsubmit=ev=>ev.preventDefault();
+  const c=e.contacto, href=c&&contactoHref(c);
+  f.append(...[
+    e.cartaz ? el("a",{class:"ev-poster",href:fotoURL(e.cartaz),target:"_blank",rel:"noopener"}, el("img",{src:fotoURL(e.cartaz),alt:"Cartaz: "+(e.titulo||"")})) : null,
+    el("span",{class:"pill",style:"align-self:flex-start",text:e.tipo||"Evento"}),
+    el("h2",{text:e.titulo||""}),
+    el("p",{class:"ev-quando",text:quandoTexto(e)+(e.local?" · "+e.local:"")}),
+    e.descricao ? el("p",{text:e.descricao}) : null,
+    e.preco ? el("p",{class:"ev-preco",text:e.preco}) : null,
+    el("div",{class:"actions"}, cancelBtn("Fechar"),
+      href ? el("a",{class:"btn",href,target:"_blank",rel:"noopener",text:c.texto||"Reservar"}) : null)
+  ].filter(Boolean));
+  openSheet();
 }
 
 /* ---------- anúncios ---------- */

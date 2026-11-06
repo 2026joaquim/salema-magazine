@@ -107,22 +107,22 @@ window.OUTDOOR=[
    ===================================================================== */
 window.EVENTOS=[
   {datas:["2026-11-06","2026-11-07"], hora:"Jantar", tipo:"Restaurante", local:"Restaurante Nazari",
-   titulo:"Buffet indonésio no Nazari",
+   titulo:"Buffet indonésio no Nazari", cartaz:"evento-nazari-indonesio.jpg",
    descricao:"Sexta e sábado, um buffet de cozinha indonésia no restaurante Nazari.",
    preco:"Adulto 18 € · Criança (3–11 anos) 50 %",
    contacto:{texto:"Reservar: +351 282 030 672", tel:"+351 282 030 672"}},
   {data:"2026-11-08", hora:"17:00", tipo:"Família · grátis", local:"Sala Alma Mater",
-   titulo:"Capoeira para famílias · apresentação gratuita",
+   titulo:"Capoeira para famílias · apresentação gratuita", cartaz:"evento-capoeira.jpg",
    descricao:"Um espaço acolhedor e seguro onde pais e filhos se ligam através do jogo, do movimento e do ritmo. Para crianças de todas as idades, acompanhadas por um ou pelos dois pais. Não é preciso experiência. Com Sara Saggin, professora de educação física, capoeirista e osteopata, com mais de 20 anos de experiência.",
    preco:"Gratuito · confirmar até sábado, 7 de novembro",
    contacto:{texto:"Confirmar por WhatsApp (Sara)", wa:"+39 347 425 2978"}},
   {datas:["2026-11-13","2026-11-20","2026-11-27"], hora:"10:30", tipo:"Workshop",
-   titulo:"Workshop de pintura criativa em azulejo",
+   titulo:"Workshop de pintura criativa em azulejo", cartaz:"evento-azulejo.jpg",
    descricao:"Técnica de pintura a frio. Aberto a todos, sem experiência: um momento de convívio em que cada um cria uma peça única num azulejo artesanal, seguindo a sua inspiração. Todos os materiais incluídos.",
    preco:"18 € por pessoa · crianças até 11 anos 8 € · azulejo adicional 3 €",
    contacto:{texto:"Reservar por WhatsApp (Massimo)", wa:"+39 345 246 0842"}},
   {data:"2027-05-29", tipo:"Festa", local:"Magic Garden",
-   titulo:"Love Riot · festa debaixo das árvores",
+   titulo:"Love Riot · festa debaixo das árvores", cartaz:"evento-love-riot.jpg",
    descricao:"Mais uma grande festa no Magic Garden do Salema Eco Camp: glamping, cocktails, dance offs e convidados muito especiais a anunciar.",
    preco:"Bilhetes e informações em loveriot.club",
    contacto:{texto:"Bilhetes: loveriot.club", url:"https://loveriot.club"}}
@@ -133,7 +133,7 @@ window.CATALOG=[
    itens:[
     {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, das 12:00 às 21:30", campos:["telefone","data","hora","pessoas","notas"]},
     {id:"encomenda", nome:"Encomendar refeição", desc:"Para levar ou entregar no alojamento ou na sua zona · caixa 0,5 €", campos:["telefone","data","hora","pedido","entrega"]},
-    {id:"pequeno-almoco", nome:"Pequeno-almoço", desc:"Buffet 13 € por pessoa · todos os dias, 8:00–10:30 · 27 % de desconto se reservar até à véspera", campos:["telefone","data","hora","pessoas","notas"]},
+    {id:"pequeno-almoco", nome:"Pequeno-almoço", fotos:["evento-pequeno-almoco.jpg"], desc:"Buffet 13 € por pessoa · todos os dias, 8:00–10:30 · 27 % de desconto se reservar até à véspera", campos:["telefone","data","hora","pessoas","notas"]},
     {id:"eventos", nome:"Festas e eventos", desc:"Aniversários, almoços e jantares de Natal, jantares temáticos e workshops", campos:["telefone","tipo","data","pessoas","notas"], tipoLabel:"Que tipo de evento?", tipoOpts:["Aniversário","Almoço de Natal","Jantar de Natal","Almoço ou jantar temático","Workshop","Outro evento"]},
     {id:"perdidos", nome:"Perdidos e achados", desc:"Esqueceu-se de alguma coisa? Vai para a receção", campos:["objeto","data"], destino:"rececao"}
    ]},

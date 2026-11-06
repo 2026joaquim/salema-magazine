@@ -5,7 +5,8 @@
 
    Folhas usadas (criadas pela função configurar):
    - Avisos   : data | tipo | setor | texto          (a equipa escreve)
-   - Eventos  : data | hora | titulo | tipo | local | descricao   (a equipa escreve)
+   - Eventos  : data | hora | titulo | tipo | local | descricao | preco | reservas | cartaz   (a equipa escreve)
+               reservas: WhatsApp (+351 …) ou link; cartaz: link da foto no Google Drive (partilhada com «qualquer pessoa com o link»)
    - Anuncios : preenchida pelo Magazine (a equipa pode apagar linhas)
 
    Propriedades do script (Definições do projeto > Propriedades do script):
@@ -24,7 +25,7 @@ function configurar() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const folhas = {
     'Avisos':   ['data','tipo','setor','texto'],
-    'Eventos':  ['data','hora','titulo','tipo','local','descricao'],
+    'Eventos':  ['data','hora','titulo','tipo','local','descricao','preco','reservas','cartaz'],
     'Anuncios': ['id','criado','expira','categoria','titulo','texto','nome','contacto','codigo','estado']
   };
   Object.keys(CONTEUDO_COLUNAS).forEach(function(n){ folhas[n] = CONTEUDO_COLUNAS[n]; });
@@ -89,7 +90,10 @@ function lerAvisos() {
 function lerEventos() {
   const hoje = Utilities.formatDate(new Date(), FUSO, 'yyyy-MM-dd');
   return linhas('Eventos').map(function(e){
-    return { data: dataISO(e.data), hora: horaTexto(e.hora), titulo: String(e.titulo||''), tipo: String(e.tipo||''), local: String(e.local||''), descricao: String(e.descricao||'') };
+    const r = String(e.reservas||'').trim();
+    const contacto = !r ? null : (/^https?:/i.test(r) ? { texto: 'Mais informações', url: r } : { texto: 'Reservar por WhatsApp', wa: r });
+    return { data: dataISO(e.data), hora: horaTexto(e.hora), titulo: String(e.titulo||''), tipo: String(e.tipo||''), local: String(e.local||''), descricao: String(e.descricao||''),
+             preco: String(e.preco||''), cartaz: String(e.cartaz||''), contacto: contacto };
   }).filter(function(e){ return e.titulo && e.data >= hoje; }).slice(0, 30);
 }
 
