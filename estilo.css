@@ -397,3 +397,5 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .mt-legenda{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted)}
 .mt-legenda span{display:inline-flex;align-items:center;gap:4px}
 .mt-legenda .mt-ativ svg{width:18px;height:18px}
+.mt-surf .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.mt-paraiso{background:var(--mint,#CEE7D1);color:var(--brand);font-weight:700;font-size:.78rem;padding:3px 10px;border-radius:999px}
