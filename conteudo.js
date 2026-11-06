@@ -131,7 +131,7 @@ window.EVENTOS=[
    contacto:{texto:"Bilhetes: loveriot.club", url:"https://loveriot.club"}}
 ];
 window.CATALOG=[
-  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
+  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:30; às terças só há pequeno-almoço e pizzas.",
    itens:[
     {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, das 12:00 às 21:30", campos:["telefone","data","hora","pessoas","notas"]},
