@@ -20,7 +20,7 @@ const el = (tag, attrs={}, ...kids) => {
   return e;
 };
 const img = (src, alt, attrs={}) => {
-  const i=el("img",{src:(/^https?:/.test(src)?src:"imagens/"+src), alt:alt||"", loading:"lazy", ...attrs});
+  const i=el("img",{src:fotoURL(src), alt:alt||"", loading:"lazy", ...attrs});
   i.addEventListener("error",()=>i.classList.add("missing"));
   return i;
 };
@@ -28,6 +28,13 @@ const digits = n => (n||"").replace(/[^\d]/g,"");
 const waLink = (num, text) => "https://wa.me/"+digits(num)+"?text="+encodeURIComponent(text);
 const mailLink = (to, subject, body) => "mailto:"+to+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
 const sec = id => CATALOG.find(s=>s.id===id);
+/* foto: nome de ficheiro em imagens/ ou link do Google Drive */
+function fotoURL(src){
+  src=String(src||"").trim();
+  const m=src.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/);
+  if(m) return "https://drive.google.com/thumbnail?id="+m[1]+"&sz=w1600";
+  return /^https?:/.test(src)?src:"imagens/"+src;
+}
 const eur = n => n.toFixed(2).replace(".",",")+" €";
 const MESES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const fmtDate = iso => { if(!iso) return ""; const [y,m,d]=iso.slice(0,10).split("-"); return (+d)+" "+MESES[(+m||1)-1]; };
@@ -52,7 +59,7 @@ if(C.INSTAGRAM) $("#insta-link").href=C.INSTAGRAM;
 
 /* ---------- secções ---------- */
 function sectionCard(s, wide){
-  const ph=s.foto?el("img",{src:(/^https?:/.test(s.foto)?s.foto:"imagens/"+s.foto),alt:"",class:"ph",loading:"eager"}):null;
+  const ph=s.foto?el("img",{src:fotoURL(s.foto),alt:"",class:"ph",loading:"eager"}):null;
   return el("button",{class:"sec tile"+(wide?" wide":""),type:"button",style:`--sc:var(${s.cor})`,onclick:()=>{location.hash="reservar";openSection(s.id);}},
     ph, el("span",{class:"tile-cap"}, el("b",{text:s.nome}), el("small",{text:s.curto})));
 }
@@ -502,6 +509,46 @@ async function ask(q){
 $("#ask-form").addEventListener("submit",e=>{ e.preventDefault(); const q=$("#ask-q").value.trim(); if(q) ask(q); });
 SUGESTOES.forEach(s=>$("#ask-sug").append(el("button",{type:"button",onclick:()=>{ $("#ask-q").value=s; ask(s); },text:s})));
 
+/* ---------- conteúdo vindo da folha de gestão ---------- */
+const precoNum = v => { const n=parseFloat(String(v).replace(/[^\d,.-]/g,"").replace(",",".")); return isNaN(n)?0:n; };
+const precoTxt = v => { v=String(v||"").trim(); if(!v) return ""; return /€|consulta|grátis|gratuit/i.test(v)?v:(v+" €"); };
+const grupoPor = (rows,key) => { const m=new Map(); rows.forEach(r=>{ const k=r[key]||""; if(!m.has(k)) m.set(k,[]); m.get(k).push(r); }); return m; };
+let conteudoAssinatura="";
+function aplicarConteudo(c){
+  if(!c || typeof c!=="object") return;
+  const sig=JSON.stringify(c); if(sig===conteudoAssinatura) return; conteudoAssinatura=sig;
+  const store=sec("store"), alma=sec("alma"), ativ=sec("atividades");
+  if(c.produtos && store){
+    const fixos=store.itens.filter(i=>!i.loja||i.id==="outro");
+    const outro=fixos.filter(i=>i.id==="outro"), resto=fixos.filter(i=>i.id!=="outro");
+    const prods=c.produtos.filter(r=>r.nome).map((r,k)=>({id:"p"+k, daFolha:true, loja:true, nome:r.nome,
+      desc:[precoTxt(r.preco), r.resumo].filter(Boolean).join(" · "), detalhe:r.descricao||"",
+      fotos:[r.foto1,r.foto2].filter(Boolean), campos:["quantidade","envio","notas"]}));
+    prods.forEach(p=>{ if(!p.fotos.length) delete p.fotos; });
+    store.itens=[...resto, ...prods, ...outro];
+  }
+  if(c.pao){
+    window.PADARIAS=[...grupoPor(c.pao,"padaria")].filter(([n])=>n).map(([n,rows])=>[n, rows[0].chegada||"", rows.filter(r=>r.produto).map(r=>[r.produto, precoNum(r.preco)]), rows.find(r=>r.folheto)?.folheto||""]);
+  }
+  if(c.menu && window.MENU){
+    const antigos=Object.fromEntries((MENU.seccoes||[]).map(x=>[x.titulo,x]));
+    MENU.seccoes=[...grupoPor(c.menu,"seccao")].filter(([t])=>t).map(([t,rows],i)=>({
+      id:"s"+i, titulo:t, sub:rows.find(r=>r.subtitulo)?.subtitulo || antigos[t]?.sub || "",
+      grupos:[...grupoPor(rows,"grupo")].map(([g,rs])=>({nome:g||undefined, itens:rs.filter(r=>r.prato).map(r=>[r.prato, precoTxt(r.preco), r.descricao||"", (r.tipo||"").toLowerCase()])}))}));
+  }
+  if(c.yoga){
+    window.YOGA=c.yoga.filter(r=>r.aula).map(r=>[r.dia,r.hora,r.aula,precoTxt(r.preco)]);
+    const y=alma&&alma.itens.find(i=>i.id==="yoga"); if(y) y.tipoOpts=YOGA.map(v=>v[0]+" "+v[1]+" · "+v[2]+" · "+v[3]);
+  }
+  if(c.massagens) window.MASSAGENS=c.massagens.filter(r=>r.nome).map(r=>[r.nome,precoTxt(r.preco)]);
+  if(c.parceiros){
+    window.OUTDOOR=[...grupoPor(c.parceiros,"empresa")].filter(([e])=>e).map(([e,rows])=>[e, rows.find(r=>r.sobre)?.sobre||"", rows.filter(r=>r.atividade).map(r=>[r.atividade, precoTxt(r.adulto), precoTxt(r.crianca), r.duracao||"", r.descricao||""])]);
+    const t=ativ&&ativ.itens.find(i=>i.id==="tour"); if(t) t.tipoOpts=OUTDOOR.flatMap(([e,,l])=>l.map(a=>a[0]+" · "+e+(a[1]?" · "+a[1]:"")));
+  }
+  const aberta=document.querySelector("#reservar-detail:not([hidden]) .sechead h1");
+  if(aberta && $("#sheet").hidden){ const s2=CATALOG.find(x=>x.nome===aberta.textContent); if(s2){ const y=scrollY; openSection(s2.id); scrollTo(0,y); } }
+}
+
 /* ---------- carregar dados ---------- */
 let avisosAtuais=[], eventosAtuais=[];
 async function loadDados(){
@@ -509,6 +556,7 @@ async function loadDados(){
   try{
     const d=await apiGet({acao:"dados"});
     avisosAtuais=d.avisos||[]; eventosAtuais=d.eventos||[]; ads=d.anuncios||[]; adsLoaded=true;
+    try{ aplicarConteudo(d.conteudo); }catch(e){ console.warn("conteúdo da folha",e); }
     renderAvisos(avisosAtuais); renderEventos(eventosAtuais); renderAds();
   }catch{
     $("#avisos").replaceChildren(el("div",{class:"empty",text:"Não foi possível carregar os avisos agora."}));
