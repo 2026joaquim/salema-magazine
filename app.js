@@ -572,7 +572,9 @@ function aplicarConteudo(c){
         fotos, campos:base?.campos||["quantidade","envio","notas"]};
     });
     prods.forEach(p=>{ if(!p.fotos.length) delete p.fotos; });
-    store.itens=[...resto, ...prods, ...outro];
+    const usados=new Set(prods.map(p=>p.id));
+    const soSite=doSite.filter(i=>!usados.has(i.id));
+    store.itens=[...resto, ...prods, ...soSite, ...outro];
   }
   if(c.pao){
     window.PADARIAS=[...grupoPor(c.pao,"padaria")].filter(([n])=>n).map(([n,rows])=>[n, rows[0].chegada||"", rows.filter(r=>r.produto).map(r=>[r.produto, precoNum(r.preco)]), rows.find(r=>r.folheto)?.folheto||""]);
