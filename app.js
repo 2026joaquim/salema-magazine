@@ -460,12 +460,15 @@ function openNewAd(){
     fld("n-texto","Texto","textarea",{required:"",maxlength:"400",placeholder:"Ex.: Tenho 3 lugares no carro, volto às 17h."}),
     el("div",{class:"pair"}, fld("n-nome","Nome a mostrar","text",{required:"",maxlength:"40",placeholder:"Ex.: Ana, tenda 12"}), fld("n-contacto","Contacto (telemóvel ou WhatsApp)","tel",{required:"",maxlength:"30",placeholder:"+351 …"})),
     fld("n-dias","Fica visível durante","select",{},["1 dia","2 dias","3 dias","5 dias","7 dias"]),
+    el("div",{class:"regra",text:"Só anúncios de entreajuda entre hóspedes. É proibido fazer anúncios comerciais (vender produtos ou serviços, publicidade). A equipa retira os anúncios que não cumpram esta regra."}),
+    el("label",{class:"check"}, el("input",{type:"checkbox",id:"n-regra"}), el("span",{text:"Confirmo que este anúncio é de entreajuda e não é comercial."})),
     el("p",{class:"note",text:"O seu contacto fica visível para quem abrir o Magazine. Ao publicar, recebe um código para retirar o anúncio quando quiser."}),
     el("div",{class:"msg",id:"f-msg",hidden:""}),
     el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Publicar"})));
   f.onsubmit=async e=>{
     e.preventDefault();
     const miss=missingField(f); if(miss){ showMsg("Falta preencher: "+miss+".",false); return; }
+    if(!$("#n-regra").checked){ showMsg("Confirme que o anúncio é de entreajuda e não é comercial.",false); return; }
     const v=id=>$("#"+id).value.trim();
     const btn=f.querySelector('button[type="submit"]'); btn.disabled=true; btn.textContent="A publicar…";
     try{
@@ -517,6 +520,7 @@ function contexto(){
   const t=[];
   t.push("SALEMA ECO CAMP: parque de campismo e glamping ecológico em Budens, Algarve (Quinta dos Carriços, Praia da Salema, 8650-196 Budens), a 1 km da Praia da Salema, no Trilho dos Pescadores da Rota Vicentina. Aberto todo o ano. Telefone "+(C.TELEFONE_PARQUE||"")+".");
   t.push("CONTACTOS: Receção/Portaria 24 horas +351 282 695 201 ou +351 926 636 033; Restaurante Nazari +351 282 030 672; Eco Store +351 968 727 036; Atividades +351 961 956 143 (só WhatsApp). EMERGÊNCIA: 112 (Número Europeu de Emergência); Linha Saúde 24 +351 808 24 24 24; Bombeiros de Vila do Bispo +351 282 639 285; GNR de Vila do Bispo +351 282 630 010. Numa emergência médica ou de segurança, diga sempre primeiro para ligar o 112.");
+  t.push("ANÚNCIOS DO MAGAZINE: só anúncios de entreajuda entre hóspedes, no espírito de comunidade e de campismo (boleias, empréstimos, trocas, ajuda). É proibido fazer anúncios comerciais (vender produtos ou serviços, publicidade, angariar clientes); a equipa retira os que não cumpram. O anúncio fica visível de 1 a 7 dias, à escolha de quem o publica.");
   t.push("PASSAGEM PEDONAL: aberta das 7:00 às 22:00. Tem um código que muda regularmente; nunca dê o código, diga para o pedir na receção.");
   t.push("\nSECÇÕES E SERVIÇOS (reservas no separador «Reservar» do Magazine):");
   CATALOG.forEach(s=>{
