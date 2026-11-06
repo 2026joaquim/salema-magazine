@@ -192,7 +192,7 @@ const FIELD = {
   tipo:   (it)=>it.tipoOpts ? fld("f-tipo",it.tipoLabel||"Tipo","select",{},it.tipoOpts) : fld("f-tipo",it.tipoLabel||"Tipo","text"),
   tamanho:()=>fld("f-tam","Tamanho","select",{},["S","M","L","XL"]),
   destino:()=>fld("f-destino","Praia de destino","text",{placeholder:"Ex.: Praia do Zavial"}),
-  telefone:()=>fld("f-tel","Telemóvel / WhatsApp","tel",{required:"",autocomplete:"tel",inputmode:"tel",placeholder:"+351 …"}),
+  telefone:()=>{ const f=fld("f-tel","Telemóvel / WhatsApp","tel",{required:"",autocomplete:"tel",inputmode:"tel",placeholder:"+351 …"}); f.append(el("small",{class:"hint",text:"Para o podermos contactar, se for preciso, e percebermos melhor o seu pedido."})); return f; },
   entrega:()=>{
     const box=el("div",{style:"display:flex;flex-direction:column;gap:14px"},
       fld("f-entrega","Como recebe?","select",{},["Levantar no restaurante","Entregar no alojamento","Entregar na minha zona do campismo"]),
@@ -268,7 +268,8 @@ function openForm(sid,iid){
     el("div",{class:"pair"},
       fldInscricao(),
       fld("f-nome","Nome","text",{required:"",autocomplete:"name"})),
-    ...it.campos.map(c=>FIELD[c](it)),
+    FIELD.telefone(),
+    ...it.campos.filter(c=>c!=="telefone").map(c=>FIELD[c](it)),
     el("p",{class:"note",text:it.fotos?"Isto é um pedido, não um pagamento. A Eco Store confirma consigo a disponibilidade e, se for por correio, o custo do envio.":"Isto é um pedido, não um pagamento. A equipa confirma a disponibilidade e o preço consigo."}),
     el("div",{class:"msg",id:"f-msg",hidden:""}),
     el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"}))].filter(Boolean));
@@ -302,6 +303,7 @@ function openAvaria(){
   f.append(el("div",{class:"sechead",style:"--sc:var(--danger)"}, el("span",{class:"eyebrow",text:"Manutenção"}), el("h2",{text:"Avisar uma avaria"})),
     el("p",{class:"lead",style:"font-size:.9rem",text:"O aviso vai só para a equipa, por WhatsApp. Não aparece nos anúncios."}),
     el("div",{class:"pair"}, fldInscricao(), fld("f-nome","Nome","text",{required:""})),
+    FIELD.telefone(),
     fld("a-local","Onde? (número da zona no mapa)","text",{required:"",placeholder:"Ex.: Zona 12, bloco sanitário"}),
     fld("a-desc","O que está estragado?","textarea",{required:"",placeholder:"Ex.: Autoclismo partido no 2.º WC"}),
     el("p",{class:"note",text:"Depois de abrir o WhatsApp, junte uma foto da avaria à mensagem: ajuda a equipa a resolver mais depressa."}),
@@ -311,7 +313,7 @@ function openAvaria(){
     e.preventDefault();
     const miss=missingField(f); if(miss){ showMsg("Falta preencher: "+miss+".",false); return; }
     const v=id=>$("#"+id).value.trim();
-    const texto=["Avaria (Salema Eco Camp Magazine)",v("f-cliente")?"Nº de inscrição: "+v("f-cliente"):null,"Nome: "+v("f-nome"),"Local: "+v("a-local"),"O que se passa: "+v("a-desc"),"","(foto em anexo)"].filter(x=>x!==null).join("\n");
+    const texto=["Avaria (Salema Eco Camp Magazine)",v("f-cliente")?"Nº de inscrição: "+v("f-cliente"):null,"Nome: "+v("f-nome"),"Telemóvel: "+v("f-tel"),"Local: "+v("a-local"),"O que se passa: "+v("a-desc"),"","(foto em anexo)"].filter(x=>x!==null).join("\n");
     const d=[];
     if(C.WHATSAPP_RECECAO) d.push({wa:1,label:"Enviar à receção (WhatsApp)",href:waLink(C.WHATSAPP_RECECAO,texto)});
     if(C.WHATSAPP_MANUTENCAO) d.push({wa:1,label:"Enviar à manutenção (WhatsApp)",href:waLink(C.WHATSAPP_MANUTENCAO,texto)});
