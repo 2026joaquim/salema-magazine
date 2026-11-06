@@ -106,16 +106,19 @@ window.OUTDOOR=[
    contacto: {texto, wa | tel | url}
    ===================================================================== */
 window.EVENTOS=[
-  {datas:["2026-11-06","2026-11-07"], hora:"Jantar", tipo:"Restaurante", local:"Restaurante Nazari",
+  {datas:["2026-11-06","2026-11-07"], hora:"a partir das 19:00", banner:"banner-buffet-indonesio.jpg", tipo:"Restaurante", local:"Restaurante Nazari",
    titulo:"Buffet indonésio no Nazari", cartaz:"evento-nazari-indonesio.jpg",
    descricao:"Sexta e sábado, um buffet de cozinha indonésia no restaurante Nazari.",
    preco:"Adulto 18 € · Criança (3–11 anos) 50 %",
    contacto:{texto:"Reservar: +351 282 030 672", tel:"+351 282 030 672"}},
-  {data:"2026-11-08", hora:"17:00", tipo:"Família · grátis", local:"Sala Alma Mater",
+  {data:"2026-11-08", hora:"17:00", tipo:"Família · grátis", local:"Sala Alma Mater", banner:"banner-capoeira.jpg",
    titulo:"Capoeira para famílias · apresentação gratuita", cartaz:"evento-capoeira.jpg",
    descricao:"Um espaço acolhedor e seguro onde pais e filhos se ligam através do jogo, do movimento e do ritmo. Para crianças de todas as idades, acompanhadas por um ou pelos dois pais. Não é preciso experiência. Com Sara Saggin, professora de educação física, capoeirista e osteopata, com mais de 20 anos de experiência.",
    preco:"Gratuito · confirmar até sábado, 7 de novembro",
    contacto:{texto:"Confirmar por WhatsApp (Sara)", wa:"+39 347 425 2978"}},
+  {data:"2026-11-08", hora:"17:00", tipo:"Workshop", banner:"banner-joalharia.jpg",
+   titulo:"Workshop de joalharia",
+   descricao:"Um workshop para criar a sua própria joia. Domingo às 17:00."},
   {datas:["2026-11-13","2026-11-20","2026-11-27"], hora:"10:30", tipo:"Workshop",
    titulo:"Workshop de pintura criativa em azulejo", cartaz:"evento-azulejo.jpg",
    descricao:"Técnica de pintura a frio. Aberto a todos, sem experiência: um momento de convívio em que cada um cria uma peça única num azulejo artesanal, seguindo a sua inspiração. Todos os materiais incluídos.",

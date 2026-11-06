@@ -401,8 +401,9 @@ function renderEventos(list){
   if(!prox.length){ box.append(el("div",{class:"empty",text:"Sem eventos marcados. Festas, música ao vivo e workshops aparecem aqui."})); return; }
   prox.forEach(e=>{
     const [,m,d]=(e.data||"").split("-");
-    const capa = e.cartaz
-      ? el("img",{src:fotoURL(e.cartaz),alt:"Cartaz: "+(e.titulo||""),loading:"lazy"})
+    const capaSrc = e.banner || e.cartaz;
+    const capa = capaSrc
+      ? el("img",{src:fotoURL(capaSrc),alt:(e.banner?"":"Cartaz: ")+(e.titulo||""),loading:"lazy"})
       : el("div",{class:"ev-sem"}, el("b",{text:String(+d||"")}), el("span",{text:MESES[(+m||1)-1]}));
     box.append(el("button",{class:"evcard",type:"button",onclick:()=>abrirEvento(e)},
       el("span",{class:"ev-capa"}, capa, el("span",{class:"ev-data",text:diaMes(e.data,true)})),
@@ -413,12 +414,13 @@ function abrirEvento(e){
   const f=$("#req-form"); f.replaceChildren(); f.onsubmit=ev=>ev.preventDefault();
   const c=e.contacto, href=c&&contactoHref(c);
   f.append(...[
-    e.cartaz ? el("a",{class:"ev-poster",href:fotoURL(e.cartaz),target:"_blank",rel:"noopener"}, el("img",{src:fotoURL(e.cartaz),alt:"Cartaz: "+(e.titulo||"")})) : null,
+    e.banner ? el("img",{class:"ev-banner",src:fotoURL(e.banner),alt:e.titulo||""}) : (e.cartaz ? el("a",{class:"ev-poster",href:fotoURL(e.cartaz),target:"_blank",rel:"noopener"}, el("img",{src:fotoURL(e.cartaz),alt:"Cartaz: "+(e.titulo||"")})) : null),
     el("span",{class:"pill",style:"align-self:flex-start",text:e.tipo||"Evento"}),
     el("h2",{text:e.titulo||""}),
     el("p",{class:"ev-quando",text:quandoTexto(e)+(e.local?" · "+e.local:"")}),
     e.descricao ? el("p",{text:e.descricao}) : null,
     e.preco ? el("p",{class:"ev-preco",text:e.preco}) : null,
+    e.banner && e.cartaz ? el("a",{class:"ev-vercartaz",href:fotoURL(e.cartaz),target:"_blank",rel:"noopener",text:"Ver o cartaz completo"}) : null,
     el("div",{class:"actions"}, cancelBtn("Fechar"),
       href ? el("a",{class:"btn",href,target:"_blank",rel:"noopener",text:c.texto||"Reservar"}) : null)
   ].filter(Boolean));
