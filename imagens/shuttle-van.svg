@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" role="img" aria-label="Carrinha do shuttle">
+  <g fill="none" stroke="#274F37" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- prancha no tejadilho -->
+    <path d="M42 14 H150 Q162 14 160 20 H40 Q36 14 42 14 Z" fill="#CEE7D1"/>
+    <path d="M70 20 v8 M130 20 v8"/>
+    <!-- carroçaria -->
+    <path d="M30 92 V48 Q30 28 52 28 H156 Q176 28 180 52 L184 74 Q186 92 172 92 Z" fill="#F4EFE2"/>
+    <!-- faixa da cintura -->
+    <path d="M30 66 H184" />
+    <!-- janelas -->
+    <rect x="40" y="36" width="26" height="20" rx="5" fill="#BFE0EA"/>
+    <rect x="74" y="36" width="26" height="20" rx="5" fill="#BFE0EA"/>
+    <rect x="108" y="36" width="26" height="20" rx="5" fill="#BFE0EA"/>
+    <path d="M142 36 H160 Q172 36 174 56 H142 Z" fill="#BFE0EA"/>
+    <!-- porta -->
+    <path d="M104 66 V90" />
+    <!-- para-choques e farol -->
+    <path d="M176 82 h10" />
+    <circle cx="178" cy="72" r="3" fill="#E0A100" stroke="none"/>
+    <!-- rodas -->
+    <circle cx="62" cy="94" r="12" fill="#F4EFE2"/>
+    <circle cx="62" cy="94" r="4"/>
+    <circle cx="152" cy="94" r="12" fill="#F4EFE2"/>
+    <circle cx="152" cy="94" r="4"/>
+    <!-- estrada -->
+    <path d="M10 110 H190" stroke-width="3"/>
+  </g>
+  <!-- ramo do Salema na porta -->
+  <g fill="none" stroke="#274F37" stroke-width="2.5" stroke-linecap="round">
+    <path d="M86 86 Q92 76 94 70"/>
+    <path d="M89 80 q-6 -1 -7 -5 M91 76 q5 -2 7 -6 M92 73 q-5 -2 -5 -6"/>
+  </g>
+</svg>

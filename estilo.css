@@ -388,3 +388,7 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .bc-passos li::before{content:counter(p);width:26px;height:26px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-size:.85rem}
 .shuttle{border:2px solid var(--brand)}
 .shuttle .chips{display:flex;flex-wrap:wrap;gap:6px}
+.shuttle .van{width:min(220px,70%);height:auto;align-self:center}
+.van-mini{width:72px;height:auto;flex:none}
+.shuttle-mini{align-items:center}
+@media (prefers-reduced-motion:no-preference){.shuttle .van{animation:anda 3.5s ease-in-out infinite}@keyframes anda{50%{transform:translateX(6px)}}}
