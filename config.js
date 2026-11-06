@@ -9,7 +9,7 @@ window.CONFIG = {
   /* Endereço do programa do Google (Apps Script), depois de publicado.
      Enquanto estiver vazio, os anúncios e o assistente aparecem como
      "em breve" e o resto do Magazine funciona normalmente. */
-  APPS_SCRIPT_URL: "",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwcXxfyPsNfE6cO_4IsJJ5up2GTQ2XLut238jjGNxwIr9FLgY1kww-dSjczTJaNJ-Y1/exec",
 
   /* Avarias e perdidos e achados */
   WHATSAPP_RECECAO: "+351 926 636 033",

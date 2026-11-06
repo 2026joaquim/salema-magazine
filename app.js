@@ -561,9 +561,16 @@ function aplicarConteudo(c){
   if(c.produtos && store){
     const fixos=store.itens.filter(i=>!i.loja||i.id==="outro");
     const outro=fixos.filter(i=>i.id==="outro"), resto=fixos.filter(i=>i.id!=="outro");
-    const prods=c.produtos.filter(r=>r.nome).map((r,k)=>({id:"p"+k, daFolha:true, loja:true, nome:r.nome,
-      desc:[precoTxt(r.preco), r.resumo].filter(Boolean).join(" · "), detalhe:r.descricao||"",
-      fotos:[r.foto1,r.foto2].filter(Boolean), campos:["quantidade","envio","notas"]}));
+    const norm=s=>String(s||"").toLowerCase().replace(/\s+/g," ").trim();
+    const doSite=store.itens.filter(i=>i.loja&&i.id!=="outro");
+    const prods=c.produtos.filter(r=>r.nome).map((r,k)=>{
+      const n=norm(r.nome), base=doSite.find(i=>n===norm(i.nome)||n.startsWith(norm(i.nome)));
+      const fotosFolha=[r.foto1,r.foto2].filter(Boolean);
+      const fotos = base?.fotos && (!fotosFolha.length || base.fotos.includes(fotosFolha[0])) ? base.fotos : fotosFolha;
+      return {...(base||{}), id:base?.id||"p"+k, daFolha:true, loja:true, nome:r.nome,
+        desc:[precoTxt(r.preco), r.resumo].filter(Boolean).join(" · "), detalhe:r.descricao||base?.detalhe||"",
+        fotos, campos:base?.campos||["quantidade","envio","notas"]};
+    });
     prods.forEach(p=>{ if(!p.fotos.length) delete p.fotos; });
     store.itens=[...resto, ...prods, ...outro];
   }
