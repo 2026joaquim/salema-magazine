@@ -382,3 +382,9 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .mt-pdet{grid-column:1/-1}
 .stars{color:#E0A100;letter-spacing:1px;font-size:1rem;white-space:nowrap}
 @media (max-width:380px){.mt-dados{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* base camp e shuttle */
+.bc-passos{margin:0;padding-left:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:8px}
+.bc-passos li{counter-increment:p;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;font-weight:600;font-size:.95rem}
+.bc-passos li::before{content:counter(p);width:26px;height:26px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-size:.85rem}
+.shuttle{border:2px solid var(--brand)}
+.shuttle .chips{display:flex;flex-wrap:wrap;gap:6px}

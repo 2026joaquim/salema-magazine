@@ -184,7 +184,7 @@ function fldInscricao(){
 }
 const FIELD = {
   data:   ()=>fld("f-data","Data","date",{required:""}),
-  hora:   ()=>fld("f-hora","Hora preferida","time"),
+  hora:   (it)=> it&&it.id==="shuttle"&&(window.SHUTTLE_HORAS||[]).length ? fld("f-hora","Horário","select",{required:""},SHUTTLE_HORAS) : fld("f-hora","Hora preferida","time"),
   pessoas:()=>fld("f-pessoas","Número de pessoas","number",{min:"1",max:"30",value:"2"}),
   quantidade:()=>fld("f-qtd","Quantidade","number",{min:"1",max:"50",value:"1"}),
   notas:  ()=>fld("f-notas","Notas (opcional)","textarea"),
@@ -349,6 +349,10 @@ function openEco(){
 }
 document.querySelectorAll("[data-eco]").forEach(b=>b.addEventListener("click",openEco));
 
+/* ---------- shuttle ---------- */
+(function(){ const b=$("#shuttle-horas"); if(!b) return; const hs=window.SHUTTLE_HORAS||[];
+  if(hs.length){ b.append(el("div",{class:"eyebrow",text:"Horários"}), el("div",{class:"chips"}, ...hs.map(h=>el("span",{class:"chip",text:h})))); }
+})();
 /* ---------- trilho ---------- */
 const LVL={facil:"Fácil",moderado:"Moderado",dificil:"Difícil"};
 STAGES.forEach(([n,km,l],i)=>$("#stages")?.append(el("li",{class:/Salema/.test(n)?"here":""}, el("span",{class:"n",text:String(i+1)}),
@@ -522,6 +526,8 @@ function contexto(){
   t.push("CONTACTOS: Receção/Portaria 24 horas +351 282 695 201 ou +351 926 636 033; Restaurante Nazari +351 282 030 672; Eco Store +351 968 727 036; Atividades +351 961 956 143 (só WhatsApp). EMERGÊNCIA: 112 (Número Europeu de Emergência); Linha Saúde 24 +351 808 24 24 24; Bombeiros de Vila do Bispo +351 282 639 285; GNR de Vila do Bispo +351 282 630 010. Numa emergência médica ou de segurança, diga sempre primeiro para ligar o 112.");
   t.push("ANÚNCIOS DO MAGAZINE: só anúncios de entreajuda entre hóspedes, no espírito de comunidade e de campismo (boleias, empréstimos, trocas, ajuda). É proibido fazer anúncios comerciais (vender produtos ou serviços, publicidade, angariar clientes); a equipa retira os que não cumpram. O anúncio fica visível de 1 a 7 dias, à escolha de quem o publica.");
   if(window.METEO_RESUMO) t.push(window.METEO_RESUMO);
+  t.push("SHUTTLE GRÁTIS para a Praia da Salema, para hóspedes. Reserva-se na receção por WhatsApp (+351 926 636 033), no Magazine em Parque ou na página inicial."+((window.SHUTTLE_HORAS||[]).length?" Horários: "+SHUTTLE_HORAS.join(", ")+".":" Os horários dá-os a receção."));
+  t.push("SALEMA BASE CAMP: caminhar o Trilho dos Pescadores (5 etapas, 77,5 km, Carrapateira a Lagos) dormindo sempre no parque; o parque trata da logística (leva de manhã, vai buscar ao fim do dia). Reservas do Base Camp: reservas@salemaecocamp.com ou +351 282 695 201. Não há pedidos de transfer de etapa pelo Magazine.");
   t.push("PASSAGEM PEDONAL: aberta das 7:00 às 22:00. Tem um código que muda regularmente; nunca dê o código, diga para o pedir na receção.");
   t.push("\nSECÇÕES E SERVIÇOS (reservas no separador «Reservar» do Magazine):");
   CATALOG.forEach(s=>{

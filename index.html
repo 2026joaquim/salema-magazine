@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="estilo.css?v=31">
+<link rel="stylesheet" href="estilo.css?v=32">
 </head>
 <body>
 
@@ -67,6 +67,10 @@
     <a class="btn" style="text-decoration:none" id="insta-link" href="https://www.instagram.com/salemaecocamp" target="_blank" rel="noopener">Seguir</a>
   </div>
   <div class="card insta">
+    <div><b>Shuttle grátis para a praia</b><p class="lead" style="font-size:.9rem">Do parque para a Praia da Salema. Reserve na receção.</p></div>
+    <button class="btn" type="button" data-open="atividades:shuttle">Reservar</button>
+  </div>
+  <div class="card insta">
     <div><b>Alguma coisa avariada?</b><p class="lead" style="font-size:.9rem">Diga-nos o local e envie a foto. Só a equipa vê.</p></div>
     <button class="btn ghost" type="button" data-avaria>Avisar a equipa</button>
   </div>
@@ -116,6 +120,32 @@
     <a class="map" href="imagens/capa-desenho-pedro-pereira.jpg" target="_blank" rel="noopener"><img src="imagens/capa-desenho-pedro-pereira.jpg" alt="Mapa do Salema Eco Camp com as zonas numeradas de 1 a 30, desenhado por Pedro Pereira" loading="lazy"></a>
     <small class="lead" style="font-size:.8rem">Desenho de Pedro Pereira. Toque no mapa para o ver em tamanho grande.</small>
   </div>
+  <div class="card shuttle" id="shuttle">
+    <span class="eyebrow">Grátis para hóspedes</span>
+    <h2>Shuttle para a Praia da Salema</h2>
+    <p>Temos um shuttle grátis entre o parque e a Praia da Salema. Reserve o seu lugar na receção, por WhatsApp, para o horário que lhe der jeito.</p>
+    <div class="horarios" id="shuttle-horas"></div>
+    <button class="btn" type="button" data-open="atividades:shuttle">Reservar o shuttle</button>
+  </div>
+  <div class="card basecamp">
+    <img class="secphoto" src="imagens/basecamp-caminhantes.jpg" alt="Dois caminhantes de mochila no Trilho dos Pescadores" loading="lazy">
+    <span class="eyebrow">Salema Base Camp · Trilho dos Pescadores</span>
+    <h2>Uma base. Cinco etapas. Zero stress.</h2>
+    <p>Durma na mesma cama todas as noites e caminhe o Trilho dos Pescadores da Rota Vicentina, de Carrapateira a Lagos: <b>5 etapas, 77,5 km, tudo a partir de uma só base</b>. Recebemos dezenas de caminhantes todos os dias, até 40 check-ins num único dia.</p>
+    <ol class="bc-passos">
+      <li>Fique connosco. Sem mudar de alojamento.</li>
+      <li>Tratamos da logística: levamo-lo de manhã, vamos buscá-lo ao fim do dia.</li>
+      <li>Caminhe todas as etapas, de Carrapateira a Lagos. Sem stress, sem pressa.</li>
+      <li>Restaurante para todos: pequeno-almoço, almoço e jantar, além de snacks de trilho para a caminhada.</li>
+    </ol>
+    <a class="map" href="imagens/basecamp-rota.jpg" target="_blank" rel="noopener"><img src="imagens/basecamp-rota.jpg" alt="Mapa da rota: Carrapateira, Vila do Bispo, Sagres, Salema Eco Camp, Praia da Luz e Lagos, com as distâncias de cada etapa" loading="lazy"></a>
+    <div class="eyebrow">As 5 etapas</div>
+    <ol class="stages" id="stages"></ol>
+    <details class="poi"><summary>23 pontos de interesse</summary><ol id="pois"></ol></details>
+    <p><b>No parque:</b> restaurante e bar, Loja Eco, lavandaria e massagens. Meia-pensão ou pensão completa no restaurante.</p>
+    <p class="note">Para reservar o Base Camp: <b>reservas@salemaecocamp.com</b> · +351 282 695 201. Membro associado da Rota Vicentina.</p>
+    <a href="https://rotavicentina.com/en/fishermens-trail" target="_blank" rel="noopener">O Trilho dos Pescadores na Rota Vicentina</a>
+  </div>
   <div class="card">
     <h2>Regulamento interno</h2>
     <p>As regras do parque, como estão no regulamento do Salema Eco Camp. Ao entrar no Magazine, o hóspede confirma que as conhece.</p>
@@ -126,19 +156,6 @@
     <h2>Receção</h2>
     <p>Prolongar a estadia ou reservar nova visita: o alojamento reserva-se no nosso site.</p>
     <a href="https://salemaecocamp.com" target="_blank" rel="noopener">Reservar alojamento</a>
-  </div>
-  <div class="card">
-    <span class="eyebrow">Salema Eco Camp Base Camp</span>
-    <h2>Trilho dos Pescadores</h2>
-    <p><b>Uma base. Cinco etapas. Zero stress.</b> Durma na mesma cama todas as noites: levamo-lo de manhã ao início da etapa e vamos buscá-lo ao fim do dia. De Carrapateira a Lagos, 77,5 km.</p>
-    <p class="lead" style="font-size:.9rem">Membro associado da Rota Vicentina.</p>
-    <a class="map" href="imagens/mapa-trilho.jpg" target="_blank" rel="noopener"><img src="imagens/mapa-trilho.jpg" alt="Mapa do Trilho dos Pescadores, de Carrapateira a Lagos, com as 5 etapas e 23 pontos de interesse" loading="lazy"></a>
-    <small class="lead" style="font-size:.8rem">Toque no mapa para o ver em tamanho grande.</small>
-    <div class="eyebrow">Etapas</div>
-    <ol class="stages" id="stages"></ol>
-    <button class="btn" type="button" data-open="atividades:transfer">Pedir transfer para o início da etapa</button>
-    <details class="poi"><summary>23 pontos de interesse</summary><ol id="pois"></ol></details>
-    <a href="https://rotavicentina.com/en/fishermens-trail" target="_blank" rel="noopener">Mais sobre o trilho na Rota Vicentina</a>
   </div>
   <div class="card">
     <h2>Contactos úteis</h2>
@@ -311,9 +328,9 @@
   <form id="req-form" novalidate></form>
 </div>
 
-<script src="config.js?v=31"></script>
-<script src="conteudo.js?v=31"></script>
-<script src="app.js?v=31"></script>
-<script src="meteo.js?v=31"></script>
+<script src="config.js?v=32"></script>
+<script src="conteudo.js?v=32"></script>
+<script src="app.js?v=32"></script>
+<script src="meteo.js?v=32"></script>
 </body>
 </html>
