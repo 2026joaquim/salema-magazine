@@ -521,6 +521,7 @@ function contexto(){
   t.push("SALEMA ECO CAMP: parque de campismo e glamping ecológico em Budens, Algarve (Quinta dos Carriços, Praia da Salema, 8650-196 Budens), a 1 km da Praia da Salema, no Trilho dos Pescadores da Rota Vicentina. Aberto todo o ano. Telefone "+(C.TELEFONE_PARQUE||"")+".");
   t.push("CONTACTOS: Receção/Portaria 24 horas +351 282 695 201 ou +351 926 636 033; Restaurante Nazari +351 282 030 672; Eco Store +351 968 727 036; Atividades +351 961 956 143 (só WhatsApp). EMERGÊNCIA: 112 (Número Europeu de Emergência); Linha Saúde 24 +351 808 24 24 24; Bombeiros de Vila do Bispo +351 282 639 285; GNR de Vila do Bispo +351 282 630 010. Numa emergência médica ou de segurança, diga sempre primeiro para ligar o 112.");
   t.push("ANÚNCIOS DO MAGAZINE: só anúncios de entreajuda entre hóspedes, no espírito de comunidade e de campismo (boleias, empréstimos, trocas, ajuda). É proibido fazer anúncios comerciais (vender produtos ou serviços, publicidade, angariar clientes); a equipa retira os que não cumpram. O anúncio fica visível de 1 a 7 dias, à escolha de quem o publica.");
+  if(window.METEO_RESUMO) t.push(window.METEO_RESUMO);
   t.push("PASSAGEM PEDONAL: aberta das 7:00 às 22:00. Tem um código que muda regularmente; nunca dê o código, diga para o pedir na receção.");
   t.push("\nSECÇÕES E SERVIÇOS (reservas no separador «Reservar» do Magazine):");
   CATALOG.forEach(s=>{
