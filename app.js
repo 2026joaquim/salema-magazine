@@ -373,6 +373,37 @@ async function apiPost(body){
   return r.json();
 }
 
+/* ---------- novidades (bolinha e "Novo") ---------- */
+const NOV_KEY="vistos-v1";
+let vistos=null, novosSessao=new Set();
+try{ vistos=JSON.parse(localStorage.getItem(NOV_KEY)||"null"); }catch(e){}
+const primeiraVez = !vistos;
+if(!vistos) vistos={a:[],e:[],n:[]};
+const chaveAviso=x=>"a|"+(x.data||"")+"|"+(x.texto||"").slice(0,60);
+const chaveEvento=x=>"e|"+(x.titulo||"")+"|"+(x.data||(x.datas||[])[0]||"");
+const chaveAnuncio=x=>"n|"+(x.id||x.titulo||"");
+function guardarVistos(){ try{ localStorage.setItem(NOV_KEY,JSON.stringify(vistos)); }catch(e){} }
+function isNovo(tipo,k){ if(primeiraVez) return false; if(novosSessao.has(k)) return true; if(!vistos[tipo].includes(k)){ novosSessao.add(k); return true; } return false; }
+function marcarVistos(tipo,chaves){ let mudou=false; chaves.forEach(k=>{ if(!vistos[tipo].includes(k)){ vistos[tipo].push(k); mudou=true; } }); if(vistos[tipo].length>300) vistos[tipo]=vistos[tipo].slice(-300); if(mudou) guardarVistos(); }
+const novoTag=()=>el("span",{class:"novo",text:"Novo"});
+function atualizarBolinhas(){
+  const nInicio=[...avisosAtuais.map(chaveAviso).filter(k=>!vistos.a.includes(k)), ...eventosAtuais.map(chaveEvento).filter(k=>!vistos.e.includes(k))].length;
+  const nAds=(ads||[]).map(chaveAnuncio).filter(k=>!vistos.n.includes(k)).length;
+  const marca=(tab,n)=>{ const t=document.querySelector('nav.tabs a[data-tab="'+tab+'"]'); if(!t) return; let d=t.querySelector(".dot-novo"); if(n&&!primeiraVez){ if(!d){ d=el("span",{class:"dot-novo","aria-label":"Novidades"}); t.append(d);} } else if(d) d.remove(); };
+  marca("inicio",nInicio); marca("anuncios",nAds);
+  const total=primeiraVez?0:nInicio+nAds;
+  try{ if(navigator.setAppBadge){ total?navigator.setAppBadge(total):navigator.clearAppBadge(); } }catch(e){}
+}
+function vistoAgora(){
+  const v=(location.hash||"#inicio").slice(1);
+  if(primeiraVez){ marcarVistos("a",avisosAtuais.map(chaveAviso)); marcarVistos("e",eventosAtuais.map(chaveEvento)); marcarVistos("n",(ads||[]).map(chaveAnuncio)); }
+  else if(document.visibilityState==="visible"){
+    if(v==="inicio"||v===""){ marcarVistos("a",avisosAtuais.map(chaveAviso)); marcarVistos("e",eventosAtuais.map(chaveEvento)); }
+    if(v==="anuncios") marcarVistos("n",(ads||[]).map(chaveAnuncio));
+  }
+  atualizarBolinhas();
+}
+
 /* ---------- avisos e eventos ---------- */
 const AVISO_LABEL={info:"Info",corte:"Corte",loja:"Eco Store"};
 function renderAvisos(list){
@@ -381,7 +412,7 @@ function renderAvisos(list){
   list.forEach(a=>{
     const t=(a.tipo||"info").toLowerCase();
     box.append(el("div",{class:"aviso"}, el("span",{class:"tag "+(AVISO_LABEL[t]?t:"info"),text:AVISO_LABEL[t]||"Info"}),
-      el("p",{}, a.setor?el("b",{text:a.setor+": "}):null, a.texto||""), el("time",{text:fmtDate(a.data)})));
+      el("p",{}, isNovo("a",chaveAviso(a))?el("span",{class:"novo",style:"margin-right:6px;vertical-align:1px",text:"Novo"}):null, a.setor?el("b",{text:a.setor+": "}):null, a.texto||""), el("time",{text:fmtDate(a.data)})));
   });
 }
 function contactoHref(c){
@@ -413,7 +444,7 @@ function renderEventos(list){
       ? el("img",{src:fotoURL(capaSrc),alt:(e.banner?"":"Cartaz: ")+(e.titulo||""),loading:"lazy"})
       : el("div",{class:"ev-sem"}, el("b",{text:String(+d||"")}), el("span",{text:MESES[(+m||1)-1]}));
     box.append(el("button",{class:"evcard",type:"button",onclick:()=>abrirEvento(e)},
-      el("span",{class:"ev-capa"}, capa, el("span",{class:"ev-data",text:diaMes(e.data,true)})),
+      el("span",{class:"ev-capa"}, capa, el("span",{class:"ev-data",text:diaMes(e.data,true)}), isNovo("e",chaveEvento(e))?el("span",{class:"novo ev-novo",text:"Novo"}):null),
       el("span",{class:"ev-cap"}, el("small",{text:e.tipo||"Evento"}), el("b",{text:e.titulo||""}))));
   });
 }
@@ -451,7 +482,7 @@ function renderAds(){
     const cat=(TOPICS.find(x=>x.id===a.categoria)||{nome:"Outros"}).nome;
     const tel=digits(a.contacto);
     box.append(el("article",{class:"ad"},
-      el("div",{class:"meta",style:"display:flex;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)"}, el("span",{class:"pill",text:cat}), el("span",{text:"até "+fmtDate(a.expira)})),
+      el("div",{class:"meta",style:"display:flex;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)"}, el("span",{class:"pill",text:cat}), isNovo("n",chaveAnuncio(a))?novoTag():null, el("span",{text:"até "+fmtDate(a.expira)})),
       el("h3",{text:a.titulo}), el("p",{style:"white-space:pre-wrap;overflow-wrap:anywhere",text:a.texto}),
       el("p",{}, el("span",{text:(a.nome||"")+" · "}), tel.length>=9 ? el("a",{class:"contact",href:"https://wa.me/"+tel,target:"_blank",rel:"noopener",text:a.contacto}) : el("span",{class:"contact",text:a.contacto}))));
   });
@@ -631,6 +662,7 @@ async function loadDados(){
     avisosAtuais=[...avisosFixos(),...(d.avisos||[])]; eventosAtuais=[...(window.EVENTOS||[]),...(d.eventos||[])]; ads=d.anuncios||[]; adsLoaded=true;
     try{ aplicarConteudo(d.conteudo); }catch(e){ console.warn("conteúdo da folha",e); }
     renderAvisos(avisosAtuais); renderEventos(eventosAtuais); renderAds();
+    atualizarBolinhas(); setTimeout(vistoAgora,2500);
   }catch{
     if(avisosAtuais.length) renderAvisos(avisosAtuais); else $("#avisos").replaceChildren(el("div",{class:"empty",text:"Não foi possível carregar os avisos agora."}));
     renderEventos(eventosAtuais);
@@ -646,7 +678,8 @@ function route(){
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   if(v!=="reservar") closeSection();
 }
-addEventListener("hashchange",()=>{ route(); scrollTo(0,0); });
+addEventListener("hashchange",()=>{ route(); scrollTo(0,0); setTimeout(vistoAgora,2500); });
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") loadDados(); });
 
 renderSections(); renderTopics(); renderAds(); route(); loadDados();
 setInterval(loadDados, 5*60*1000);
