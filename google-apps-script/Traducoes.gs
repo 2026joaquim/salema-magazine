@@ -5,7 +5,7 @@
    A equipa pode corrigir qualquer tradução diretamente na folha.
    Separador "Traducoes": pt | en | de
    ===================================================================== */
-const LINGUAS = { en: 'English (UK)', de: 'German' };
+const LINGUAS = { en: 'English (UK)', de: 'German (Deutsch, formal Sie)' };
 const LIMITE_TRADUCOES_DIA = 3000;
 
 function traducoesGet(acao, e) {
@@ -76,7 +76,8 @@ function traduzirComClaude(textos, lang) {
     'Translate each item from Portuguese (some items may already be in English) into ' + LINGUAS[lang] + '. Rules: natural, friendly, concise; keep proper names unchanged ' +
     '(Salema Eco Camp, Nazari, Alma Mater, SER, Eco Store, Eco Living, Base Camp, Magazine, Rota Vicentina, beach and place names, product and brand names, dish names like Moussaka or Souvlaki); ' +
     'keep numbers, prices, times, emoji, phone numbers, e-mails and punctuation like « » or · as they are; translate dish descriptions; keep leading/trailing spaces. ' +
-    'Answer ONLY with a JSON array of strings, same length and order as the input.';
+    'Answer ONLY with a JSON array of strings, same length and order as the input. ' +
+    'IMPORTANT: every string in your answer must be written in ' + LINGUAS[lang] + ' (target language), also when the input item is in English.';
   const r = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
     method: 'post', contentType: 'application/json', muteHttpExceptions: true,
     headers: { 'x-api-key': chave, 'anthropic-version': '2023-06-01' },
