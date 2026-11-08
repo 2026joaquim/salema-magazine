@@ -558,7 +558,7 @@ function renderAds(){
   list.forEach(a=>{
     const cat=(TOPICS.find(x=>x.id===a.categoria)||{nome:"Outros"}).nome;
     const tel=digits(a.contacto);
-    box.append(el("article",{class:"ad"},
+    box.append(el("article",{class:"ad",translate:"no"},
       el("div",{class:"meta",style:"display:flex;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)"}, el("span",{class:"pill",text:cat}), isNovo("n",chaveAnuncio(a))?novoTag():null, el("span",{text:"até "+fmtDate(a.expira)})),
       el("h3",{text:a.titulo}), el("p",{style:"white-space:pre-wrap;overflow-wrap:anywhere",text:a.texto}),
       el("p",{}, el("span",{text:(a.nome||"")+" · "}), tel.length>=9 ? el("a",{class:"contact",href:"https://wa.me/"+tel,target:"_blank",rel:"noopener",text:a.contacto}) : el("span",{class:"contact",text:a.contacto}))));

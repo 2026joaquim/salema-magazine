@@ -46,6 +46,7 @@ function configurar() {
 function doGet(e) {
   const acao = (e && e.parameter && e.parameter.acao) || 'dados';
   if (typeof pushGet === 'function') { const pr = pushGet(acao); if (pr) return json(pr); }
+  if (typeof traducoesGet === 'function') { const tr = traducoesGet(acao, e); if (tr) return json(tr); }
   if (acao === 'dados') {
     return json({ ok: true, avisos: lerAvisos(), eventos: lerEventos(), anuncios: lerAnuncios(), conteudo: lerConteudo() });
   }
@@ -56,6 +57,7 @@ function doGet(e) {
 function doPost(e) {
   let body = {};
   try { body = JSON.parse(e.postData.contents || '{}'); } catch (err) { return json({ ok:false, erro:'Pedido inválido.' }); }
+  if (typeof traducoesPost === 'function') { const tr = traducoesPost(body); if (tr) return json(tr); }
   if (typeof estatPost === 'function') { const er = estatPost(body); if (er) return json(er); }
   if (typeof pushPost === 'function') { const pr = pushPost(body); if (pr) return json(pr); }
   if (body.acao === 'anuncio')   return json(novoAnuncio(body));
