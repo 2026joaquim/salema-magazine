@@ -56,6 +56,7 @@ function doGet(e) {
 function doPost(e) {
   let body = {};
   try { body = JSON.parse(e.postData.contents || '{}'); } catch (err) { return json({ ok:false, erro:'Pedido inválido.' }); }
+  if (typeof estatPost === 'function') { const er = estatPost(body); if (er) return json(er); }
   if (typeof pushPost === 'function') { const pr = pushPost(body); if (pr) return json(pr); }
   if (body.acao === 'anuncio')   return json(novoAnuncio(body));
   if (body.acao === 'retirar')   return json(retirarAnuncio(body));

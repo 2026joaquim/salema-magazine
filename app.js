@@ -155,6 +155,7 @@ function contactNote(s){
     s.id==="alma" ? ". Massagens: no site do Salema Eco Camp." : null);
 }
 function openSection(id){
+  try{ estat("seccao",(sec(id)||{}).nome||id); }catch(e){}
   const s=sec(id); const d=$("#reservar-detail"); d.replaceChildren();
   d.append(el("div",{class:"block",style:"display:flex;flex-direction:column;gap:16px"},
     el("button",{class:"back",type:"button",onclick:closeSection,text:"← Todas as secções"}),
@@ -242,6 +243,7 @@ function showMsg(text, ok){ const m=$("#f-msg"); m.className="msg "+(ok?"ok":"er
 
 /* Mostra os botões de envio (WhatsApp / email) com a mensagem pronta */
 function showSend(f, titulo, texto, destinos){
+  estat("pedido",titulo);
   const actions=f.querySelector(".actions");
   const row=el("div",{class:"sendrow"},
     el("p",{class:"note",text:"A mensagem está pronta. Escolha como a quer enviar; só precisa de carregar em enviar na aplicação que se abrir."}),
@@ -373,6 +375,17 @@ async function apiPost(body){
   return r.json();
 }
 
+/* ---------- estatísticas anónimas ---------- */
+function estat(evento,detalhe){
+  if(!API) return;
+  try{
+    const body=JSON.stringify({acao:"estat",evento,detalhe:detalhe||""});
+    if(navigator.sendBeacon && navigator.sendBeacon(API,new Blob([body],{type:"text/plain;charset=utf-8"}))) return;
+    fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body,keepalive:true}).catch(()=>{});
+  }catch(e){}
+}
+try{ if(!sessionStorage.getItem("visita")){ sessionStorage.setItem("visita","1"); estat("visita",(matchMedia("(display-mode: standalone)").matches||navigator.standalone===true)?"app":"browser"); } }catch(e){}
+
 /* ---------- novidades (bolinha e "Novo") ---------- */
 const NOV_KEY="vistos-v1";
 let vistos=null, novosSessao=new Set();
@@ -449,6 +462,7 @@ function renderEventos(list){
   });
 }
 function abrirEvento(e){
+  estat("evento",e.titulo||"");
   const f=$("#req-form"); f.replaceChildren(); f.onsubmit=ev=>ev.preventDefault();
   const c=e.contacto, href=c&&contactoHref(c);
   f.append(...[
@@ -511,6 +525,7 @@ function openNewAd(){
     try{
       const r=await apiPost({acao:"anuncio",categoria:sel.value,titulo:v("n-titulo"),texto:v("n-texto"),nome:v("n-nome"),contacto:v("n-contacto"),dias:parseInt(v("n-dias"),10)||1});
       if(!r.ok) throw new Error(r.erro||"erro");
+      estat("anuncio",sel.value);
       const mine=store.get("meusAnuncios")||[]; mine.push({codigo:r.codigo,titulo:v("n-titulo")}); store.set("meusAnuncios",mine.slice(-10));
       f.replaceChildren(el("h2",{text:"Anúncio publicado"}),
         el("p",{text:"Guarde este código. Precisa dele para retirar o anúncio antes do tempo:"}),
@@ -593,6 +608,7 @@ async function ask(q){
   if(!API){ a.textContent="O assistente fica disponível em breve. Até lá, pergunte na receção."; return; }
   a.textContent="A pensar…";
   try{
+    estat("pergunta");
     const r=await apiPost({acao:"perguntar",pergunta:q.slice(0,300),contexto:contexto()});
     a.textContent = r.ok ? r.resposta : (r.erro||"Não consegui responder agora. Pergunte na receção.");
   }catch{ a.textContent="Não consegui responder agora. Pergunte na receção."; }
@@ -716,7 +732,7 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
         if(p!=="granted"){ estado("Receber as novidades no telemóvel","Toque em Ativar e depois em «Permitir».","Ativar"); return; }
         sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(chave)});
         await apiPost({acao:"subscrever",endpoint:sub.endpoint});
-        ligado();
+        ligado(); estat("notificacoes");
       }
     }catch(e){ estado("Não foi possível ativar agora","Tente de novo daqui a pouco.","Tentar de novo"); }
     finally{ btn.disabled=false; }

@@ -20,6 +20,7 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu('Magazine')
     .addItem('Enviar notificação aos hóspedes…', 'menuEnviarNotificacao')
     .addItem('Ver quantos recebem notificações', 'menuContarSubscricoes')
+    .addItem('Ver estatísticas', 'menuEstatisticas')
     .addToUi();
 }
 function menuEnviarNotificacao() {
