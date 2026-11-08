@@ -45,6 +45,7 @@ function configurar() {
 /* ---------- pedidos de leitura ---------- */
 function doGet(e) {
   const acao = (e && e.parameter && e.parameter.acao) || 'dados';
+  if (typeof pushGet === 'function') { const pr = pushGet(acao); if (pr) return json(pr); }
   if (acao === 'dados') {
     return json({ ok: true, avisos: lerAvisos(), eventos: lerEventos(), anuncios: lerAnuncios(), conteudo: lerConteudo() });
   }
@@ -55,6 +56,7 @@ function doGet(e) {
 function doPost(e) {
   let body = {};
   try { body = JSON.parse(e.postData.contents || '{}'); } catch (err) { return json({ ok:false, erro:'Pedido inválido.' }); }
+  if (typeof pushPost === 'function') { const pr = pushPost(body); if (pr) return json(pr); }
   if (body.acao === 'anuncio')   return json(novoAnuncio(body));
   if (body.acao === 'retirar')   return json(retirarAnuncio(body));
   if (body.acao === 'perguntar') return json(perguntar(body));

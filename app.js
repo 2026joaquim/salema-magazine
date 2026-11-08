@@ -681,6 +681,47 @@ function route(){
 addEventListener("hashchange",()=>{ route(); scrollTo(0,0); setTimeout(vistoAgora,2500); });
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") loadDados(); });
 
+/* ---------- notificações no telemóvel ---------- */
+(async function(){
+  const card=$("#push-card"); if(!card||!API) return;
+  const temPush=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
+  const ua=navigator.userAgent||""; const ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+  let chave=null; try{ const r=await apiGet({acao:"vapid"}); chave=r&&r.chave; }catch(e){}
+  if(!chave) return;
+  const btn=$("#push-btn"), msg=$("#push-msg"), tit=$("#push-titulo");
+  const estado=(t,m,b)=>{ tit.textContent=t; msg.textContent=m; if(b){ btn.hidden=false; btn.textContent=b; } else btn.hidden=true; };
+  card.hidden=false;
+  if(!temPush){
+    if(ios&&!standalone){ estado("Receber as novidades no iPhone","Primeiro guarde o Magazine no ecrã principal: toque em Partilhar e depois em «Adicionar ao ecrã principal». Abra-o a partir do ícone e ative aqui.",null); }
+    else { card.hidden=true; }
+    return;
+  }
+  const b64=s=>{ s=s.replace(/-/g,"+").replace(/_/g,"/"); while(s.length%4) s+="="; return Uint8Array.from(atob(s),c=>c.charCodeAt(0)); };
+  const reg=await navigator.serviceWorker.ready;
+  let sub=await reg.pushManager.getSubscription();
+  const ligado=()=>estado("Recebe as novidades no telemóvel ✓","Vai receber um alerta quando houver avisos ou eventos novos.","Desligar");
+  const desligado=()=>estado("Receber as novidades no telemóvel","Avisos do parque, eventos e a nova ementa, assim que saem.","Ativar");
+  if(Notification.permission==="denied"){ estado("Notificações bloqueadas","Para as receber, autorize as notificações do Magazine nas definições do telemóvel.",null); return; }
+  if(sub&&Notification.permission==="granted"){ ligado(); try{ await apiPost({acao:"subscrever",endpoint:sub.endpoint}); }catch(e){} } else desligado();
+  btn.onclick=async()=>{
+    btn.disabled=true;
+    try{
+      if(sub&&Notification.permission==="granted"){
+        try{ await apiPost({acao:"cancelar",endpoint:sub.endpoint}); }catch(e){}
+        await sub.unsubscribe(); sub=null; desligado();
+      }else{
+        const p=await Notification.requestPermission();
+        if(p!=="granted"){ estado("Notificações não autorizadas","Pode ativá-las mais tarde nas definições do telemóvel.",null); return; }
+        sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(chave)});
+        await apiPost({acao:"subscrever",endpoint:sub.endpoint});
+        ligado();
+      }
+    }catch(e){ estado("Não foi possível ativar agora","Tente de novo daqui a pouco.","Tentar de novo"); }
+    finally{ btn.disabled=false; }
+  };
+})();
+
 renderSections(); renderTopics(); renderAds(); route(); loadDados();
 setInterval(loadDados, 5*60*1000);
 })();
