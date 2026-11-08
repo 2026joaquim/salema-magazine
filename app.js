@@ -692,8 +692,8 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
   const btn=$("#push-btn"), msg=$("#push-msg"), tit=$("#push-titulo");
   const estado=(t,m,b)=>{ tit.textContent=t; msg.textContent=m; if(b){ btn.hidden=false; btn.textContent=b; } else btn.hidden=true; };
   card.hidden=false;
-  if(!temPush){
-    if(ios&&!standalone){ estado("Receber as novidades no iPhone","Primeiro guarde o Magazine no ecrã principal: toque em Partilhar e depois em «Adicionar ao ecrã principal». Abra-o a partir do ícone e ative aqui.",null); }
+  if(!temPush||(ios&&!standalone)){
+    if(ios&&!standalone){ estado("Receber as novidades no iPhone","No iPhone, as notificações só funcionam com o Magazine instalado: no Safari toque em Partilhar › «Adicionar ao ecrã principal» (com «Abrir como app web» ligado). Depois abra o Magazine pelo ícone novo e ative aqui.",null); }
     else { card.hidden=true; }
     return;
   }
