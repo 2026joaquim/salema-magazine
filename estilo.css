@@ -402,3 +402,5 @@ h1,h2,h3{color:var(--title);font-weight:700}
 .bandeira{width:18px;height:18px;vertical-align:-3px;margin-left:5px}
 .mt-legenda .bandeira{margin-left:0}
 .mt-pnome .mt-ativ{justify-content:flex-start;margin-top:4px}
+.mpeg{display:inline-block;font-size:.62rem;font-weight:700;padding:1px 5px;border-radius:5px;margin-left:5px;vertical-align:2px;white-space:nowrap}
+.mpeg.b{background:#DCEFD9;color:#24622F}.mpeg.m{background:#F6E7B8;color:#7A5A00}.mpeg.a{background:#F7D3C7;color:#8A2E12}

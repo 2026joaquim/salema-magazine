@@ -107,6 +107,8 @@ function extraFor(id){
 }
 function menuCarta(){
   const M=window.MENU; if(!M) return el("div",{class:"menu-text",text:window.MENU_NAZARI||""});
+  const PEG={b:["baixa","Pegada de carbono baixa (até 999 g)"],m:["média","Pegada de carbono média (1000 a 1999 g)"],a:["alta","Pegada de carbono alta (mais de 2000 g)"]};
+  const peg=g=>PEG[g]?el("span",{class:"mpeg "+g,title:PEG[g][1],text:"CO₂ "+PEG[g][0]}):null;
   const tag=t=>t==="vg"?el("span",{class:"mtag vg",title:"Vegan",text:"VG"}):t==="v"?el("span",{class:"mtag v",title:"Vegetariano",text:"V"}):null;
   const carta=el("div",{class:"carta"},
     el("div",{class:"carta-top"}, img("logo-ramo.png","",{class:"carta-ramo"}), el("div",{}, el("div",{class:"carta-titulo",text:"Nazari"}), el("div",{class:"carta-sub",text:"Restaurante · Salema Eco Camp"}))),
@@ -116,13 +118,13 @@ function menuCarta(){
     const sec=el("section",{class:"carta-sec",id:"menu-"+sc.id}, el("h3",{class:"carta-h",text:sc.titulo}), sc.sub?el("div",{class:"carta-subsec",text:sc.sub}):null);
     sc.grupos.forEach(g=>{
       if(g.nome) sec.append(el("h4",{class:"carta-g",text:g.nome}));
-      sec.append(el("ul",{class:"carta-lista"}, ...g.itens.map(([n,p,d,t])=>el("li",{},
-        el("div",{class:"carta-linha"}, el("span",{class:"carta-nome"}, n, tag(t)), el("span",{class:"carta-dots"}), p?el("span",{class:"carta-preco",text:p}):null),
+      sec.append(el("ul",{class:"carta-lista"}, ...g.itens.map(([n,p,d,t,pg])=>el("li",{},
+        el("div",{class:"carta-linha"}, el("span",{class:"carta-nome"}, n, tag(t), peg(pg)), el("span",{class:"carta-dots"}), p?el("span",{class:"carta-preco",text:p}):null),
         d?el("p",{class:"carta-desc",text:d}):null))));
     });
     carta.append(sec);
   });
-  carta.append(el("p",{class:"carta-nota"}, el("span",{class:"mtag v",text:"V"})," vegetariano  ", el("span",{class:"mtag vg",text:"VG"})," vegan · "+M.nota));
+  carta.append(el("p",{class:"carta-nota"}, el("span",{class:"mtag v",text:"V"})," vegetariano  ", el("span",{class:"mtag vg",text:"VG"})," vegan  ", el("span",{class:"mpeg b",text:"CO₂ baixa"})," ", el("span",{class:"mpeg m",text:"CO₂ média"})," ", el("span",{class:"mpeg a",text:"CO₂ alta"})," pegada de carbono por prato · "+M.nota));
   return carta;
 }
 function ativExtra(){
@@ -602,7 +604,7 @@ function aplicarConteudo(c){
     const antigos=Object.fromEntries((MENU.seccoes||[]).map(x=>[x.titulo,x]));
     MENU.seccoes=[...grupoPor(c.menu,"seccao")].filter(([t])=>t).map(([t,rows],i)=>({
       id:"s"+i, titulo:t, sub:rows.find(r=>r.subtitulo)?.subtitulo || antigos[t]?.sub || "",
-      grupos:[...grupoPor(rows,"grupo")].map(([g,rs])=>({nome:g||undefined, itens:rs.filter(r=>r.prato).map(r=>[r.prato, precoTxt(r.preco), r.descricao||"", (r.tipo||"").toLowerCase()])}))}));
+      grupos:[...grupoPor(rows,"grupo")].map(([g,rs])=>({nome:g||undefined, itens:rs.filter(r=>r.prato).map(r=>[r.prato, precoTxt(r.preco), r.descricao||"", (r.tipo||"").toLowerCase(), String(r.pegada||"").toLowerCase().charAt(0)])}))}));
   }
   if(c.yoga){
     window.YOGA=c.yoga.filter(r=>r.aula).map(r=>[r.dia,r.hora,r.aula,precoTxt(r.preco)]);
