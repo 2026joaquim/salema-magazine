@@ -99,18 +99,32 @@ const CORRECOES = {
   'Arranjos': { en: 'Repairs', de: 'Reparaturen' },
   'Pôr um anúncio': { en: 'Post a notice', de: 'Aushang erstellen' },
   'Retirar o meu anúncio': { en: 'Remove my notice', de: 'Meinen Aushang entfernen' },
-  'Só anúncios de entreajuda.': { en: 'Only mutual-help notices.', de: 'Nur Aushänge zur gegenseitigen Hilfe.' }
+  'Só anúncios de entreajuda.': { en: 'Only mutual-help notices.', de: 'Nur Aushänge zur gegenseitigen Hilfe.' },
+  'Guardar no telemóvel': { en: 'Save to your phone', de: 'Auf dem Handy speichern' },
+  'Grátis para hóspedes': { en: 'Free for guests', de: 'Kostenlos für Gäste' },
+  'Mapa do parque': { en: 'Park map', de: 'Parkplan' },
+  'Grátis': { en: 'Free', de: 'Kostenlos' }
 };
 function corrigirTraducoes() {
   Object.keys(CORRECOES).forEach(function(pt){ ['en','de'].forEach(function(l){ const o = {}; o[pt] = CORRECOES[pt][l]; guardarTraducoes(l, o); }); });
   const sh = folhaTraducoes(); const n = sh.getLastRow() - 1; if (n < 1) return;
   const linhas = sh.getRange(2, 1, n, 3).getValues();
   const ingles = /\b(the|and|with|your|you|of|for|my|is|are|from|at)\b/i, alemao = /\b(und|der|die|das|mit|Sie|für|ist|von|zum|zur|ein|eine)\b/;
-  const refazer = linhas.filter(function(r){ return r[0] && r[2] && ingles.test(r[2]) && !alemao.test(r[2]) && !CORRECOES[r[0]]; }).map(function(r){ return String(r[0]); });
-  console.log('A refazer em alemão: ' + refazer.length);
-  for (let i = 0; i < refazer.length; i += 30) {
-    const novos = traduzirComClaude(refazer.slice(i, i + 30), 'de');
-    if (novos) guardarTraducoes('de', novos);
-  }
+  const portugues = /[ãõçâêô]|\b(de|do|da|dos|das|para|no|na|nos|os|um|uma|ou|com|e|ao|sem|até)\b/i;
+  const refazerDe = linhas.filter(function(r){ const pt = String(r[0]), en = String(r[1]), de = String(r[2]);
+    if (!pt || CORRECOES[pt]) return false;
+    if (!de) return true;
+    if (ingles.test(de) && !alemao.test(de)) return true;
+    if (de === en && de !== pt && de.length > 3) return true;
+    return de === pt && portugues.test(pt); }).map(function(r){ return String(r[0]); });
+  const refazerEn = linhas.filter(function(r){ const pt = String(r[0]), en = String(r[1]);
+    if (!pt || CORRECOES[pt]) return false; return !en || (en === pt && portugues.test(pt)); }).map(function(r){ return String(r[0]); });
+  console.log('A refazer: alemão ' + refazerDe.length + ', inglês ' + refazerEn.length);
+  [['de', refazerDe], ['en', refazerEn]].forEach(function(par){
+    for (let i = 0; i < par[1].length; i += 25) {
+      const novos = traduzirComClaude(par[1].slice(i, i + 25), par[0]);
+      if (novos) guardarTraducoes(par[0], novos); else console.log('Falhou um lote em ' + par[0]);
+    }
+  });
   CacheService.getScriptCache().removeAll(['trad_en', 'trad_de']);
 }
