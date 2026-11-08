@@ -137,6 +137,11 @@ window.SHUTTLE_HORAS=["10:00","12:00","15:00","17:00"];
 window.AVISOS=[
   {data:"2026-11-08", ate:"2026-11-12", tipo:"info", setor:"Restaurante Nazari", texto:"O nosso Nazari tem uma nova ementa a partir de hoje: comida de conforto (comfort food) para os dias mais frescos. Tamboril com camarão, bochechas de porco, guisado de grão com damascos, novas pizzas e muito mais, com a pegada de carbono de cada prato. Veja em Reservar › Restaurante Nazari."}
 ];
+/* Painel de sustentabilidade: números (aparecem quando houver dados). Ex.: ["120 t","CO₂ compensado em 2025"] */
+window.SUSTENTABILIDADE=[];
+window.RESERVAS_EMAIL="reservas@salemaecocamp.com";
+window.VALES_EMAIL="info@salemaecocamp.com";
+window.TIPOS_ALOJAMENTO=["Glamping (tenda Inländ, yurt, tipi, safari ou dome)","Glamping Eco Lodge","Mobile home (T2 ou T3)","Apartamento ou estúdio","Campismo: tenda","Campismo: autocaravana ou caravana","Ainda não sei"];
 window.CATALOG=[
   {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Nova ementa de comida de conforto desde 8 de novembro. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:00; às terças só há pequeno-almoço.",

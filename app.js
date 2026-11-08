@@ -353,6 +353,69 @@ function openEco(){
 }
 document.querySelectorAll("[data-eco]").forEach(b=>b.addEventListener("click",openEco));
 
+/* ---------- pedido de reserva / prolongar ---------- */
+function openPedidoReserva(){
+  const f=$("#req-form"); f.replaceChildren();
+  const hoje=new Date().toISOString().slice(0,10);
+  f.append(el("div",{class:"sechead",style:"--sc:var(--brand)"}, el("span",{class:"eyebrow",text:"Alojamento"}), el("h2",{text:"Pedir reserva ou prolongar a estadia"})),
+    fld("r-motivo","O que pretende","select",{},["Nova reserva","Prolongar a minha estadia atual"]),
+    el("div",{class:"pair"}, fld("r-nome","Nome","text",{required:"",autocomplete:"name"}), FIELD.telefone()),
+    fld("r-email","E-mail (opcional)","email",{autocomplete:"email"}),
+    el("div",{class:"pair"}, fld("r-de","Chegada","date",{required:"",min:hoje}), fld("r-ate","Partida","date",{required:"",min:hoje})),
+    el("div",{class:"pair"}, fld("r-adultos","Adultos","number",{min:"1",value:"2",inputmode:"numeric"}), fld("r-criancas","Crianças","number",{min:"0",value:"0",inputmode:"numeric"})),
+    fld("r-tipo","Tipo de alojamento","select",{},window.TIPOS_ALOJAMENTO||["Ainda não sei"]),
+    fld("r-notas","Notas (opcional)","textarea",{placeholder:"Ex.: viajamos com um cão; precisamos de eletricidade para a autocaravana"}),
+    el("p",{class:"note",text:"Isto é um pedido, não uma reserva confirmada. A receção responde com a disponibilidade e o preço."}),
+    el("div",{class:"msg",id:"f-msg",hidden:""}),
+    el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"})));
+  f.onsubmit=e=>{
+    e.preventDefault();
+    const miss=missingField(f); if(miss){ showMsg("Falta preencher: "+miss+".",false); return; }
+    const v=id=>$("#"+id).value.trim();
+    if(v("r-ate")<=v("r-de")){ showMsg("A data de partida tem de ser depois da chegada.",false); return; }
+    const d2=s=>s.split("-").reverse().join("/");
+    const texto=["Pedido de alojamento (Salema Eco Camp Magazine)","Pedido: "+v("r-motivo"),"Nome: "+v("r-nome"),"Telemóvel: "+v("f-tel"),v("r-email")?"E-mail: "+v("r-email"):null,
+      "Datas: "+d2(v("r-de"))+" a "+d2(v("r-ate")),"Pessoas: "+v("r-adultos")+" adultos"+(+v("r-criancas")?", "+v("r-criancas")+" crianças":""),"Alojamento: "+v("r-tipo"),v("r-notas")?"Notas: "+v("r-notas"):null].filter(Boolean).join("\n");
+    const d=[];
+    if(C.WHATSAPP_RECECAO) d.push({wa:1,label:"Enviar por WhatsApp à receção",href:waLink(C.WHATSAPP_RECECAO,texto)});
+    d.push({label:"Enviar por e-mail para "+RESERVAS_EMAIL,href:mailLink(RESERVAS_EMAIL,"Pedido de alojamento",texto)});
+    showSend(f,"Pedido de alojamento",texto,d);
+  };
+  openSheet();
+}
+document.querySelectorAll("[data-pedido-reserva]").forEach(b=>b.addEventListener("click",openPedidoReserva));
+document.querySelectorAll("[data-reserva-link]").forEach(b=>b.addEventListener("click",()=>estat("pedido","Reserva online (Cloudbeds)")));
+
+/* ---------- vales-presente ---------- */
+function openVale(){
+  const f=$("#req-form"); f.replaceChildren();
+  f.append(el("div",{class:"sechead",style:"--sc:var(--brand)"}, el("span",{class:"eyebrow",text:"Oferecer"}), el("h2",{text:"Vales-presente"})),
+    fld("v-tipo","O que gostaria de oferecer","select",{},["Estadia no Salema Eco Camp","Massagem ou terapia na Alma Mater","Jantar no Restaurante Nazari","Atividade ou tour","Um valor à escolha","Ainda não sei"]),
+    el("div",{class:"pair"}, fld("v-nome","O seu nome","text",{required:"",autocomplete:"name"}), FIELD.telefone()),
+    fld("v-email","E-mail (opcional)","email",{autocomplete:"email"}),
+    fld("v-notas","Detalhes (opcional)","textarea",{placeholder:"Ex.: para 2 pessoas, valor até 100 €, para o aniversário da minha mãe"}),
+    el("p",{class:"note",text:"Enviamos-lhe as opções, os preços e como receber o vale."}),
+    el("div",{class:"msg",id:"f-msg",hidden:""}),
+    el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"})));
+  f.onsubmit=e=>{
+    e.preventDefault();
+    const miss=missingField(f); if(miss){ showMsg("Falta preencher: "+miss+".",false); return; }
+    const v=id=>$("#"+id).value.trim();
+    const texto=["Pedido de informação: vale-presente (Salema Eco Camp Magazine)","Oferecer: "+v("v-tipo"),"Nome: "+v("v-nome"),"Telemóvel: "+v("f-tel"),v("v-email")?"E-mail: "+v("v-email"):null,v("v-notas")?"Detalhes: "+v("v-notas"):null].filter(Boolean).join("\n");
+    const d=[];
+    if(C.WHATSAPP_RECECAO) d.push({wa:1,label:"Enviar por WhatsApp à receção",href:waLink(C.WHATSAPP_RECECAO,texto)});
+    d.push({label:"Enviar por e-mail para "+VALES_EMAIL,href:mailLink(VALES_EMAIL,"Vale-presente",texto)});
+    showSend(f,"Vale-presente",texto,d);
+  };
+  openSheet();
+}
+document.querySelectorAll("[data-vale]").forEach(b=>b.addEventListener("click",openVale));
+
+/* ---------- painel de sustentabilidade ---------- */
+(function(){ const box=$("#sust-nums"); const n=window.SUSTENTABILIDADE||[]; if(!box||!n.length) return;
+  n.forEach(([num,lab])=>box.append(el("div",{}, el("b",{text:num}), el("span",{text:lab})))); box.hidden=false; })();
+document.querySelectorAll("[data-ir]").forEach(a=>a.addEventListener("click",()=>setTimeout(()=>{ const t=document.getElementById(a.dataset.ir); if(t) t.scrollIntoView({behavior:"smooth",block:"start"}); },60)));
+
 /* ---------- shuttle ---------- */
 (function(){ const b=$("#shuttle-horas"); if(!b) return; const hs=window.SHUTTLE_HORAS||[];
   if(hs.length){ b.append(el("div",{class:"eyebrow",text:"Horários"}), el("div",{class:"chips"}, ...hs.map(h=>el("span",{class:"chip",text:h})))); }
@@ -577,6 +640,8 @@ function contexto(){
   t.push("BANDEIRA AZUL 2026 (praias perto): Salema, Burgau, Zavial, Ingrina, Martinhal, Tonel, Cordoama, Castelejo, Praia da Luz e Arrifana. Boca do Rio, Beliche e Amado não têm Bandeira Azul em 2026.");
   t.push("SHUTTLE GRÁTIS para a Praia da Salema, para hóspedes. Reserva-se na receção por WhatsApp (+351 926 636 033), no Magazine em Parque ou na página inicial."+((window.SHUTTLE_HORAS||[]).length?" Horários (ida e volta): "+SHUTTLE_HORAS.join(", ")+".":" Os horários dá-os a receção."));
   t.push("SALEMA BASE CAMP: caminhar o Trilho dos Pescadores (5 etapas, 77,5 km, Carrapateira a Lagos) dormindo sempre no parque; o parque trata da logística (leva de manhã, vai buscar ao fim do dia). Reservas do Base Camp: reservas@salemaecocamp.com ou +351 282 695 201. Não há pedidos de transfer de etapa pelo Magazine.");
+  t.push("ALOJAMENTO: reservas online em "+document.querySelector("[data-reserva-link]")?.href+" ou pedido de reserva/prolongar estadia no Magazine (Parque › Reservar alojamento), que vai para a receção e para reservas@salemaecocamp.com. Tipos: glamping (tendas Inländ, yurt, tipi, safari, dome), Eco Lodge, mobile homes T2/T3, apartamentos e estúdios, e campismo. Algumas tendas fecham de novembro a março. VALES-PRESENTE: estadias, massagens, jantares no Nazari e atividades; pedido de informação em Parque › Vales-presente. AVALIAÇÕES: Google e Booking, em Parque.");
+  t.push("SUSTENTABILIDADE: parque carbono-neutro (pegada calculada todos os anos e compensada), Green Key desde 2022, a caminho do zero desperdício (separação e compostagem), ETAR própria com água para rega, pegada de carbono por prato no Nazari, departamento SER.");
   t.push("PASSAGEM PEDONAL: aberta das 7:00 às 22:00. Tem um código que muda regularmente; nunca dê o código, diga para o pedir na receção.");
   t.push("\nSECÇÕES E SERVIÇOS (reservas no separador «Reservar» do Magazine):");
   CATALOG.forEach(s=>{

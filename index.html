@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="estilo.css?v=52">
+<link rel="stylesheet" href="estilo.css?v=53">
 </head>
 <body>
 
@@ -32,6 +32,7 @@
   <section class="block">
     <h1>Aqui, cada gesto conta.</h1>
     <p class="lead">Aqui trabalhamos o turismo do futuro, onde menos é mais. O Salema Eco Camp é um espaço carbono-neutro e zero waste, onde a ecologia e a sustentabilidade estão no centro de tudo o que fazemos. Só o conseguimos com a sua ajuda: separe o lixo, faça compostagem, poupe água e energia.</p>
+    <a href="#parque" data-ir="sustentabilidade">Como trabalhamos a sustentabilidade</a>
   </section>
   <div class="card push-card" id="push-card" hidden>
     <div class="push-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
@@ -70,6 +71,15 @@
   <div class="card insta">
     <div><b>Siga-nos no Instagram</b><p class="lead" style="font-size:.9rem">@salemaecocamp: o vale, a praia e a vida no parque.</p></div>
     <a class="btn" style="text-decoration:none" id="insta-link" href="https://www.instagram.com/salemaecocamp" target="_blank" rel="noopener">Seguir</a>
+  </div>
+  <div class="card reserva-card">
+    <span class="eyebrow">Alojamento</span>
+    <h2>Gostou? Volte a Salema.</h2>
+    <p>Reserve a próxima estadia diretamente connosco, ao melhor preço, ou peça para prolongar a estadia atual.</p>
+    <div class="actions" style="justify-content:flex-start;flex-wrap:wrap">
+      <a class="btn" style="text-decoration:none" data-reserva-link href="https://hotels.cloudbeds.com/pt-br/reservation/TEMxNd?currency=eur" target="_blank" rel="noopener">Ver disponibilidade e reservar</a>
+      <button class="btn ghost" type="button" data-pedido-reserva>Pedir reserva ou prolongar</button>
+    </div>
   </div>
   <div class="card insta shuttle-mini">
     <img class="van-mini" src="imagens/shuttle-van.svg" alt="" width="72" height="44">
@@ -165,9 +175,49 @@
     <a href="https://salemaecocamp.com" target="_blank" rel="noopener">Abrir o regulamento no site</a>
   </div>
   <div class="card">
-    <h2>Receção</h2>
-    <p>Prolongar a estadia ou reservar nova visita: o alojamento reserva-se no nosso site.</p>
-    <a href="https://salemaecocamp.com" target="_blank" rel="noopener">Reservar alojamento</a>
+    <h2>Reservar alojamento</h2>
+    <p>Glamping, lodges, mobile homes, apartamentos ou campismo. Reserve diretamente connosco, ao melhor preço, ou peça à receção para prolongar a estadia atual.</p>
+    <div class="actions" style="justify-content:flex-start;flex-wrap:wrap">
+      <a class="btn" style="text-decoration:none" data-reserva-link href="https://hotels.cloudbeds.com/pt-br/reservation/TEMxNd?currency=eur" target="_blank" rel="noopener">Ver disponibilidade e reservar</a>
+      <button class="btn ghost" type="button" data-pedido-reserva>Pedir reserva ou prolongar</button>
+    </div>
+  </div>
+  <div class="card">
+    <span class="eyebrow">Oferecer</span>
+    <h2>Vales-presente</h2>
+    <p>Ofereça uma estadia no Salema Eco Camp, uma massagem na Alma Mater, um jantar no Nazari ou uma atividade. Diga-nos o que gostaria de oferecer e enviamos as opções e os preços.</p>
+    <button class="btn ghost" type="button" data-vale>Pedir informação</button>
+  </div>
+  <div class="card avaliar">
+    <span class="eyebrow">Fim da estadia</span>
+    <h2>Gostou da sua estadia?</h2>
+    <p>A sua opinião ajuda outros viajantes a encontrar-nos e ajuda-nos a melhorar. Obrigado!</p>
+    <div class="actions" style="justify-content:flex-start;flex-wrap:wrap">
+      <a class="btn" style="text-decoration:none" href="https://www.google.com/maps/search/?api=1&amp;query=Salema+Eco+Camp+Budens" target="_blank" rel="noopener">Avaliar no Google</a>
+      <a class="btn ghost" style="text-decoration:none" href="https://www.booking.com/hotel/pt/salema-eco-camp.html#tab-reviews" target="_blank" rel="noopener">Avaliar no Booking</a>
+    </div>
+    <small class="lead" style="font-size:.8rem">No Booking, só quem reservou por lá pode avaliar: use o link do e-mail que o Booking lhe envia depois da estadia.</small>
+  </div>
+  <div class="card sust" id="sustentabilidade">
+    <span class="eyebrow">Sustentabilidade</span>
+    <h2>Um parque carbono-neutro, feito por todos</h2>
+    <p>No Salema Eco Camp a ecologia está no centro de tudo. É assim que trabalhamos:</p>
+    <div class="sust-nums" id="sust-nums" hidden></div>
+    <ul class="sust-lista">
+      <li><b>Carbono neutro.</b> Calculamos a pegada de carbono do parque todos os anos e compensamos o que não conseguimos evitar.</li>
+      <li><b>Green Key desde 2022.</b> O rótulo internacional de turismo sustentável.</li>
+      <li><b>A caminho do zero desperdício.</b> Separação do lixo e compostagem dos restos de comida.</li>
+      <li><b>Água tratada e reutilizada.</b> A estação de tratamento do parque dá água para regar jardins e hortas.</li>
+      <li><b>Pegada de carbono em cada prato</b> do restaurante Nazari, para escolher com consciência.</li>
+      <li><b>Um departamento só para isto:</b> o SER, que cuida da regeneração do vale e organiza tours e workshops.</li>
+    </ul>
+    <div class="eyebrow">Como pode ajudar</div>
+    <div class="sust-gestos">
+      <div><span aria-hidden="true">♻️</span><b>Separe o lixo</b><small>Plástico, papel, vidro e indiferenciado</small></div>
+      <div><span aria-hidden="true">🌱</span><b>Composte</b><small>Restos de comida no compostor</small></div>
+      <div><span aria-hidden="true">💧</span><b>Poupe água</b><small>Duches curtos, torneiras fechadas</small></div>
+      <div><span aria-hidden="true">⚡</span><b>Poupe energia</b><small>Apague luzes e desligue aparelhos</small></div>
+    </div>
   </div>
   <div class="card">
     <h2>Contactos úteis</h2>
@@ -356,9 +406,9 @@
   <form id="req-form" novalidate></form>
 </div>
 
-<script src="config.js?v=52"></script>
-<script src="conteudo.js?v=52"></script>
-<script src="app.js?v=52"></script>
-<script src="meteo.js?v=52"></script>
+<script src="config.js?v=53"></script>
+<script src="conteudo.js?v=53"></script>
+<script src="app.js?v=53"></script>
+<script src="meteo.js?v=53"></script>
 </body>
 </html>
