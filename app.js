@@ -702,7 +702,7 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
   let sub=await reg.pushManager.getSubscription();
   const ligado=()=>estado("Recebe as novidades no telemóvel ✓","Vai receber um alerta quando houver avisos ou eventos novos.","Desligar");
   const desligado=()=>estado("Receber as novidades no telemóvel","Avisos do parque, eventos e a nova ementa, assim que saem.","Ativar");
-  if(Notification.permission==="denied"){ estado("Notificações bloqueadas","Para as receber, autorize as notificações do Magazine nas definições do telemóvel.",null); return; }
+  if(Notification.permission==="denied"){ estado("Notificações bloqueadas",ios?"Para as receber: Definições do iPhone › Notificações › Salema Eco Camp › Permitir notificações. Depois volte aqui e toque em Ativar.":"Para as receber, autorize as notificações do Magazine nas definições do telemóvel e volte a tocar em Ativar.","Ativar"); }
   if(sub&&Notification.permission==="granted"){ ligado(); try{ await apiPost({acao:"subscrever",endpoint:sub.endpoint}); }catch(e){} } else desligado();
   btn.onclick=async()=>{
     btn.disabled=true;
@@ -712,7 +712,8 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
         await sub.unsubscribe(); sub=null; desligado();
       }else{
         const p=await Notification.requestPermission();
-        if(p!=="granted"){ estado("Notificações não autorizadas","Pode ativá-las mais tarde nas definições do telemóvel.",null); return; }
+        if(p==="denied"){ estado("Notificações bloqueadas",ios?"Para as receber: Definições do iPhone › Notificações › Salema Eco Camp › Permitir notificações. Depois volte aqui e toque em Ativar.":"Para as receber, autorize as notificações do Magazine nas definições do telemóvel e volte a tocar em Ativar.","Ativar"); return; }
+        if(p!=="granted"){ estado("Receber as novidades no telemóvel","Toque em Ativar e depois em «Permitir».","Ativar"); return; }
         sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(chave)});
         await apiPost({acao:"subscrever",endpoint:sub.endpoint});
         ligado();
