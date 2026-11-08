@@ -90,3 +90,26 @@ function traduzirComClaude(textos, lang) {
   const out = {}; textos.forEach(function(t, i){ if (typeof arr[i] === 'string' && arr[i].trim()) out[t] = arr[i]; });
   return out;
 }
+
+/* Corre no editor quando for preciso: acerta algumas palavras e volta a
+   traduzir as frases em alemão que ficaram em inglês por engano. */
+const CORRECOES = {
+  'Anúncios': { en: 'Notice board', de: 'Pinnwand' },
+  'Arranjos': { en: 'Repairs', de: 'Reparaturen' },
+  'Pôr um anúncio': { en: 'Post a notice', de: 'Aushang erstellen' },
+  'Retirar o meu anúncio': { en: 'Remove my notice', de: 'Meinen Aushang entfernen' },
+  'Só anúncios de entreajuda.': { en: 'Only mutual-help notices.', de: 'Nur Aushänge zur gegenseitigen Hilfe.' }
+};
+function corrigirTraducoes() {
+  Object.keys(CORRECOES).forEach(function(pt){ ['en','de'].forEach(function(l){ const o = {}; o[pt] = CORRECOES[pt][l]; guardarTraducoes(l, o); }); });
+  const sh = folhaTraducoes(); const n = sh.getLastRow() - 1; if (n < 1) return;
+  const linhas = sh.getRange(2, 1, n, 3).getValues();
+  const ingles = /\b(the|and|with|your|you|of|for|my|is|are|from|at)\b/i, alemao = /\b(und|der|die|das|mit|Sie|für|ist|von|zum|zur|ein|eine)\b/;
+  const refazer = linhas.filter(function(r){ return r[0] && r[2] && ingles.test(r[2]) && !alemao.test(r[2]) && !CORRECOES[r[0]]; }).map(function(r){ return String(r[0]); });
+  console.log('A refazer em alemão: ' + refazer.length);
+  for (let i = 0; i < refazer.length; i += 30) {
+    const novos = traduzirComClaude(refazer.slice(i, i + 30), 'de');
+    if (novos) guardarTraducoes('de', novos);
+  }
+  CacheService.getScriptCache().removeAll(['trad_en', 'trad_de']);
+}
