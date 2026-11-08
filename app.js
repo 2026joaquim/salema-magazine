@@ -49,6 +49,12 @@ function markMissing(i){
   if(i.id==="hero-img") $("#hero").hidden=true;
 }
 document.querySelectorAll("img").forEach(i=>{
+  if(i.id==="hero-img"){ /* o desenho da capa: se falhar, tenta outra vez antes de esconder */
+    i.addEventListener("load",()=>{ $("#hero").hidden=false; i.classList.remove("missing"); });
+    i.addEventListener("error",()=>{ if(!i.dataset.retry){ i.dataset.retry="1"; setTimeout(()=>{ i.src="imagens/capa-desenho-pedro-pereira.jpg?r="+Date.now(); },800); } else markMissing(i); });
+    if(i.complete && i.naturalWidth===0 && i.currentSrc){ i.dataset.retry="1"; i.src="imagens/capa-desenho-pedro-pereira.jpg?r="+Date.now(); }
+    return;
+  }
   if(i.complete && i.naturalWidth===0) markMissing(i);
   else i.addEventListener("error",()=>markMissing(i));
   if(i.id==="logo") i.addEventListener("load",()=>i.closest(".brand-row")?.classList.add("has-logo"));
