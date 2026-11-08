@@ -391,6 +391,10 @@ function openPedidoReserva(){
 }
 document.querySelectorAll("[data-pedido-reserva]").forEach(b=>b.addEventListener("click",openPedidoReserva));
 document.querySelectorAll("[data-reserva-link]").forEach(b=>b.addEventListener("click",()=>estat("pedido","Reserva online (Cloudbeds)")));
+/* motor de reservas na língua do hóspede */
+function linguaReservas(){ const l={en:"en",de:"de"}[window.I18N_LANG]||"pt-br";
+  document.querySelectorAll("[data-reserva-link]").forEach(a=>{ a.href=a.href.replace(/cloudbeds\.com\/[a-z-]+\/reservation/,"cloudbeds.com/"+l+"/reservation"); }); }
+linguaReservas(); document.addEventListener("lingua",linguaReservas);
 
 /* ---------- vales-presente ---------- */
 function openVale(){
