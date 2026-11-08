@@ -133,6 +133,10 @@ window.EVENTOS=[
 /* Horários do shuttle grátis para a Praia da Salema (ex.: ["10:00","12:00"]).
    Vazio: o hóspede escreve a hora que prefere. */
 window.SHUTTLE_HORAS=["10:00","12:00","15:00","17:00"];
+/* Avisos fixos (além dos da folha do Google). "ate": último dia em que aparece. */
+window.AVISOS=[
+  {data:"2026-11-08", ate:"2026-11-22", tipo:"info", setor:"Restaurante Nazari", texto:"Temos uma nova ementa! Novos pratos de peixe, carne e vegetarianos, pizzas e a pegada de carbono de cada prato. Veja em Reservar › Restaurante Nazari."}
+];
 window.CATALOG=[
   {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Nova ementa desde 8 de novembro. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:00; às terças só há pequeno-almoço.",

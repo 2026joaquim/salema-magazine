@@ -600,7 +600,7 @@ function aplicarConteudo(c){
   if(c.pao){
     window.PADARIAS=[...grupoPor(c.pao,"padaria")].filter(([n])=>n).map(([n,rows])=>[n, rows[0].chegada||"", rows.filter(r=>r.produto).map(r=>[r.produto, precoNum(r.preco)]), rows.find(r=>r.folheto)?.folheto||""]);
   }
-  if(c.menu && window.MENU){
+  if(c.menu && window.MENU && c.menu.some(r=>"pegada" in r)){
     const antigos=Object.fromEntries((MENU.seccoes||[]).map(x=>[x.titulo,x]));
     MENU.seccoes=[...grupoPor(c.menu,"seccao")].filter(([t])=>t).map(([t,rows],i)=>({
       id:"s"+i, titulo:t, sub:rows.find(r=>r.subtitulo)?.subtitulo || antigos[t]?.sub || "",
@@ -621,16 +621,18 @@ function aplicarConteudo(c){
 
 /* ---------- carregar dados ---------- */
 let avisosAtuais=[], eventosAtuais=[];
+const avisosFixos=()=>{ const h=new Date().toISOString().slice(0,10); return (window.AVISOS||[]).filter(x=>(!x.ate||x.ate>=h)&&(!x.data||x.data<=h)); };
 async function loadDados(){
   eventosAtuais=[...(window.EVENTOS||[])];
-  if(!API){ renderAvisos([]); renderEventos(eventosAtuais); renderAds(); return; }
+  avisosAtuais=avisosFixos();
+  if(!API){ renderAvisos(avisosAtuais); renderEventos(eventosAtuais); renderAds(); return; }
   try{
     const d=await apiGet({acao:"dados"});
-    avisosAtuais=d.avisos||[]; eventosAtuais=[...(window.EVENTOS||[]),...(d.eventos||[])]; ads=d.anuncios||[]; adsLoaded=true;
+    avisosAtuais=[...avisosFixos(),...(d.avisos||[])]; eventosAtuais=[...(window.EVENTOS||[]),...(d.eventos||[])]; ads=d.anuncios||[]; adsLoaded=true;
     try{ aplicarConteudo(d.conteudo); }catch(e){ console.warn("conteúdo da folha",e); }
     renderAvisos(avisosAtuais); renderEventos(eventosAtuais); renderAds();
   }catch{
-    $("#avisos").replaceChildren(el("div",{class:"empty",text:"Não foi possível carregar os avisos agora."}));
+    if(avisosAtuais.length) renderAvisos(avisosAtuais); else $("#avisos").replaceChildren(el("div",{class:"empty",text:"Não foi possível carregar os avisos agora."}));
     renderEventos(eventosAtuais);
     adsLoaded=true; renderAds();
   }
