@@ -700,17 +700,17 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
   const b64=s=>{ s=s.replace(/-/g,"+").replace(/_/g,"/"); while(s.length%4) s+="="; return Uint8Array.from(atob(s),c=>c.charCodeAt(0)); };
   const reg=await navigator.serviceWorker.ready;
   let sub=await reg.pushManager.getSubscription();
-  const ligado=()=>estado("Recebe as novidades no telemóvel ✓","Vai receber um alerta quando houver avisos ou eventos novos.","Desligar");
-  const desligado=()=>estado("Receber as novidades no telemóvel","Avisos do parque, eventos e a nova ementa, assim que saem.","Ativar");
+  const pp=$("#push-parque");
+  const ligado=()=>{ card.hidden=true; if(pp) pp.hidden=false; };
+  const desligado=()=>{ card.hidden=false; if(pp) pp.hidden=true; estado("Receber as novidades no telemóvel","Avisos do parque, eventos e a nova ementa, assim que saem.","Ativar"); };
+  const off=$("#push-off");
+  if(off) off.onclick=async()=>{ off.disabled=true; try{ if(sub){ try{ await apiPost({acao:"cancelar",endpoint:sub.endpoint}); }catch(e){} await sub.unsubscribe(); sub=null; } desligado(); }finally{ off.disabled=false; } };
   if(Notification.permission==="denied"){ estado("Notificações bloqueadas",ios?"Para as receber: Definições do iPhone › Notificações › Salema Eco Camp › Permitir notificações. Depois volte aqui e toque em Ativar.":"Para as receber, autorize as notificações do Magazine nas definições do telemóvel e volte a tocar em Ativar.","Ativar"); }
   if(sub&&Notification.permission==="granted"){ ligado(); try{ await apiPost({acao:"subscrever",endpoint:sub.endpoint}); }catch(e){} } else desligado();
   btn.onclick=async()=>{
     btn.disabled=true;
     try{
-      if(sub&&Notification.permission==="granted"){
-        try{ await apiPost({acao:"cancelar",endpoint:sub.endpoint}); }catch(e){}
-        await sub.unsubscribe(); sub=null; desligado();
-      }else{
+      {
         const p=await Notification.requestPermission();
         if(p==="denied"){ estado("Notificações bloqueadas",ios?"Para as receber: Definições do iPhone › Notificações › Salema Eco Camp › Permitir notificações. Depois volte aqui e toque em Ativar.":"Para as receber, autorize as notificações do Magazine nas definições do telemóvel e volte a tocar em Ativar.","Ativar"); return; }
         if(p!=="granted"){ estado("Receber as novidades no telemóvel","Toque em Ativar e depois em «Permitir».","Ativar"); return; }
