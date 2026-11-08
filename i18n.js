@@ -112,12 +112,14 @@
     if(!API) return; const l=lang;
     try{ const r=await fetch(API+"?acao=dicionario&lang="+l); const j=await r.json();
       if(l===lang&&j&&j.ok&&j.dic&&Object.keys(j.dic).length){ Object.assign(dic,j.dic); guardarMemoria(); aplicar(document.body); } }catch(e){}
+    document.documentElement.classList.remove("i18n-espera");
   }
 
   async function iniciar(){
     document.documentElement.lang=lang;
     seletor();
     if(lang!=="pt"){ carregarMemoria(); await carregarDicionario(); aplicar(document.body); }
+    else document.documentElement.classList.remove("i18n-espera");
     obs.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",iniciar); else iniciar();
