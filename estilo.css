@@ -48,7 +48,13 @@ section.block{display:flex;flex-direction:column;gap:12px}
 .tag.alerta{background:var(--danger);color:#fff}
 .tag.loja{background:color-mix(in srgb,var(--c-store) 20%,transparent);color:var(--c-store)}
 .aviso p{min-width:0}
-.aviso:has(.tag.alerta){border-color:var(--danger);border-width:2px}
+.aviso.alerta{background:var(--danger);border-color:var(--danger);color:#fff;grid-template-columns:1fr auto}
+.aviso.alerta .tag{background:#fff;color:var(--danger);grid-column:1/-1;justify-self:start;font-size:.78rem}
+.aviso.alerta .tag::before{content:"⚠️ "}
+.aviso.alerta p{font-size:1rem;line-height:1.45}
+.aviso.alerta b{display:block;font-size:1.1rem;margin-bottom:4px}
+.aviso.alerta time{color:rgba(255,255,255,.85)}
+.aviso.alerta .novo{display:none}
 .aviso time{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .empty{border:1px dashed var(--line);border-radius:var(--r);padding:16px;color:var(--muted);font-size:.95rem}
 

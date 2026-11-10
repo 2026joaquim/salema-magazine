@@ -495,10 +495,11 @@ const AVISO_LABEL={alerta:"Alerta",info:"Info",corte:"Corte",loja:"Eco Store"};
 function renderAvisos(list){
   const box=$("#avisos"); box.replaceChildren();
   if(!list.length){ box.append(el("div",{class:"empty",text:"Sem avisos de momento."})); return; }
+  list=[...list].sort((a,b)=>((b.tipo||"").toLowerCase()==="alerta")-((a.tipo||"").toLowerCase()==="alerta"));
   list.forEach(a=>{
     const t=(a.tipo||"info").toLowerCase();
-    box.append(el("div",{class:"aviso"}, el("span",{class:"tag "+(AVISO_LABEL[t]?t:"info"),text:AVISO_LABEL[t]||"Info"}),
-      el("p",{}, isNovo("a",chaveAviso(a))?el("span",{class:"novo",style:"margin-right:6px;vertical-align:1px",text:"Novo"}):null, a.setor?el("b",{text:a.setor+": "}):null, a.texto||""), el("time",{text:fmtDate(a.data)})));
+    box.append(el("div",{class:"aviso"+(t==="alerta"?" alerta":"")}, el("span",{class:"tag "+(AVISO_LABEL[t]?t:"info"),text:AVISO_LABEL[t]||"Info"}),
+      el("p",{}, isNovo("a",chaveAviso(a))?el("span",{class:"novo",style:"margin-right:6px;vertical-align:1px",text:"Novo"}):null, a.setor?el("b",{text:a.setor+(t==="alerta"?"":": ")}):null, a.texto||""), el("time",{text:fmtDate(a.data)})));
   });
 }
 function contactoHref(c){
