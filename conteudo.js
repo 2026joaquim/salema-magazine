@@ -133,11 +133,14 @@ window.EVENTOS=[
 /* Horários do shuttle grátis para a Praia da Salema (ex.: ["10:00","12:00"]).
    Vazio: o hóspede escreve a hora que prefere. */
 window.SHUTTLE_HORAS=["10:00","12:00","15:00","17:00"];
-/* Avisos fixos (além dos da folha do Google). "ate": último dia em que aparece. */
+/* Avisos fixos (além dos da folha do Google). "ate": último dia em que aparece.
+   "fim" (opcional): data e hora exatas em que deixa de aparecer, em hora de Portugal
+   (no inverno escreve-se com Z no fim, ex.: "2026-11-11T19:00:00Z"; no verão, +01:00). */
 window.AVISOS=[
+  {data:"2026-11-10", ate:"2026-11-11", fim:"2026-11-11T19:00:00Z", tipo:"alerta", setor:"Alerta de mau tempo", texto:"O IPMA prevê chuva e vento muito fortes para quarta-feira, 11 de novembro. Recolha ou prenda bem, o quanto antes, tudo o que possa ser levado pelo vento. Evite ficar debaixo de árvores e ir à praia ou às falésias. Mantenha fechadas as portas e janelas dos alojamentos e caravanas e proteja bem da chuva os equipamentos elétricos e as extensões. Se tiver alguma preocupação, fale connosco. Receção: +351 282 695 201 | +351 926 636 033"},
   {data:"2026-11-10", ate:"2026-11-12", tipo:"info", setor:"Algum fumo no ar", texto:"Nestes dias pode sentir algum fumo no parque. São queimadas controladas feitas pelos nossos vizinhos agricultores. Com as primeiras chuvas, é a altura das limpezas nos terrenos à volta. Não é uma situação habitual, está sob controlo e não representa qualquer perigo. Coisas da vida do campo! 🌾 Se tiver alguma dúvida, fale connosco na receção."},
   {data:"2026-11-08", ate:"2026-11-12", tipo:"info", setor:"Restaurante Nazari", texto:"O nosso Nazari tem uma nova ementa a partir de hoje: comida de conforto (comfort food) para os dias mais frescos. Tamboril com camarão, bochechas de porco, guisado de grão com damascos, novas pizzas e muito mais, com a pegada de carbono de cada prato. Veja em Reservar › Restaurante Nazari."}
-];
+].filter(x=>!x.fim||new Date()<new Date(x.fim));
 /* Painel de sustentabilidade: números (aparecem quando houver dados). Ex.: ["120 t","CO₂ compensado em 2025"] */
 window.SUSTENTABILIDADE=[];
 window.RESERVAS_EMAIL="reservas@salemaecocamp.com";

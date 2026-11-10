@@ -491,7 +491,7 @@ function vistoAgora(){
 }
 
 /* ---------- avisos e eventos ---------- */
-const AVISO_LABEL={info:"Info",corte:"Corte",loja:"Eco Store"};
+const AVISO_LABEL={alerta:"Alerta",info:"Info",corte:"Corte",loja:"Eco Store"};
 function renderAvisos(list){
   const box=$("#avisos"); box.replaceChildren();
   if(!list.length){ box.append(el("div",{class:"empty",text:"Sem avisos de momento."})); return; }
