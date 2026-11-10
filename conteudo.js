@@ -135,6 +135,7 @@ window.EVENTOS=[
 window.SHUTTLE_HORAS=["10:00","12:00","15:00","17:00"];
 /* Avisos fixos (além dos da folha do Google). "ate": último dia em que aparece. */
 window.AVISOS=[
+  {data:"2026-11-10", ate:"2026-11-12", tipo:"info", setor:"Algum fumo no ar", texto:"Nestes dias pode sentir algum fumo no parque. São queimadas controladas feitas pelos nossos vizinhos agricultores. Com as primeiras chuvas, é a altura das limpezas nos terrenos à volta. Não é uma situação habitual, está sob controlo e não representa qualquer perigo. Coisas da vida do campo! 🌾 Se tiver alguma dúvida, fale connosco na receção."},
   {data:"2026-11-08", ate:"2026-11-12", tipo:"info", setor:"Restaurante Nazari", texto:"O nosso Nazari tem uma nova ementa a partir de hoje: comida de conforto (comfort food) para os dias mais frescos. Tamboril com camarão, bochechas de porco, guisado de grão com damascos, novas pizzas e muito mais, com a pegada de carbono de cada prato. Veja em Reservar › Restaurante Nazari."}
 ];
 /* Painel de sustentabilidade: números (aparecem quando houver dados). Ex.: ["120 t","CO₂ compensado em 2025"] */
