@@ -491,15 +491,16 @@ function vistoAgora(){
 }
 
 /* ---------- avisos e eventos ---------- */
-const AVISO_LABEL={alerta:"Alerta",info:"Info",corte:"Corte",loja:"Eco Store"};
+const AVISO_LABEL={alerta:"Alerta",laranja:"Aviso",info:"Info",corte:"Corte",loja:"Eco Store"};
 function renderAvisos(list){
   const box=$("#avisos"); box.replaceChildren();
   if(!list.length){ box.append(el("div",{class:"empty",text:"Sem avisos de momento."})); return; }
-  list=[...list].sort((a,b)=>((b.tipo||"").toLowerCase()==="alerta")-((a.tipo||"").toLowerCase()==="alerta"));
+  const peso=x=>({alerta:2,laranja:1})[(x.tipo||"").toLowerCase()]||0;
+  list=[...list].sort((a,b)=>peso(b)-peso(a));
   list.forEach(a=>{
     const t=(a.tipo||"info").toLowerCase();
-    box.append(el("div",{class:"aviso"+(t==="alerta"?" alerta":"")}, el("span",{class:"tag "+(AVISO_LABEL[t]?t:"info"),text:AVISO_LABEL[t]||"Info"}),
-      el("p",{}, isNovo("a",chaveAviso(a))?el("span",{class:"novo",style:"margin-right:6px;vertical-align:1px",text:"Novo"}):null, a.setor?el("b",{text:a.setor+(t==="alerta"?"":": ")}):null, a.texto||""), el("time",{text:fmtDate(a.data)})));
+    box.append(el("div",{class:"aviso"+(t==="alerta"?" alerta":"")+(t==="laranja"?" laranja":"")}, el("span",{class:"tag "+(AVISO_LABEL[t]?t:"info"),text:AVISO_LABEL[t]||"Info"}),
+      el("p",{}, isNovo("a",chaveAviso(a))?el("span",{class:"novo",style:"margin-right:6px;vertical-align:1px",text:"Novo"}):null, a.setor?el("b",{text:a.setor+(t==="alerta"||t==="laranja"?"":": ")}):null, a.texto||"", a.site?el("a",{class:"aviso-link",href:a.site,target:"_blank",rel:"noopener",text:a.siteTexto||"Saber mais"}):null), el("time",{text:fmtDate(a.data)})));
   });
 }
 function contactoHref(c){

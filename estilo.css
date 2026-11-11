@@ -55,6 +55,12 @@ section.block{display:flex;flex-direction:column;gap:12px}
 .aviso.alerta b{display:block;font-size:1.1rem;margin-bottom:4px}
 .aviso.alerta time{color:rgba(255,255,255,.85)}
 .aviso.alerta .novo{display:none}
+.aviso.laranja{background:color-mix(in srgb,var(--warn) 14%,var(--surface));border:2px solid var(--warn);grid-template-columns:1fr auto}
+.aviso.laranja .tag{background:var(--warn);color:#fff;grid-column:1/-1;justify-self:start;font-size:.78rem}
+.aviso.laranja b{display:block;font-size:1.1rem;margin-bottom:4px}
+.aviso.laranja p{line-height:1.5}
+.aviso-link{display:inline-block;margin-top:8px;font-weight:700;color:var(--accent)}
+.aviso.alerta .aviso-link{color:#fff}
 .aviso time{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .empty{border:1px dashed var(--line);border-radius:var(--r);padding:16px;color:var(--muted);font-size:.95rem}
 
