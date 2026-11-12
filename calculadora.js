@@ -67,7 +67,7 @@
     return {e, acsi: o.acsi && acsiValido(d), linhas: L};
   }
 
-  function calcularCom(o, modo){ // modo: "normal" (estada longa + família) ou "ciclista"
+  function calcularCom(o, modo){ // modo: "estada", "familia" ou "ciclista" — os descontos nunca se juntam
     const noites = noitesDe(o.chegada, o.n);
     const soma = new Map(); let bruto = 0, descEstada = 0, descFamilia = 0, descCiclista = 0; const epocas = new Set(); let noitesAcsi = 0;
     noites.forEach(d => {
@@ -79,12 +79,11 @@
       });
       if (r.acsi) return;
       if (modo === "ciclista") { descCiclista += baseGeral * P.ciclistaPct / 100; return; }
-      let restante = baseGeral;
+      if (modo === "familia") { descFamilia += baseGeral * P.familiaPct / 100; return; }
       if (o.n > 3) {
         const p = P.estadaLonga.find(x => dentro(md(d), x.de, x.ate));
-        if (p) { const base = p.semEletricidade ? baseEstada : baseGeral; const dsc = base * p.pct / 100; descEstada += dsc; restante -= dsc; }
+        if (p) { const base = p.semEletricidade ? baseEstada : baseGeral; descEstada += base * p.pct / 100; }
       }
-      if (o.familia) descFamilia += restante * P.familiaPct / 100;
     });
     const total = bruto - descEstada - descFamilia - descCiclista;
     return {soma, bruto, descEstada, descFamilia, descCiclista, total, epocas, noitesAcsi};
@@ -103,9 +102,12 @@
     $("#c-ciclista").disabled = !tendas; if (!tendas) $("#c-ciclista").checked = false;
     const o = {chegada, n, aloj, luz: $("#c-luz").checked, acsi: $("#c-acsi").checked, ...est,
                familia: !$("#c-acsi").checked && (est.criancas + est.pequenos) >= 3};
-    const normal = calcularCom(o, "normal");
-    let r = normal, usouCiclista = false;
-    if ($("#c-ciclista").checked && !o.acsi) { const c = calcularCom(o, "ciclista"); if (c.total < normal.total) { r = c; usouCiclista = true; } }
+    /* os descontos não se juntam: conta-se o que fica mais barato ao cliente */
+    const opcoes = [calcularCom(o, "estada")];
+    if (o.familia) opcoes.push(calcularCom(o, "familia"));
+    if ($("#c-ciclista").checked && !o.acsi) opcoes.push(calcularCom(o, "ciclista"));
+    const r = opcoes.reduce((a, b) => b.total < a.total ? b : a);
+    const variosDescontos = opcoes.filter(x => x.total < x.bruto).length > 1;
 
     $("#r-total").textContent = eur(r.total);
     $("#r-noite").textContent = n + (n === 1 ? " noite" : " noites") + " · em média " + eur(r.total / n) + " por noite · " + [...r.epocas].sort().map(e => NOME_EPOCA[e]).join(" e ");
@@ -119,10 +121,9 @@
     linha("Total", eur(r.total), "sub");
 
     const nd = $("#r-nota-desc"); const notas = [];
-    if (usouCiclista) notas.push("O desconto de ciclista não junta com outros: escolhemos o que lhe fica mais barato.");
-    else if ($("#c-ciclista").checked && !o.acsi) notas.push("O desconto de ciclista não junta com outros. Aqui os outros descontos ficam-lhe mais baratos, por isso foram esses que contámos.");
+    if (variosDescontos) notas.push("Os descontos não se juntam: contámos só o que lhe fica mais barato.");
     if (o.acsi && r.noitesAcsi < n) notas.push("O cartão ACSI só vale de 1 de janeiro a 15 de junho e de 15 de setembro a 31 de dezembro. As outras noites foram contadas ao preço normal.");
-    if (o.acsi) notas.push("Com o cartão ACSI, o preço de 21 € por noite inclui o lugar, 2 adultos, 1 carro e a eletricidade.");
+    if (o.acsi) notas.push("Com o cartão ACSI, os 21 € por noite incluem 2 adultos, a eletricidade e a autocaravana, ou a caravana com o carro.");
     nd.textContent = notas.join(" "); nd.hidden = !notas.length;
     $("#r-atual").textContent = P.atualizado;
 
