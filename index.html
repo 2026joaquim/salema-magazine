@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="estilo.css?v=67">
+<link rel="stylesheet" href="estilo.css?v=70">
 <script>/* línguas: na 1.ª visita em inglês/alemão, esconde o texto português até chegar a tradução (máx. 4 s) */
 (function(){try{var l=localStorage.getItem("lang");if(!l){var n=(navigator.languages||[navigator.language||""]).map(function(x){return String(x).slice(0,2).toLowerCase()});l="en";for(var i=0;i<n.length;i++){if(n[i]==="pt"||n[i]==="de"||n[i]==="en"){l=n[i];break;}}}
 if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.className+=" i18n-espera";setTimeout(function(){document.documentElement.classList.remove("i18n-espera")},4000);}}catch(e){}})();</script>
@@ -107,7 +107,6 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
     <div class="actions" style="justify-content:flex-start;flex-wrap:wrap">
       <a class="btn" style="text-decoration:none" data-reserva-link href="https://hotels.cloudbeds.com/pt-br/reservation/TEMxNd?currency=eur" target="_blank" rel="noopener">Ver disponibilidade e reservar</a>
       <button class="btn ghost" type="button" data-pedido-reserva>Pedir reserva ou prolongar</button>
-        <a class="btn ghost" style="text-decoration:none" href="calculadora.html">Calcular preço de campismo</a>
     </div>
   </div>
   <div class="card insta shuttle-mini">
@@ -135,7 +134,6 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
       <div class="actions" style="justify-content:flex-start;flex-wrap:wrap">
         <a class="btn" style="text-decoration:none" data-reserva-link href="https://hotels.cloudbeds.com/pt-br/reservation/TEMxNd?currency=eur" target="_blank" rel="noopener">Ver disponibilidade e reservar</a>
         <button class="btn ghost" type="button" data-pedido-reserva>Pedir reserva ou prolongar</button>
-        <a class="btn ghost" style="text-decoration:none" href="calculadora.html">Calcular preço de campismo</a>
       </div>
     </div>
     <section class="block">
@@ -159,6 +157,22 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
     </div>
   </section>
   <div class="posts" id="ads"><div class="empty">A carregar anúncios…</div></div>
+</div>
+
+<!-- CALCULAR -->
+<div class="view" id="v-calcular" hidden>
+  <section class="block">
+    <h1>Calcular</h1>
+    <p class="lead">Contas rápidas para planear a sua estadia no Salema Eco Camp.</p>
+  </section>
+  <section id="calc-estadia" style="margin-top:8px">
+    <iframe id="calc-frame" title="Calculadora de campismo" loading="lazy" style="width:100%;border:0;min-height:1400px;display:block"></iframe>
+  </section>
+  <section class="card calc-card" id="calc-pegada">
+    <span class="eyebrow">Em breve</span>
+    <h2>A sua pegada de carbono</h2>
+    <p>Calcule o CO₂ da sua viagem e da sua estadia, e veja como o compensar connosco.</p>
+  </section>
 </div>
 
 <!-- PARQUE -->
@@ -221,7 +235,6 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
     <div class="actions" style="justify-content:flex-start;flex-wrap:wrap">
       <a class="btn" style="text-decoration:none" data-reserva-link href="https://hotels.cloudbeds.com/pt-br/reservation/TEMxNd?currency=eur" target="_blank" rel="noopener">Ver disponibilidade e reservar</a>
       <button class="btn ghost" type="button" data-pedido-reserva>Pedir reserva ou prolongar</button>
-        <a class="btn ghost" style="text-decoration:none" href="calculadora.html">Calcular preço de campismo</a>
     </div>
   </div>
   <div class="card">
@@ -434,6 +447,7 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
   <a href="#inicio" data-tab="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Início</a>
   <a href="#reservar" data-tab="reservar"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Reservar</a>
   <a href="#anuncios" data-tab="anuncios"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Anúncios</a>
+  <a href="#calcular" data-tab="calcular"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h3.5"/></svg>Calcular</a>
   <a href="#parque" data-tab="parque"><svg viewBox="0 0 24 24"><path d="M12 3l7 10H5z"/><path d="M12 13v8M8 21h8"/></svg>Parque</a>
 </div></nav>
 
@@ -448,10 +462,10 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
   <form id="req-form" novalidate></form>
 </div>
 
-<script src="config.js?v=67"></script>
-<script src="conteudo.js?v=67"></script>
-<script src="app.js?v=67"></script>
-<script src="meteo.js?v=67"></script>
-<script src="i18n.js?v=67"></script>
+<script src="config.js?v=70"></script>
+<script src="conteudo.js?v=70"></script>
+<script src="app.js?v=70"></script>
+<script src="meteo.js?v=70"></script>
+<script src="i18n.js?v=70"></script>
 </body>
 </html>
