@@ -151,7 +151,7 @@ window.CATALOG=[
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Nova ementa de comida de conforto desde 8 de novembro. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:00; às terças só há pequeno-almoço.",
    itens:[
     {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, até às 21:00", campos:["telefone","data","hora","pessoas","notas"]},
-    {id:"encomenda", nome:"Encomendar refeição", desc:"Para levar ou entregar no alojamento ou na sua zona · caixa 0,5 €", campos:["telefone","data","hora","pedido","entrega"]},
+    {id:"encomenda", nome:"Encomendar refeição para levar", desc:"Levante no restaurante · caixa 0,5 €. Para já não fazemos entregas no alojamento: em breve teremos entregas!", campos:["telefone","data","hora","pedido"]},
     {id:"pequeno-almoco", nome:"Pequeno-almoço", fotos:["evento-pequeno-almoco.jpg"], desc:"Buffet 13 € por pessoa · todos os dias, 8:00–10:30 · 27 % de desconto se reservar até à véspera", campos:["telefone","data","hora","pessoas","notas"]},
     {id:"eventos", nome:"Festas e eventos", desc:"Aniversários, almoços e jantares de Natal, jantares temáticos e workshops", campos:["telefone","tipo","data","pessoas","notas"], tipoLabel:"Que tipo de evento?", tipoOpts:["Aniversário","Almoço de Natal","Jantar de Natal","Almoço ou jantar temático","Workshop","Outro evento"]},
     {id:"perdidos", nome:"Perdidos e achados", desc:"Esqueceu-se de alguma coisa? Vai para a receção", campos:["objeto","data"], destino:"rececao"}
