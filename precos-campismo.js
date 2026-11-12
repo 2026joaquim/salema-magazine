@@ -31,9 +31,10 @@ window.PRECOS_CAMPISMO = {
   // descontos
   estadaLonga: [
     // estadas com mais de 3 noites: desconto nas noites deste período
-    {de:"11-01", ate:"04-15", pct:22, semEletricidade:false},
+    {de:"11-01", ate:"04-15", pct:22, semEletricidade:true},
     {de:"04-16", ate:"05-31", pct:10, semEletricidade:true}
   ],
+  // os descontos nunca incidem na eletricidade
   familiaPct: 10,           // famílias com 3 crianças até aos 14 anos (não com cartão ACSI)
   ciclistaPct: 10           // ciclistas com tenda (não acumulável)
 };

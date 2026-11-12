@@ -57,7 +57,7 @@
       if (o.adultos) L.push(["Adultos", o.adultos * P.adulto[e], true, false]);
       if (o.criancas) L.push(["Crianças dos 7 aos 14 anos", o.criancas * P.crianca7a14[e], true, false]);
       if (o.carros) L.push(["Carros", o.carros * P.carro[e], true, false]);
-      if (o.luz) L.push(["Eletricidade", P.eletricidade[e], true, true]);
+      if (o.luz) L.push(["Eletricidade", P.eletricidade[e], false, true]); // os descontos nunca incidem na eletricidade
     }
     if (o.motas) L.push(["Motas", o.motas * P.mota[e], true, false]);
     if (o.atrelados) L.push(["Atrelados", o.atrelados * P.atrelado[e], true, false]);
