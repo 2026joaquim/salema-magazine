@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#274F37">
+<title>Calculadora de campismo · Salema Eco Camp</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css?v=67">
+<style>
+  body.embed{padding-bottom:0;background:transparent}
+  body.embed header.top, body.embed .so-magazine{display:none}
+  body.embed::before{display:none}
+  .calc{display:flex;flex-direction:column;gap:14px;padding-block:18px 28px}
+  .calc h1{color:var(--title)}
+  .calc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .calc-grid .full{grid-column:1/-1}
+  @media (max-width:420px){ .calc-grid{grid-template-columns:minmax(0,1fr)} }
+  .stepper{display:flex;align-items:center;gap:8px}
+  .stepper button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--accent);background:var(--surface);color:var(--accent);font-size:1.3rem;font-weight:700;line-height:1;cursor:pointer;flex:none}
+  .stepper output{min-width:2ch;text-align:center;font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .stepper .lbl{flex:1;min-width:0;font-weight:600;font-size:.95rem;line-height:1.2}
+  .stepper .lbl small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+  .checks{display:flex;flex-direction:column;gap:10px}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;cursor:pointer}
+  .check input{width:22px;height:22px;accent-color:var(--accent);flex:none;margin-top:1px}
+  .check small{display:block;color:var(--muted);font-size:.78rem}
+  .total-card{background:var(--brand);color:var(--brand-ink);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:6px}
+  .total-card .eyebrow{color:#CEE7D1}
+  .total-card .valor{font-family:var(--display);font-size:2.6rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+  .total-card .por-noite{font-size:.95rem;opacity:.9}
+  .linhas{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+  .linhas td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .linhas td:last-child{text-align:right;white-space:nowrap;padding-left:10px}
+  .linhas tr.desc td{color:var(--ok)}
+  .linhas tr.sub td{font-weight:700}
+  .linhas td small{display:block;color:var(--muted);font-size:.78rem}
+  .nota{font-size:.8rem;color:var(--muted);line-height:1.4}
+  .acoes{display:flex;gap:8px;flex-wrap:wrap}
+  .acoes .btn{text-decoration:none}
+  .aviso-calc{background:var(--surface-2);border-radius:var(--r);padding:10px 12px;font-size:.88rem}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand-row"><img id="logo" src="imagens/logo.png" alt="Salema Eco Camp"><div class="brand" translate="no"><b>Salema Eco Camp</b><span>Magazine</span></div></div>
+  <div class="who">Praia da Salema · Algarve</div>
+</div></header>
+
+<main><div class="wrap calc">
+  <a class="so-magazine" href="./#reservar">← Voltar ao Magazine</a>
+  <div>
+    <span class="eyebrow">Campismo</span>
+    <h1>Quanto custa a sua estadia?</h1>
+    <p class="lead">Escolha as datas, quem vem e o que traz. O valor é calculado com o preçário de campismo do Salema Eco Camp.</p>
+  </div>
+
+  <section class="card" aria-labelledby="t-datas">
+    <h2 id="t-datas" class="eyebrow">Datas</h2>
+    <div class="calc-grid">
+      <div class="field"><label for="c-chegada">Chegada</label><input type="date" id="c-chegada"></div>
+      <div class="field"><label for="c-noites">Noites</label><input type="number" id="c-noites" min="1" max="120" value="3" inputmode="numeric"></div>
+    </div>
+    <p class="nota" id="c-saida"></p>
+  </section>
+
+  <section class="card" aria-labelledby="t-pessoas">
+    <h2 id="t-pessoas" class="eyebrow">Pessoas</h2>
+    <div class="stepper" data-campo="adultos" data-min="0"><span class="lbl">Adultos<small>a partir dos 15 anos</small></span><button type="button" aria-label="Menos adultos">−</button><output>2</output><button type="button" aria-label="Mais adultos">+</button></div>
+    <div class="stepper" data-campo="criancas" data-min="0"><span class="lbl">Crianças dos 7 aos 14 anos</span><button type="button" aria-label="Menos crianças dos 7 aos 14 anos">−</button><output>0</output><button type="button" aria-label="Mais crianças dos 7 aos 14 anos">+</button></div>
+    <div class="stepper" data-campo="pequenos" data-min="0"><span class="lbl">Crianças com menos de 7 anos<small>grátis</small></span><button type="button" aria-label="Menos crianças com menos de 7 anos">−</button><output>0</output><button type="button" aria-label="Mais crianças com menos de 7 anos">+</button></div>
+  </section>
+
+  <section class="card" aria-labelledby="t-aloj">
+    <h2 id="t-aloj" class="eyebrow">Onde dorme</h2>
+    <div class="field"><label for="c-aloj">Tenda ou veículo</label><select id="c-aloj"></select></div>
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="c-luz"><span>Eletricidade</span></label>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="t-extras">
+    <h2 id="t-extras" class="eyebrow">Veículos e animais</h2>
+    <div class="stepper" data-campo="carros" data-min="0"><span class="lbl">Carros</span><button type="button" aria-label="Menos carros">−</button><output>0</output><button type="button" aria-label="Mais carros">+</button></div>
+    <div class="stepper" data-campo="motas" data-min="0"><span class="lbl">Motas</span><button type="button" aria-label="Menos motas">−</button><output>0</output><button type="button" aria-label="Mais motas">+</button></div>
+    <div class="stepper" data-campo="atrelados" data-min="0"><span class="lbl">Atrelados</span><button type="button" aria-label="Menos atrelados">−</button><output>0</output><button type="button" aria-label="Mais atrelados">+</button></div>
+    <div class="stepper" data-campo="caes" data-min="0"><span class="lbl">Cães</span><button type="button" aria-label="Menos cães">−</button><output>0</output><button type="button" aria-label="Mais cães">+</button></div>
+    <p class="nota">Bicicletas, duches, Wi-Fi, cowork e o shuttle para a praia são grátis.</p>
+  </section>
+
+  <section class="card" aria-labelledby="t-desc">
+    <h2 id="t-desc" class="eyebrow">Descontos</h2>
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="c-acsi"><span>Tenho cartão ACSI, ADAC ou Camping Key Europe<small>21 € por noite, de 1 de janeiro a 15 de junho e de 15 de setembro a 31 de dezembro. Não junta com outros descontos.</small></span></label>
+      <label class="check"><input type="checkbox" id="c-ciclista"><span>Viajo de bicicleta, com tenda<small>10%, não junta com outros descontos.</small></span></label>
+    </div>
+    <p class="nota">Os descontos de estada longa (mais de 3 noites, de novembro a maio) e de família (3 crianças até aos 14 anos) entram sozinhos quando se aplicam.</p>
+  </section>
+
+  <section class="total-card" aria-live="polite" id="resultado">
+    <span class="eyebrow">Total estimado</span>
+    <span class="valor" id="r-total">—</span>
+    <span class="por-noite" id="r-noite"></span>
+  </section>
+
+  <section class="card" aria-labelledby="t-det">
+    <h2 id="t-det" class="eyebrow">Detalhe</h2>
+    <table class="linhas"><tbody id="r-linhas"></tbody></table>
+    <p class="aviso-calc" id="r-nota-desc" hidden></p>
+    <p class="nota">Valor indicativo, calculado com o preçário de <span id="r-atual">—</span>. O preço final é confirmado pela receção. A taxa de gestão de resíduos é de 0,30 € por pessoa e por noite, a partir dos 6 anos. Estadas de 30 noites ou mais, de novembro a março, têm condições especiais: fale connosco.</p>
+    <div class="acoes">
+      <a class="btn" id="r-wa" href="#" target="_blank" rel="noopener">Pedir reserva por WhatsApp</a>
+      <a class="btn ghost" id="r-mail" href="#">Pedir por email</a>
+    </div>
+  </section>
+</div></main>
+
+<script src="config.js?v=67"></script>
+<script src="precos-campismo.js?v=67"></script>
+<script src="calculadora.js?v=67"></script>
+<script src="i18n.js?v=67"></script>
+</body>
+</html>
