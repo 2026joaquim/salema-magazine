@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#274F37">
+<title>Pegada de carbono · Salema Eco Camp</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css?v=73">
+<style>
+  body.embed{padding-bottom:0;background:transparent}
+  body.embed header.top, body.embed .so-magazine{display:none}
+  body.embed::before{display:none}
+  body.embed .wrap{padding-left:0;padding-right:0}
+  body.embed .calc{padding-block:0 8px}
+  .calc{display:flex;flex-direction:column;gap:14px;padding-block:18px 28px}
+  .calc h1{color:var(--title)}
+  .calc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .calc-grid .full{grid-column:1/-1}
+  @media (max-width:420px){ .calc-grid{grid-template-columns:minmax(0,1fr)} }
+  .stepper{display:flex;align-items:center;gap:8px}
+  .stepper button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--accent);background:var(--surface);color:var(--accent);font-size:1.3rem;font-weight:700;line-height:1;cursor:pointer;flex:none}
+  .stepper output{min-width:2ch;text-align:center;font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .stepper .lbl{flex:1;min-width:0;font-weight:600;font-size:.95rem;line-height:1.2}
+  .stepper .lbl small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+  .checks{display:flex;flex-direction:column;gap:10px}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;cursor:pointer}
+  .check input{width:22px;height:22px;accent-color:var(--accent);flex:none;margin-top:1px}
+  .check small{display:block;color:var(--muted);font-size:.78rem}
+  .total-card{background:var(--brand);color:var(--brand-ink);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:6px}
+  .total-card .eyebrow{color:#CEE7D1}
+  .total-card .valor{font-family:var(--display);font-size:2.6rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+  .total-card .por-noite{font-size:.95rem;opacity:.9}
+  .linhas{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+  .linhas td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .linhas td:last-child{text-align:right;white-space:nowrap;padding-left:10px}
+  .linhas tr.desc td{color:var(--ok)}
+  .linhas tr.sub td{font-weight:700}
+  .linhas td small{display:block;color:var(--muted);font-size:.78rem}
+  .nota{font-size:.8rem;color:var(--muted);line-height:1.4}
+  .acoes{display:flex;gap:8px;flex-wrap:wrap}
+  .acoes .btn{text-decoration:none}
+  .aviso-calc{background:var(--surface-2);border-radius:var(--r);padding:10px 12px;font-size:.88rem}
+</style>
+<style>
+  .lbl-like{font-size:.85rem;font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips button{font:inherit;font-size:.85rem;font-weight:600;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:5px 12px;cursor:pointer}
+  .chips button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .barras{display:flex;flex-direction:column;gap:10px}
+  .barra .top{display:flex;justify-content:space-between;gap:10px;font-size:.92rem;font-variant-numeric:tabular-nums}
+  .barra .trilho{height:12px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:4px}
+  .barra .cheio{height:100%;border-radius:99px;background:var(--accent)}
+  .barra.viagem .cheio{background:#8a5a3b}
+  .barra.comida .cheio{background:#c9973a}
+  .dicas{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+  .comp{font-size:.95rem}
+  .comp b{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand-row"><img id="logo" src="imagens/logo.png" alt="Salema Eco Camp"><div class="brand" translate="no"><b>Salema Eco Camp</b><span>Magazine</span></div></div>
+  <div class="who">Praia da Salema · Algarve</div>
+</div></header>
+
+<main><div class="wrap calc">
+  <a class="so-magazine" href="./#calcular">← Voltar ao Magazine</a>
+  <div>
+    <span class="eyebrow">Pegada de carbono</span>
+    <h1>Qual é a pegada da sua estadia?</h1>
+    <p class="lead">Calcule o CO₂ da viagem até à Salema e da comida durante a estadia. Depois veja como a pode reduzir.</p>
+  </div>
+
+  <section class="card" aria-labelledby="t-viagem">
+    <h2 id="t-viagem" class="eyebrow">A viagem</h2>
+    <div class="field"><label for="p-meio">Como vem?</label><select id="p-meio"></select></div>
+    <div class="field"><span class="lbl-like">De onde vem?</span><div class="chips" id="p-origens" role="group" aria-label="De onde vem"></div></div>
+    <div class="field"><label for="p-km">Distância até à Salema (km, só ida)</label><input type="number" id="p-km" min="0" max="20000" value="270" inputmode="numeric"></div>
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="p-volta" checked><span>Ida e volta</span></label>
+      <label class="check" id="p-aluguer-l" hidden><input type="checkbox" id="p-aluguer" checked><span>Carro alugado entre o aeroporto de Faro e a Salema<small>Cerca de 100 km para cada lado.</small></span></label>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="t-estadia">
+    <h2 id="t-estadia" class="eyebrow">A estadia</h2>
+    <div class="stepper" data-campo="pessoas" data-min="1"><span class="lbl">Pessoas</span><button type="button" aria-label="Menos pessoas">−</button><output>2</output><button type="button" aria-label="Mais pessoas">+</button></div>
+    <div class="stepper" data-campo="noites" data-min="1"><span class="lbl">Noites</span><button type="button" aria-label="Menos noites">−</button><output>5</output><button type="button" aria-label="Mais noites">+</button></div>
+    <div class="field"><label for="p-dieta">Como come, normalmente?</label><select id="p-dieta"></select></div>
+  </section>
+
+  <section class="total-card" aria-live="polite">
+    <span class="eyebrow">A sua pegada</span>
+    <span class="valor" id="r-total">—</span>
+    <span class="por-noite" id="r-pp"></span>
+  </section>
+
+  <section class="card" aria-labelledby="t-onde">
+    <h2 id="t-onde" class="eyebrow">De onde vem</h2>
+    <div class="barras" id="r-barras"></div>
+    <p class="comp" id="r-comp"></p>
+  </section>
+
+  <section class="card" aria-labelledby="t-dicas">
+    <h2 id="t-dicas" class="eyebrow">Como reduzir</h2>
+    <ul class="dicas" id="r-dicas"></ul>
+  </section>
+
+  <p class="nota">Valores estimados, em kg de CO₂ equivalente. Transportes: fatores do Governo do Reino Unido (DESNZ, 2024). Alimentação: Scarborough et al. (2014). O alojamento no Salema Eco Camp ainda não está incluído.</p>
+</div></main>
+
+<script src="config.js?v=73"></script>
+<script src="fatores-carbono.js?v=73"></script>
+<script src="pegada.js?v=73"></script>
+<script src="i18n.js?v=73"></script>
+</body>
+</html>

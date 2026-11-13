@@ -777,8 +777,10 @@ function abrirCalculadora(forcar){
   const f=$("#calc-frame"); if(!f) return;
   const src="calculadora.html?embed=1&lang="+(window.I18N_LANG||"pt");
   if(forcar||!f.getAttribute("src")) f.setAttribute("src",src);
+  const g=$("#pegada-frame"); const src2="pegada.html?embed=1&lang="+(window.I18N_LANG||"pt");
+  if(g&&(forcar||!g.getAttribute("src"))) g.setAttribute("src",src2);
 }
-addEventListener("message",e=>{ if(e.origin===location.origin&&e.data&&e.data.salemaCalc){ const f=$("#calc-frame"); if(f) f.style.height=e.data.salemaCalc+"px"; } });
+addEventListener("message",e=>{ if(e.origin===location.origin&&e.data&&e.data.salemaCalc){ const f=$(e.data.de==="pegada"?"#pegada-frame":"#calc-frame"); if(f) f.style.height=e.data.salemaCalc+"px"; } });
 document.addEventListener("lingua",()=>{ if($("#calc-frame")?.getAttribute("src")) abrirCalculadora(true); });
 addEventListener("hashchange",()=>{ route(); scrollTo(0,0); setTimeout(vistoAgora,2500); });
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") loadDados(); });
