@@ -169,13 +169,15 @@ const pins=[
  {x:212,y:88,t:"Praia da Salema",d:"A praia e a aldeia da Salema, a poucos minutos. Ponto de partida para o Fisherman's Trail da Rota Vicentina.",g:1},
  {x:735,y:258,t:"Alma Mater",d:"Terapias e massagens, no coração do parque."},
  {x:1100,y:450,t:"Atividades",d:"Surf, bicicletas, tours e workshops de regeneração (SER).",g:1},
- {x:570,y:655,t:"Cowork",d:"Espaço de cowork digital."},
- {x:700,y:690,t:"Eco Store",d:"Produtos biológicos e locais."},
- {x:835,y:690,t:"Entrada",d:"Chegada ao parque.",g:1}
+ {x:570,y:655,t:"Cowork",h:55,d:"Espaço de cowork digital."},
+ {x:700,y:690,t:"Eco Store",h:14,d:"Produtos biológicos e locais."},
+ {x:715,y:560,t:"Receção",h:68,d:"Check-in, informações, shuttle para a praia e pedidos. WhatsApp: +351 926 636 033."},
+ {x:760,y:605,t:"Nazari",h:40,d:"Restaurante Nazari: cozinha mediterrânica e comfort food, das 8:00 às 21:00. Às terças, só pequenos-almoços."},
+ {x:835,y:690,t:"Entrada",h:14,dx:45,d:"Chegada ao parque.",g:1}
 ];
 const box=document.getElementById('pins'),info=document.getElementById('info');
 pins.forEach(p=>{const e=document.createElement('div');e.className='pin';e.style.left=(p.x/W*100)+'%';e.style.top=(p.y/H*100)+'%';
- e.innerHTML=`<span class="tag ${p.g?'g':''}">${p.t}</span><span class="stem"></span><span class="dot"></span>`;
+ e.innerHTML=`<span class="tag ${p.g?'g':''}" style="${p.dx?`transform:translateX(${p.dx}%)`:''}">${p.t}</span><span class="stem" style="height:${(p.h||26)*(innerWidth<600?.8:1)}px"></span><span class="dot"></span>`;
  e.onclick=ev=>{ev.stopPropagation();info.innerHTML=`<b>${p.t}</b>${p.d}`;info.classList.add('on')};box.appendChild(e)});
 document.body.onclick=()=>info.classList.remove('on');
 const world=document.getElementById('world');
