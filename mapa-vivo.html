@@ -60,6 +60,24 @@ svg.over{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .lamp{animation:flick 3s ease-in-out infinite alternate}
 @keyframes flick{from{opacity:.75}to{opacity:1}}
 </style>
+
+<style>
+/* pontos numerados + legenda em cima */
+.pin{transform:translate(-50%,-50%) rotateX(calc(-1 * var(--rx)))!important}
+.pin .num{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--brown);color:#fff;font-size:12px;font-weight:700;border:2px solid #fff;box-shadow:0 3px 8px rgba(60,40,25,.35);transition:transform .2s}
+.pin.g .num{background:var(--green)}
+.pin.sel .num{transform:scale(1.35);animation:pulse 1.6s infinite}
+.legenda{position:fixed;top:78px;left:0;right:0;z-index:22;display:flex;gap:6px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;background:rgba(237,227,209,.92);border-bottom:1px solid rgba(109,79,58,.15)}
+.legenda::-webkit-scrollbar{display:none}
+.legenda .leg{flex:none;display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:13px;font-weight:500;color:var(--brown);background:#fff;border:1.5px solid rgba(109,79,58,.25);border-radius:99px;padding:4px 10px 4px 4px;cursor:pointer}
+.legenda .leg .ln{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--brown);color:#fff;font-size:11px;font-weight:700}
+.legenda .leg.g .ln{background:var(--green)}
+.legenda .leg.sel{border-color:var(--brown);background:var(--brown);color:#fff}
+.legenda .leg.sel .ln{background:#fff;color:var(--brown)}
+html.embed .legenda{top:0;padding:6px 8px}
+html.embed .legenda .leg{font-size:12px}
+.night .legenda{background:rgba(29,38,48,.9)}
+</style>
 <style>
 html.embed header{display:none}
 html.embed .ctrl{right:10px;bottom:10px;gap:6px}
@@ -160,36 +178,49 @@ html.embed .pin .tag{font-size:12px;padding:5px 9px}
  </div>
 </div>
 
+<nav class="legenda" id="legenda" aria-label="Legenda do mapa"></nav>
 <div class="info" id="info"></div>
-<div class="ctrl"><button id="day" class="on">☀ Dia</button><button id="night">☾ Noite</button><button id="auto" class="on">⟳ Movimento</button></div>
+<div class="ctrl"><button id="day" class="on">☀ Dia</button><button id="night">☾ Noite</button><button id="auto">⟳ Movimento</button></div>
 
 <script>
 const W=1240,H=766;
 const pins=[
- {x:212,y:88,t:"Praia da Salema",d:"A praia e a aldeia da Salema, a poucos minutos. Ponto de partida para o Fisherman's Trail da Rota Vicentina.",g:1},
+ {x:835,y:690,t:"Entrada",d:"Chegada ao parque.",g:1},
+ {x:715,y:560,t:"Receção",d:"Check-in, informações, shuttle para a praia e pedidos. WhatsApp: +351 926 636 033."},
+ {x:760,y:605,t:"Nazari",d:"Restaurante Nazari: cozinha mediterrânica e comfort food, das 8:00 às 21:00. Às terças, só pequenos-almoços."},
+ {x:700,y:690,t:"Eco Store",d:"Produtos biológicos e locais."},
+ {x:570,y:655,t:"Cowork",d:"Espaço de cowork digital."},
  {x:735,y:258,t:"Alma Mater",d:"Terapias e massagens, no coração do parque."},
  {x:1100,y:450,t:"Atividades",d:"Surf, bicicletas, tours e workshops de regeneração (SER).",g:1},
- {x:570,y:655,t:"Cowork",h:55,d:"Espaço de cowork digital."},
- {x:700,y:690,t:"Eco Store",h:14,d:"Produtos biológicos e locais."},
- {x:715,y:560,t:"Receção",h:68,d:"Check-in, informações, shuttle para a praia e pedidos. WhatsApp: +351 926 636 033."},
- {x:760,y:605,t:"Nazari",h:40,d:"Restaurante Nazari: cozinha mediterrânica e comfort food, das 8:00 às 21:00. Às terças, só pequenos-almoços."},
- {x:835,y:690,t:"Entrada",h:14,dx:45,d:"Chegada ao parque.",g:1}
+ {x:212,y:88,t:"Praia da Salema",d:"A praia e a aldeia da Salema, a poucos minutos. Ponto de partida para o Fisherman's Trail da Rota Vicentina.",g:1}
 ];
-const box=document.getElementById('pins'),info=document.getElementById('info');
-pins.forEach(p=>{const e=document.createElement('div');e.className='pin';e.style.left=(p.x/W*100)+'%';e.style.top=(p.y/H*100)+'%';
- e.innerHTML=`<span class="tag ${p.g?'g':''}" style="${p.dx?`transform:translateX(${p.dx}%)`:''}">${p.t}</span><span class="stem" style="height:${(p.h||26)*(innerWidth<600?.8:1)}px"></span><span class="dot"></span>`;
- e.onclick=ev=>{ev.stopPropagation();info.innerHTML=`<b>${p.t}</b>${p.d}`;info.classList.add('on')};box.appendChild(e)});
-document.body.onclick=()=>info.classList.remove('on');
+const box=document.getElementById('pins'),info=document.getElementById('info'),leg=document.getElementById('legenda');
+const pinEls=[],legEls=[];
+function escolher(i){
+  pinEls.forEach((e,k)=>e.classList.toggle('sel',k===i)); legEls.forEach((e,k)=>e.classList.toggle('sel',k===i));
+  if(i<0){info.classList.remove('on');return;}
+  const p=pins[i]; info.replaceChildren(); const t=document.createElement('b'); t.textContent=(i+1)+' · '+p.t; info.append(t, p.d); info.classList.add('on');
+  legEls[i].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+}
+pins.forEach((p,i)=>{
+  const e=document.createElement('div');e.className='pin'+(p.g?' g':'');e.style.left=(p.x/W*100)+'%';e.style.top=(p.y/H*100)+'%';
+  const n=document.createElement('span');n.className='num';n.textContent=i+1;n.setAttribute('translate','no');e.append(n);e.setAttribute('aria-label',p.t);
+  e.onclick=ev=>{ev.stopPropagation();escolher(i)};box.appendChild(e);pinEls.push(e);
+  const l=document.createElement('button');l.type='button';l.className='leg'+(p.g?' g':'');
+  const ln=document.createElement('span');ln.className='ln';ln.textContent=i+1;ln.setAttribute('translate','no');l.append(ln,p.t);
+  l.onclick=ev=>{ev.stopPropagation();escolher(i)};leg.appendChild(l);legEls.push(l);
+});
+document.body.onclick=()=>escolher(-1);
 const world=document.getElementById('world');
 function fit(){const s=Math.min(innerWidth/W*1.05,innerHeight/H*1.25,1.25);world.style.setProperty('--w',W*s+'px');world.style.setProperty('--h',H*s+'px');document.documentElement.style.setProperty('--w',W*s+'px')}
 fit();addEventListener('resize',fit);
-let rx=38,rz=-8,tx=0,ty=0,auto=true,t0=performance.now();
+let rx=34,rz=-6,tx=0,ty=0,auto=false,t0=performance.now();
 function set(){world.style.setProperty('--rx',rx+'deg');world.style.setProperty('--rz',rz+'deg');world.style.setProperty('--tz','0px')}
 function move(nx,ny){rx=38+ny*14;rz=-8+nx*16;set()}
-addEventListener('pointermove',e=>{if(e.pointerType==='mouse'){auto=false;document.getElementById('auto').classList.remove('on');move(e.clientX/innerWidth*2-1,e.clientY/innerHeight*2-1)}});
-addEventListener('deviceorientation',e=>{if(e.gamma==null)return;auto=false;move(Math.max(-1,Math.min(1,e.gamma/30)),Math.max(-1,Math.min(1,(e.beta-45)/30)))});
-(function loop(now){if(auto){const k=(now-t0)/1000;move(Math.sin(k*.18),Math.sin(k*.11)*.6)}requestAnimationFrame(loop)})(t0);
-document.getElementById('auto').onclick=e=>{e.stopPropagation();auto=!auto;e.target.classList.toggle('on',auto)};
+addEventListener('pointermove',e=>{if(auto&&e.pointerType==='mouse'){move(e.clientX/innerWidth*2-1,e.clientY/innerHeight*2-1)}});
+let girou=false;addEventListener('deviceorientation',e=>{if(!auto||e.gamma==null)return;girou=true;move(Math.max(-1,Math.min(1,e.gamma/30)),Math.max(-1,Math.min(1,(e.beta-45)/30)))});
+(function loop(now){if(auto&&!girou){const k=(now-t0)/1000;move(Math.sin(k*.18),Math.sin(k*.11)*.6)}requestAnimationFrame(loop)})(t0);
+document.getElementById('auto').onclick=e=>{e.stopPropagation();auto=!auto;girou=false;e.target.classList.toggle('on',auto);if(!auto){rx=34;rz=-6;set()}};
 const dayB=document.getElementById('day'),nightB=document.getElementById('night');
 dayB.onclick=e=>{e.stopPropagation();document.documentElement.classList.remove('night');dayB.classList.add('on');nightB.classList.remove('on')};
 nightB.onclick=e=>{e.stopPropagation();document.documentElement.classList.add('night');nightB.classList.add('on');dayB.classList.remove('on')};
