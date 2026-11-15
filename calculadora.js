@@ -138,12 +138,11 @@
       (extras ? "Extras: " + extras + "\n" : "") +
       "Valor indicado na calculadora: " + eur(r.total);
     if (C.WHATSAPP_RECECAO) $("#r-wa").href = "https://wa.me/" + C.WHATSAPP_RECECAO.replace(/\D/g,"") + "?text=" + encodeURIComponent(msg);
-    /* reserva direta no Cloudbeds: a parcela certa para a tenda ou o veículo, na língua do hóspede */
-    const PARCELA = {"tenda-p":683719, "tejadilho":683719, "tenda-g":683720, "van-p":683720, "van-m":683720, "van-g":683721, "grande":683721};
+    /* reserva direta das parcelas de campismo, no site do Salema Eco Camp (mesmo link do botão "Garantir a minha parcela") */
     let ling = window.I18N_LANG || pl; if (!ling) { try { ling = localStorage.getItem("lang") || ""; } catch (e) {} }
-    const lingua = {en:"en", de:"de"}[ling] || "pt-br";
-    const rid = PARCELA[aloj];
-    $("#r-reservar").href = "https://hotels.cloudbeds.com/" + lingua + "/reservation/TEMxNd?currency=eur" + (rid ? "&rid=" + rid : "");
+    const iso = dt => dt.toISOString().slice(0,10);
+    $("#r-reservar").href = "https://www.salemaecocamp.com/" + (ling === "en" || ling === "de" ? "en/" : "") +
+      "?accommodation_types=683719;683720;683721&checkin=" + iso(chegada) + "&checkout=" + iso(saida) + "&adults=" + Math.max(1, est.adultos);
     altura();
   }
 
