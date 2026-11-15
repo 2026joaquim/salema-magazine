@@ -138,7 +138,12 @@
       (extras ? "Extras: " + extras + "\n" : "") +
       "Valor indicado na calculadora: " + eur(r.total);
     if (C.WHATSAPP_RECECAO) $("#r-wa").href = "https://wa.me/" + C.WHATSAPP_RECECAO.replace(/\D/g,"") + "?text=" + encodeURIComponent(msg);
-    $("#r-mail").href = "mailto:reservas@salemaecocamp.com?subject=" + encodeURIComponent("Pedido de reserva de campismo") + "&body=" + encodeURIComponent(msg);
+    /* reserva direta no Cloudbeds: a parcela certa para a tenda ou o veículo, na língua do hóspede */
+    const PARCELA = {"tenda-p":683719, "tejadilho":683719, "tenda-g":683720, "van-p":683720, "van-m":683720, "van-g":683721, "grande":683721};
+    let ling = window.I18N_LANG || pl; if (!ling) { try { ling = localStorage.getItem("lang") || ""; } catch (e) {} }
+    const lingua = {en:"en", de:"de"}[ling] || "pt-br";
+    const rid = PARCELA[aloj];
+    $("#r-reservar").href = "https://hotels.cloudbeds.com/" + lingua + "/reservation/TEMxNd?currency=eur" + (rid ? "&rid=" + rid : "");
     altura();
   }
 
