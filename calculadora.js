@@ -31,7 +31,7 @@
     mais.addEventListener("click", () => set(est[campo] + 1));
     out.value = est[campo];
   });
-  ["#c-chegada","#c-noites","#c-aloj","#c-luz","#c-acsi","#c-ciclista"].forEach(s => $(s).addEventListener("input", calcular));
+  ["#c-chegada","#c-noites","#c-aloj","#c-luz","#c-acsi","#c-ciclista","#c-cartao10"].forEach(s => $(s)?.addEventListener("input", calcular));
 
   /* ---- regras ---- */
   const md = d => String(d.getUTCMonth()+1).padStart(2,"0") + "-" + String(d.getUTCDate()).padStart(2,"0");
@@ -47,15 +47,15 @@
     const e = epoca(d), L = [];
     const aloj = P.alojamentos.find(a => a.id === o.aloj) || P.alojamentos[0];
     if (o.acsi && acsiValido(d)) {
-      L.push(["Cartão ACSI / ADAC / Camping Key Europe", P.acsi, false, false]);
+      L.push(["Cartão ACSI / ADAC CampCard / Camping Key Europe", P.acsi, false, false]);
       const extraAd = Math.max(0, o.adultos - 2), extraCarro = Math.max(0, o.carros - 1);
       if (extraAd) L.push(["Adultos", extraAd * P.adulto[e], false, false]);
-      if (o.criancas) L.push(["Crianças dos 7 aos 14 anos", o.criancas * P.crianca7a14[e], false, false]);
+      if (o.criancas) L.push(["Crianças dos 6 aos 11 anos", o.criancas * P.crianca7a14[e], false, false]);
       if (extraCarro) L.push(["Carros", extraCarro * P.carro[e], false, false]);
     } else {
       if (aloj.precos[e]) L.push([aloj.nome, aloj.precos[e], true, false]);
       if (o.adultos) L.push(["Adultos", o.adultos * P.adulto[e], true, false]);
-      if (o.criancas) L.push(["Crianças dos 7 aos 14 anos", o.criancas * P.crianca7a14[e], true, false]);
+      if (o.criancas) L.push(["Crianças dos 6 aos 11 anos", o.criancas * P.crianca7a14[e], true, false]);
       if (o.carros) L.push(["Carros", o.carros * P.carro[e], true, false]);
       if (o.luz) L.push(["Eletricidade", P.eletricidade[e], false, true]); // os descontos nunca incidem na eletricidade
     }
@@ -67,9 +67,9 @@
     return {e, acsi: o.acsi && acsiValido(d), linhas: L};
   }
 
-  function calcularCom(o, modo){ // modo: "estada", "familia" ou "ciclista" — os descontos nunca se juntam
+  function calcularCom(o, modo){ // modo: "estada", "familia", "ciclista" ou "cartao10" — os descontos nunca se juntam
     const noites = noitesDe(o.chegada, o.n);
-    const soma = new Map(); let bruto = 0, descEstada = 0, descFamilia = 0, descCiclista = 0; const epocas = new Set(); let noitesAcsi = 0;
+    const soma = new Map(); let bruto = 0, descEstada = 0, descFamilia = 0, descCiclista = 0, descCartao = 0; const epocas = new Set(); let noitesAcsi = 0;
     noites.forEach(d => {
       const r = noite(d, o); epocas.add(r.e); if (r.acsi) noitesAcsi++;
       let baseEstada = 0, baseGeral = 0;
@@ -80,13 +80,14 @@
       if (r.acsi) return;
       if (modo === "ciclista") { descCiclista += baseGeral * P.ciclistaPct / 100; return; }
       if (modo === "familia") { descFamilia += baseGeral * P.familiaPct / 100; return; }
+      if (modo === "cartao10") { descCartao += baseEstada * P.cartao10Pct / 100; return; } // exceto eletricidade
       if (o.n > 3) {
         const p = P.estadaLonga.find(x => dentro(md(d), x.de, x.ate));
         if (p) { const base = p.semEletricidade ? baseEstada : baseGeral; descEstada += base * p.pct / 100; }
       }
     });
-    const total = bruto - descEstada - descFamilia - descCiclista;
-    return {soma, bruto, descEstada, descFamilia, descCiclista, total, epocas, noitesAcsi};
+    const total = bruto - descEstada - descFamilia - descCiclista - descCartao;
+    return {soma, bruto, descEstada, descFamilia, descCiclista, descCartao, total, epocas, noitesAcsi};
   }
 
   function calcular(){
@@ -106,6 +107,7 @@
     const opcoes = [calcularCom(o, "estada")];
     if (o.familia) opcoes.push(calcularCom(o, "familia"));
     if ($("#c-ciclista").checked && !o.acsi) opcoes.push(calcularCom(o, "ciclista"));
+    if ($("#c-cartao10")?.checked && !o.acsi) opcoes.push(calcularCom(o, "cartao10"));
     const r = opcoes.reduce((a, b) => b.total < a.total ? b : a);
     const variosDescontos = opcoes.filter(x => x.total < x.bruto).length > 1;
 
@@ -116,8 +118,9 @@
     const linha = (a, b, cls, nota) => { const tr = document.createElement("tr"); if (cls) tr.className = cls; const t1 = document.createElement("td"); t1.textContent = a; if (nota) { const s = document.createElement("small"); s.textContent = nota; t1.append(s); } const t2 = document.createElement("td"); t2.textContent = b; tr.append(t1, t2); tb.append(tr); };
     r.soma.forEach((v, nome) => linha(nome, eur(v), "", nome.startsWith("Cartão") ? r.noitesAcsi + (r.noitesAcsi === 1 ? " noite" : " noites") : (nome === "Taxa de gestão de resíduos" ? "0,30 € por pessoa e por noite" : "")));
     if (r.descEstada) linha("Desconto de estada longa", "− " + eur(r.descEstada), "desc", "Mais de 3 noites, de novembro a maio");
-    if (r.descFamilia) linha("Desconto de família (10%)", "− " + eur(r.descFamilia), "desc", "3 ou mais crianças até aos 14 anos");
+    if (r.descFamilia) linha("Desconto de família (10%)", "− " + eur(r.descFamilia), "desc", "3 ou mais crianças até aos 11 anos");
     if (r.descCiclista) linha("Desconto de ciclista (10%)", "− " + eur(r.descCiclista), "desc");
+    if (r.descCartao) linha("Desconto Siesta Camper / Mundo Campista (10%)", "− " + eur(r.descCartao), "desc", "Exceto eletricidade");
     linha("Total", eur(r.total), "sub");
 
     const nd = $("#r-nota-desc"); const notas = [];
@@ -129,8 +132,8 @@
 
     /* pedido */
     const fmt = dt => dt.toLocaleDateString("pt-PT", {day:"2-digit", month:"2-digit", year:"numeric", timeZone:"UTC"});
-    const quem = [est.adultos + " adulto(s)", est.criancas ? est.criancas + " criança(s) 7–14" : "", est.pequenos ? est.pequenos + " criança(s) <7" : ""].filter(Boolean).join(", ");
-    const extras = [est.carros ? est.carros + " carro(s)" : "", est.motas ? est.motas + " mota(s)" : "", est.atrelados ? est.atrelados + " atrelado(s)" : "", est.caes ? est.caes + " cão/cães" : "", o.luz ? "eletricidade" : "", o.acsi ? "cartão ACSI" : "", $("#c-ciclista").checked ? "ciclista" : ""].filter(Boolean).join(", ");
+    const quem = [est.adultos + " adulto(s)", est.criancas ? est.criancas + " criança(s) 6–11" : "", est.pequenos ? est.pequenos + " criança(s) 0–5" : ""].filter(Boolean).join(", ");
+    const extras = [est.carros ? est.carros + " carro(s)" : "", est.motas ? est.motas + " mota(s)" : "", est.atrelados ? est.atrelados + " atrelado(s)" : "", est.caes ? est.caes + " cão/cães" : "", o.luz ? "eletricidade" : "", o.acsi ? "cartão ACSI/ADAC CampCard/CKE" : "", $("#c-cartao10")?.checked ? "cartão Siesta Camper/Mundo Campista" : "", $("#c-ciclista").checked ? "ciclista" : ""].filter(Boolean).join(", ");
     const msg = "Olá! Gostaria de reservar campismo no Salema Eco Camp.\n" +
       "Chegada: " + fmt(chegada) + " · Saída: " + fmt(saida) + " (" + n + " noites)\n" +
       "Pessoas: " + quem + "\n" +
