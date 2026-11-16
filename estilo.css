@@ -448,3 +448,26 @@ nav.tabs a{position:relative}
 .lang-sel{display:flex;gap:2px;background:color-mix(in srgb,var(--brand-ink) 14%,transparent);border-radius:999px;padding:3px;flex:none}
 .lang-sel button{font:inherit;font-size:.72rem;font-weight:800;letter-spacing:.04em;border:0;background:transparent;color:var(--brand-ink);padding:5px 8px;border-radius:999px;cursor:pointer;opacity:.8}
 .lang-sel button[aria-pressed="true"]{background:var(--brand-ink);color:var(--brand);opacity:1}
+
+/* Zero Waste Store */
+.zw{display:flex;flex-direction:column;gap:12px;border:2px solid color-mix(in srgb,var(--c-store) 45%,transparent);border-radius:var(--r);padding:16px;background:color-mix(in srgb,var(--c-store) 7%,var(--surface))}
+.zw-head h2{margin:2px 0 6px;color:var(--c-store)}
+.zw-head p{margin:0}
+.zw-bloco{display:flex;flex-direction:column;gap:8px;background:var(--surface);border-radius:12px;padding:12px}
+.zw-bloco h3{margin:0;font-size:1.05rem}
+.zw-bloco p{margin:0;font-size:.93rem;line-height:1.45}
+.zw-agora{outline:2px solid var(--warn)}
+.zw-agora h3{color:var(--warn)}
+.zw-txt{color:var(--muted)}
+.zw-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.zw-lista li{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:8px}
+.zw-foto{width:52px;height:52px;object-fit:cover;border-radius:8px;flex:none}
+.zw-foto-g{width:96px;height:96px;object-fit:cover;border-radius:10px;flex:none}
+.zw-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.zw-info small{color:var(--muted)}
+.zw-preco{display:inline-flex;align-items:baseline;gap:4px;flex-wrap:wrap;white-space:nowrap;font-variant-numeric:tabular-nums}
+.zw-preco s{color:var(--muted);font-size:.85rem}
+.zw-preco b{color:var(--c-store);font-size:1.05rem}
+.zw-pct{background:var(--c-store);color:#fff;border-radius:99px;padding:1px 7px;font-size:.75rem;font-weight:700}
+.zw-destaque{display:flex;gap:12px;align-items:center}
+.zw-breve{color:var(--muted);font-style:italic}

@@ -100,7 +100,7 @@ function extraFor(id){
       el("ul",{class:"note",style:"margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px"}, ...ALMA_REGRAS.map(r=>el("li",{text:r}))));
   }
   if(id==="ser") return el("div",{style:"display:flex;flex-direction:column;gap:10px"}, gallery(GALERIAS.ser), el("p",{class:"note",text:NOTA_SER}));
-  if(id==="store") return el("div",{style:"display:flex;flex-direction:column;gap:10px"}, gallery(GALERIAS.store),
+  if(id==="store") return el("div",{style:"display:flex;flex-direction:column;gap:10px"}, zeroWaste(), gallery(GALERIAS.store),
     el("details",{class:"poi"}, el("summary",{text:"Pão e pastelaria: produtos e preços"}),
       el("div",{style:"margin-top:8px;display:flex;flex-direction:column;gap:12px"},
         ...PADARIAS.map(([nome,hora,lista,folheto])=>el("div",{style:"display:flex;flex-direction:column;gap:6px"},
@@ -110,6 +110,42 @@ function extraFor(id){
         el("p",{class:"note",text:PAO_NOTA}))));
   if(id==="atividades") return ativExtra();
   return null;
+}
+/* ---------- Zero Waste Store (dentro da Eco Store) ---------- */
+function zwNum(p){ const n=parseFloat(String(p||"").replace(/[^\d,.-]/g,"").replace(",",".")); return isNaN(n)?null:n; }
+function diasAte(d){ const hoje=new Date(); const h=Date.UTC(hoje.getFullYear(),hoje.getMonth(),hoje.getDate()); const [y,m,dd]=d.split("-").map(Number); return Math.round((Date.UTC(y,m-1,dd)-h)/864e5); }
+function zwPreco(original,pct){
+  const n=zwNum(original); if(n==null) return el("span",{class:"zw-preco"}, el("b",{text:"−"+pct+"%"}));
+  return el("span",{class:"zw-preco"}, el("s",{text:eur(n)}), " ", el("b",{text:eur(Math.round(n*(100-pct))/100)}), el("span",{class:"zw-pct",text:"−"+pct+"%"}));
+}
+function zeroWaste(){
+  const Z=window.ZERO_WASTE; if(!Z) return null;
+  const box=el("section",{class:"zw",id:"zero-waste"},
+    el("div",{class:"zw-head"}, el("span",{class:"eyebrow",text:"Compromisso zero waste"}), el("h2",{text:"Zero Waste Store"}), el("p",{text:Z.textoIntro})));
+  /* 1. pão e bolos */
+  const h=new Date().getHours(), tarde=h>=15&&h<18;
+  box.append(el("div",{class:"zw-bloco"+(tarde?" zw-agora":"")},
+    el("h3",{text:tarde?"Agora: pão e bolos ao preço de compra":"Pão e bolos zero waste"}),
+    el("p",{text:Z.textoPao}),
+    el("button",{class:"btn small",type:"button",style:"align-self:flex-start",onclick:()=>openForm("store","pao"),text:"Reservar o pão para amanhã"})));
+  /* 2. validade curta */
+  const lista=(Z.validade||[]).map(p=>({...p,dias:diasAte(p.data)})).filter(p=>p.dias>=0&&p.dias<=14).sort((a,b)=>a.dias-b.dias);
+  if(lista.length) box.append(el("div",{class:"zw-bloco"},
+    el("h3",{text:"Validade curta, sabor intacto"}), el("p",{class:"zw-txt",text:Z.textoValidade}),
+    el("ul",{class:"zw-lista"}, ...lista.map(p=>el("li",{},
+      p.foto?img(p.foto,"",{class:"zw-foto"}):null,
+      el("div",{class:"zw-info"}, el("b",{text:p.nome}), el("small",{text:"Consumir de preferência antes de "+new Date(p.data+"T12:00").toLocaleDateString("pt-PT",{day:"numeric",month:"long"})+(p.nota?" · "+p.nota:"")})),
+      zwPreco(p.preco,p.dias<=7?50:30))))));
+  /* 3. cosmética da semana */
+  const c=Z.cosmetica||null;
+  const ativa=c&&(!c.ate||diasAte(c.ate)>=0);
+  box.append(el("div",{class:"zw-bloco zw-cosm"},
+    el("span",{class:"eyebrow",text:"Produto ecológico de cosmética da semana"}),
+    ativa ? el("div",{class:"zw-destaque"}, c.foto?img(c.foto,c.nome,{class:"zw-foto-g"}):null,
+      el("div",{class:"zw-info"}, el("b",{text:c.nome}), c.desc?el("small",{text:c.desc}):null, zwPreco(c.preco,Z.cosmeticaDesconto||20)))
+      : el("p",{class:"zw-breve",text:"Em breve, o primeiro produto da semana."}),
+    el("p",{class:"zw-txt",text:Z.textoCosmetica})));
+  return box;
 }
 function menuCarta(){
   const M=window.MENU; if(!M) return el("div",{class:"menu-text",text:window.MENU_NAZARI||""});

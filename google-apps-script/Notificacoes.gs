@@ -213,3 +213,20 @@ function b64u(bytes) { return Utilities.base64EncodeWebSafe(s8(bytes)).replace(/
 function desB64u(s) { while (s.length % 4) s += '='; return u8(Utilities.base64DecodeWebSafe(s)); }
 function bytesParaInt(b) { let x = BigInt(0); u8(b).forEach(function(v){ x = (x << BigInt(8)) + BigInt(v); }); return x; }
 function intParaBytes(x, len) { const out = []; for (let i = 0; i < len; i++) { out.unshift(Number(x & BigInt(255))); x >>= BigInt(8); } return out; }
+
+/* ---------- Zero waste: pão e bolos às 15:00 ----------
+   Corre ativarNotificacaoPao() uma vez, no editor: todos os dias às 15:00
+   (hora de Portugal) os hóspedes com notificações recebem o aviso do pão.
+   Para parar: desativarNotificacaoPao(). */
+function notificarPao() {
+  enviarNotificacao('🥖 Zero waste na Eco Store',
+    'O pão e os bolos que sobraram da manhã estão agora ao preço de compra. Até a loja fechar.',
+    SITE_URL + '#reservar');
+}
+function ativarNotificacaoPao() {
+  desativarNotificacaoPao();
+  ScriptApp.newTrigger('notificarPao').timeBased().atHour(15).nearMinute(0).everyDays(1).inTimezone('Europe/Lisbon').create();
+}
+function desativarNotificacaoPao() {
+  ScriptApp.getProjectTriggers().forEach(function(t){ if (t.getHandlerFunction() === 'notificarPao') ScriptApp.deleteTrigger(t); });
+}

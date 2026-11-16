@@ -1217,3 +1217,23 @@ window.GALERIAS = {
   atividades: [["ativ-ebike.jpg","Bicicletas elétricas"],["ativ-quiosque.jpg","Pranchas e fatos"]]
 };
 window.NOTA_SER = "Certificados Green Key desde 2022, a caminho do Zero Desperdício, com pegada de carbono calculada todos os anos.";
+
+/* =====================================================================
+   ZERO WASTE STORE — dentro da Eco Store
+   cosmetica: o produto ecológico de cosmética da semana (20% de desconto)
+     {nome, desc, preco (preço de loja, ex.: "11,10 €"), foto (em imagens/), ate:"AAAA-MM-DD"}
+     null = ainda não há (aparece "em breve").
+   validade: produtos com a data a terminar. O desconto conta-se sozinho:
+     faltam 8 a 14 dias → 30%; faltam 7 dias ou menos → 50%. Depois da data, sai sozinho.
+     {nome, preco (de loja), data:"AAAA-MM-DD" (a data do rótulo), foto (opcional), nota (opcional)}
+     Só produtos com "consumir de preferência antes de". Nunca "consumir até".
+   ===================================================================== */
+window.ZERO_WASTE = {
+  cosmetica: null,
+  cosmeticaDesconto: 20,
+  validade: [],
+  textoIntro: "Na nossa loja, nada se deita fora. Aqui encontra produtos que, de outra forma, iam para o lixo, com descontos a sério. Poupa o seu bolso e o planeta.",
+  textoValidade: "Produtos com a data a terminar dentro de 1 ou 2 semanas. Têm a indicação «consumir de preferência antes de»: esta data indica até quando o produto mantém a melhor qualidade, não é um prazo de segurança. Com a embalagem fechada e bem guardada, continua excelente para consumir, mesmo depois da data. Faltam 2 semanas: −30%. Última semana: −50%.",
+  textoPao: "Zero waste também no pão e nos bolos. A partir das 15:00, o pão e os bolos que sobraram da manhã passam a ser vendidos ao preço de compra, até a loja fechar. E para que não sobre nada: reserve hoje o seu pão para amanhã.",
+  textoCosmetica: "A indústria cosmética é uma das que mais pesa no planeta: microplásticos e químicos que acabam nos rios e no mar, montanhas de embalagens de plástico, ingredientes de origem duvidosa e animais usados em testes. Os produtos de cosmética da nossa Eco Store são diferentes. São amigos do ambiente, com ingredientes naturais e embalagens que respeitam a terra. São amigos da sociedade, feitos por pequenos produtores e artesãos, muitos deles aqui do Algarve. E são amigos dos animais. Todas as semanas escolhemos um, com 20% de desconto, para o convidar a experimentar."
+};
