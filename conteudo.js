@@ -7,17 +7,17 @@
 window.MASSAGENS=[["Facial Lift 30 min","35 €"],["Pescoço e ombros 30 min","35 €"],["Clássica relaxante com óleo 45 min","45 €"],["Drenagem linfática 45 min","45 €"],["Facial Lift 45 min","45 €"],["Deep Tissue 45 min","50 €"],["Clássica relaxante com óleo 60 min","55 €"],["Drenagem linfática 60 min","55 €"],["Facial Lift 60 min","55 €"],["Deep Tissue 60 min","60 €"],["Clássica relaxante com óleo 90 min","80 €"],["Massagem ayurvédica 75 min","90 €"],["Reflexologia podal 30 min","35 €"],["Reflexologia podal 45 min","45 €"],["Reflexologia podal 60 min","55 €"],["Massagem na cadeira 45 min","40 €"],["Kobido, lifting natural da fáscia 60 min","55 €"],["Massagem personalizada com o terapeuta","sob consulta"]];
 /* Horário de yoga: [dia, hora, aula, preço] */
 window.YOGA=[
-  ["Segunda","18:30–19:30","Yoga Nidra com Paul","15 €"],
+  ["Segunda","17:30–18:30","Yoga Nidra com Paul","15 €"],
   ["Terça","9:00–10:00","Free Yoga com Michelle Bavaresco (só hóspedes)","Grátis"],
   ["Quarta","8:00–9:15","Yoga Sādhanā com Mukta","15 €"],
   ["Quarta","9:30–10:45","Power Yoga com Sara Soldado","15 €"],
   ["Quarta","11:15–12:30","Hatha Flow com Michelle Bavaresco","15 €"],
-  ["Quarta","18:30–19:30","Yoga Nidra com Paul","15 €"],
+  ["Quarta","17:30–18:30","Yoga Nidra com Paul","15 €"],
   ["Sexta","9:00–10:15","Hatha Flow com Michelle Bavaresco","15 €"],
   ["Sexta","11:00–12:15","Yoga Sādhanā com Mukta","15 €"],
-  ["Sexta","18:30–19:30","Yoga Nidra com Paul","15 €"],
+  ["Sexta","17:30–18:30","Yoga Nidra com Paul","15 €"],
   ["Sábado","9:00–10:15","Hatha Flow com Michelle Bavaresco","15 €"],
-  ["Sábado","18:30–19:30","Yoga Nidra com Paul","15 €"]
+  ["Sábado","17:30–18:30","Yoga Nidra com Paul","15 €"]
 ];
 
 /* Descrições das massagens e das aulas (Alma Mater) */
