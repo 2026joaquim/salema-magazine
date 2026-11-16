@@ -1229,7 +1229,9 @@ window.NOTA_SER = "Certificados Green Key desde 2022, a caminho do Zero Desperd�
      Só produtos com "consumir de preferência antes de". Nunca "consumir até".
    ===================================================================== */
 window.ZERO_WASTE = {
-  cosmetica: null,
+  cosmetica: {nome:"Herbacin Kamille Hand Cream Soft (75 ml)",
+    desc:"Creme de mãos com camomila e pantenol, de absorção rápida. Hidrata e deixa as mãos macias. Sem parabenos.",
+    preco:"6,10 €", foto:"cosmetica-herbacin.jpg", ate:"2026-11-22"},
   cosmeticaDesconto: 20,
   validade: [],
   textoIntro: "Na nossa loja, nada se deita fora. Aqui encontra produtos que, de outra forma, iam para o lixo, com descontos a sério. Poupa o seu bolso e o planeta.",
