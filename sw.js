@@ -1,7 +1,7 @@
 /* Salema Eco Camp Magazine — funciona com pouca rede.
    Vai sempre buscar a versão nova à internet; só usa a cópia guardada
    quando não há ligação. Assim, as atualizações aparecem logo. */
-const CACHE="salema-magazine-v83";
+const CACHE="salema-magazine-v84";
 self.addEventListener("install",e=>self.skipWaiting());
 self.addEventListener("activate",e=>e.waitUntil(self.clients.claim()));
 self.addEventListener("fetch",e=>{

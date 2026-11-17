@@ -1262,6 +1262,22 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"telheiro", eyebrow:"Geologia · Praia do Telheiro, Sagres", titulo:"Telheiro: a falésia onde se leem 70 milhões de anos em falta",
+   fotos:[["regiao-telheiro.jpg","A Praia do Telheiro e a Ponta do Telheiro, com as rochas dobradas por baixo e as camadas vermelhas por cima"]],
+   resumo:"Na Ponta do Telheiro, junto ao Cabo de São Vicente, a falésia mostra duas eras da Terra encostadas uma à outra. É um dos 100 sítios de património geológico mais importantes do mundo.",
+   texto:[
+     "Olhe para a falésia da Ponta do Telheiro e vai ver duas rochas muito diferentes. Em baixo, camadas escuras de xisto e grauvaque, dobradas e postas quase na vertical. Em cima, bancadas vermelhas de arenito, deitadas quase na horizontal. A linha que as separa chama-se discordância angular, e é uma das mais espetaculares do mundo.",
+     "As rochas de baixo são do Carbónico Superior, com mais de 300 milhões de anos. Formaram-se no fundo de um antigo oceano, entre dois continentes que se aproximavam. Quando esses continentes chocaram e formaram o supercontinente Pangeia, as camadas foram esmagadas, dobradas e levantadas numa grande cadeia de montanhas, a cordilheira Varisca.",
+     "Durante dezenas de milhões de anos, a chuva, o vento e os rios gastaram essas montanhas até ficarem planas. Só depois, no Triásico Superior, quando a Pangeia começou a partir-se, rios de um clima quente e seco espalharam por cima areias vermelhas: são os arenitos do Grés de Silves, o mesmo «Algarve vermelho» do castelo de Silves.",
+     "Entre as duas rochas faltam cerca de 70 milhões de anos de história, como um livro a que arrancaram dezenas de páginas. Num só olhar vê-se um ciclo inteiro da Terra: um oceano que se forma, montanhas que nascem e se desfazem, e um continente que se começa a abrir. Por isso o Telheiro foi escolhido pela União Internacional das Ciências Geológicas (IUGS) como um dos primeiros 100 Sítios de Património Geológico do mundo, e é visitado por geólogos de todo o planeta."
+   ],
+   dicas:[
+     "A Ponta do Telheiro fica na costa oeste, a norte do Cabo de São Vicente, no concelho de Vila do Bispo. Chega-se por caminhos de terra.",
+     "A melhor vista da discordância é do alto da arriba e da própria praia. A descida para a praia é íngreme: use calçado próprio.",
+     "Mantenha-se nos trilhos: a vegetação das arribas é única e frágil, e pisá-la acelera a erosão do geomonumento.",
+     "Não se aproxime da beira da falésia nem da base das arribas: há risco de queda e de derrocadas.",
+     "Leve água e proteção do sol: não há sombra nem serviços na praia."
+   ]},
   {id:"dinossauros", eyebrow:"Geologia · Praia da Salema", titulo:"Pegadas de dinossauros na Praia da Salema",
    fotos:[["regiao-pegadas-salema.jpg","Pista de pegadas na laje de rocha, junto ao mar"],["regiao-pegada-dinossauro.jpg","Uma pegada de três dedos, vista de perto"]],
    resumo:"Há cerca de 120 milhões de anos, dinossauros caminharam pela lama onde hoje fica a Praia da Salema. Os seus passos ainda lá estão, gravados na rocha.",
