@@ -10,7 +10,7 @@
   const embed = q.has("embed");
   if (embed) document.body.classList.add("embed");
   const pl = (q.get("lang") || "").toLowerCase();
-  if (["pt","en","de"].includes(pl)) { try { localStorage.setItem("lang", pl); } catch (e) {} }
+  if (["pt","en","de","es"].includes(pl)) { try { localStorage.setItem("lang", pl); } catch (e) {} }
 
   const $ = s => document.querySelector(s);
   const eur = v => v.toLocaleString("pt-PT", {minimumFractionDigits:2, maximumFractionDigits:2}) + " €";
@@ -144,7 +144,7 @@
     /* reserva direta das parcelas de campismo, no site do Salema Eco Camp (mesmo link do botão "Garantir a minha parcela") */
     let ling = window.I18N_LANG || pl; if (!ling) { try { ling = localStorage.getItem("lang") || ""; } catch (e) {} }
     const iso = dt => dt.toISOString().slice(0,10);
-    $("#r-reservar").href = "https://www.salemaecocamp.com/" + (ling === "en" || ling === "de" ? "en/" : "") +
+    $("#r-reservar").href = "https://www.salemaecocamp.com/" + (ling === "en" || ling === "de" || ling === "es" ? "en/" : "") +
       "?accommodation_types=683719;683720;683721&checkin=" + iso(chegada) + "&checkout=" + iso(saida) + "&adults=" + Math.max(1, est.adultos);
     altura();
   }

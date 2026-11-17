@@ -1,6 +1,6 @@
 /* =====================================================================
-   LÍNGUAS DO MAGAZINE — português, English, Deutsch
-   O site está escrito em português. Em inglês ou alemão, cada frase é
+   LÍNGUAS DO MAGAZINE — português, English, Deutsch, Español
+   O site está escrito em português. Em inglês, alemão ou espanhol, cada frase é
    trocada pela tradução: primeiro do dicionário (i18n/en.json, de.json),
    depois da memória do telemóvel e, se faltar, o programa do Google
    traduz e guarda na folha (separador "Traducoes").
@@ -8,10 +8,10 @@
    ===================================================================== */
 (function(){
   const API=(window.CONFIG||{}).APPS_SCRIPT_URL||"";
-  const LANGS=[["pt","PT","Português"],["en","EN","English"],["de","DE","Deutsch"]];
+  const LANGS=[["pt","PT","Português"],["en","EN","English"],["de","DE","Deutsch"],["es","ES","Español"]];
   const store={get(k){try{return localStorage.getItem(k);}catch(e){return null;}},set(k,v){try{localStorage.setItem(k,v);}catch(e){}}};
   const guess=()=>{ const l=(navigator.languages||[navigator.language||"pt"]).map(x=>String(x).slice(0,2).toLowerCase());
-    for(const x of l){ if(x==="pt") return "pt"; if(x==="de") return "de"; if(x==="en") return "en"; } return l.length?"en":"pt"; };
+    for(const x of l){ if(x==="pt") return "pt"; if(x==="de") return "de"; if(x==="es") return "es"; if(x==="en") return "en"; } return l.length?"en":"pt"; };
   let lang=store.get("lang")||guess(); if(!LANGS.some(l=>l[0]===lang)) lang="pt";
   window.I18N_LANG=lang;
 

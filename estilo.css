@@ -495,3 +495,6 @@ nav.tabs a{position:relative}
 .regiao-fig.brasao{display:flex;flex-direction:column;align-items:center;background:var(--surface-2);border-radius:12px;padding:14px}
 .regiao-fig.brasao img{width:auto;max-width:180px;max-height:220px;border-radius:0}
 .regiao-fig.brasao figcaption{text-align:center}
+/* 4 línguas: ecrãs estreitos */
+@media (max-width:420px){ .lang-sel{gap:0;padding:2px} .lang-sel button{padding:5px 6px;font-size:.68rem} .brand b{font-size:1.1rem} .brand-row img{height:32px} .brand-row{gap:7px} }
+@media (max-width:370px){ .brand b{font-size:1rem} .lang-sel button{padding:4px 5px;font-size:.64rem} }

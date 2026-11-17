@@ -1,11 +1,12 @@
 /* =====================================================================
-   TRADUÇÕES DO MAGAZINE (inglês e alemão)
+   TRADUÇÕES DO MAGAZINE (inglês, alemão e espanhol)
    O site pede as frases que ainda não tem traduzidas; o programa vê no
    separador "Traducoes" e, se faltar, traduz com o Claude e guarda.
    A equipa pode corrigir qualquer tradução diretamente na folha.
-   Separador "Traducoes": pt | en | de
+   Separador "Traducoes": pt | en | de | es
    ===================================================================== */
-const LINGUAS = { en: 'English (UK)', de: 'German (Deutsch, formal Sie)' };
+const LINGUAS = { en: 'English (UK)', de: 'German (Deutsch, formal Sie)', es: 'Spanish (Spain, español de España, trato de usted)' };
+const COLUNAS_TRAD = ['pt', 'en', 'de', 'es'];
 const LIMITE_TRADUCOES_DIA = 3000;
 
 function traducoesGet(acao, e) {
@@ -40,7 +41,10 @@ function traducoesPost(body) {
 function folhaTraducoes() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName('Traducoes');
-  if (!sh) { sh = ss.insertSheet('Traducoes'); sh.appendRow(['pt','en','de']); sh.setFrozenRows(1); sh.getRange(1,1,1,3).setFontWeight('bold'); sh.getRange('A:C').setNumberFormat('@'); }
+  if (!sh) { sh = ss.insertSheet('Traducoes'); sh.appendRow(COLUNAS_TRAD); sh.setFrozenRows(1); }
+  if (sh.getMaxColumns() < COLUNAS_TRAD.length) sh.insertColumnsAfter(sh.getMaxColumns(), COLUNAS_TRAD.length - sh.getMaxColumns());
+  const cab = sh.getRange(1, 1, 1, COLUNAS_TRAD.length).getValues()[0];
+  if (cab.join('|') !== COLUNAS_TRAD.join('|')) { sh.getRange(1, 1, 1, COLUNAS_TRAD.length).setValues([COLUNAS_TRAD]).setFontWeight('bold'); sh.getRange('A:D').setNumberFormat('@'); }
   return sh;
 }
 function lerTraducoes(lang) {
@@ -48,8 +52,8 @@ function lerTraducoes(lang) {
   const c = cache.get('trad_' + lang); if (c) { try { return JSON.parse(c); } catch (e) {} }
   const sh = folhaTraducoes(); const dic = {};
   if (sh.getLastRow() >= 2) {
-    const col = lang === 'en' ? 1 : 2;
-    sh.getRange(2, 1, sh.getLastRow() - 1, 3).getValues().forEach(function(r){ if (r[0] && r[col]) dic[String(r[0])] = String(r[col]); });
+    const col = COLUNAS_TRAD.indexOf(lang);
+    sh.getRange(2, 1, sh.getLastRow() - 1, COLUNAS_TRAD.length).getValues().forEach(function(r){ if (r[0] && r[col]) dic[String(r[0])] = String(r[col]); });
   }
   try { const s = JSON.stringify(dic); if (s.length < 90000) cache.put('trad_' + lang, s, 300); } catch (e) {}
   return dic;
@@ -57,15 +61,15 @@ function lerTraducoes(lang) {
 function guardarTraducoes(lang, novos) {
   const lock = LockService.getScriptLock(); lock.waitLock(15000);
   try {
-    const sh = folhaTraducoes(); const col = lang === 'en' ? 2 : 3;
+    const sh = folhaTraducoes(); const col = COLUNAS_TRAD.indexOf(lang) + 1;
     const linhas = {};
     if (sh.getLastRow() >= 2) sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues().forEach(function(r, i){ linhas[String(r[0])] = i + 2; });
     const acrescentar = [];
     Object.keys(novos).forEach(function(pt){
       if (linhas[pt]) sh.getRange(linhas[pt], col).setValue(novos[pt]);
-      else { const row = [pt, '', '']; row[col - 1] = novos[pt]; acrescentar.push(row); }
+      else { const row = COLUNAS_TRAD.map(function(){ return ''; }); row[0] = pt; row[col - 1] = novos[pt]; acrescentar.push(row); }
     });
-    if (acrescentar.length) sh.getRange(sh.getLastRow() + 1, 1, acrescentar.length, 3).setNumberFormat('@').setValues(acrescentar);
+    if (acrescentar.length) sh.getRange(sh.getLastRow() + 1, 1, acrescentar.length, COLUNAS_TRAD.length).setNumberFormat('@').setValues(acrescentar);
     CacheService.getScriptCache().remove('trad_' + lang);
   } finally { lock.releaseLock(); }
 }
@@ -93,22 +97,23 @@ function traduzirComClaude(textos, lang) {
 }
 
 /* Corre no editor quando for preciso: acerta algumas palavras e volta a
-   traduzir as frases em alemão que ficaram em inglês por engano. */
+   traduzir as frases em alemão que ficaram em inglês por engano.
+   Também traduz para espanhol todas as frases que ainda não o tenham. */
 const CORRECOES = {
-  'Anúncios': { en: 'Notice board', de: 'Pinnwand' },
-  'Arranjos': { en: 'Repairs', de: 'Reparaturen' },
-  'Pôr um anúncio': { en: 'Post a notice', de: 'Aushang erstellen' },
-  'Retirar o meu anúncio': { en: 'Remove my notice', de: 'Meinen Aushang entfernen' },
-  'Só anúncios de entreajuda.': { en: 'Only mutual-help notices.', de: 'Nur Aushänge zur gegenseitigen Hilfe.' },
-  'Guardar no telemóvel': { en: 'Save to your phone', de: 'Auf dem Handy speichern' },
-  'Grátis para hóspedes': { en: 'Free for guests', de: 'Kostenlos für Gäste' },
-  'Mapa do parque': { en: 'Park map', de: 'Parkplan' },
-  'Grátis': { en: 'Free', de: 'Kostenlos' }
+  'Anúncios': { en: 'Notice board', de: 'Pinnwand', es: 'Tablón' },
+  'Arranjos': { en: 'Repairs', de: 'Reparaturen', es: 'Reparaciones' },
+  'Pôr um anúncio': { en: 'Post a notice', de: 'Aushang erstellen', es: 'Publicar un anuncio' },
+  'Retirar o meu anúncio': { en: 'Remove my notice', de: 'Meinen Aushang entfernen', es: 'Retirar mi anuncio' },
+  'Só anúncios de entreajuda.': { en: 'Only mutual-help notices.', de: 'Nur Aushänge zur gegenseitigen Hilfe.', es: 'Solo anuncios de ayuda mutua.' },
+  'Guardar no telemóvel': { en: 'Save to your phone', de: 'Auf dem Handy speichern', es: 'Guardar en el móvil' },
+  'Grátis para hóspedes': { en: 'Free for guests', de: 'Kostenlos für Gäste', es: 'Gratis para huéspedes' },
+  'Mapa do parque': { en: 'Park map', de: 'Parkplan', es: 'Mapa del parque' },
+  'Grátis': { en: 'Free', de: 'Kostenlos', es: 'Gratis' }
 };
 function corrigirTraducoes() {
-  Object.keys(CORRECOES).forEach(function(pt){ ['en','de'].forEach(function(l){ const o = {}; o[pt] = CORRECOES[pt][l]; guardarTraducoes(l, o); }); });
+  Object.keys(CORRECOES).forEach(function(pt){ ['en','de','es'].forEach(function(l){ if (!CORRECOES[pt][l]) return; const o = {}; o[pt] = CORRECOES[pt][l]; guardarTraducoes(l, o); }); });
   const sh = folhaTraducoes(); const n = sh.getLastRow() - 1; if (n < 1) return;
-  const linhas = sh.getRange(2, 1, n, 3).getValues();
+  const linhas = sh.getRange(2, 1, n, COLUNAS_TRAD.length).getValues();
   const ingles = /\b(the|and|with|your|you|of|for|my|is|are|from|at)\b/i, alemao = /\b(und|der|die|das|mit|Sie|für|ist|von|zum|zur|ein|eine)\b/;
   const portugues = /[ãõçâêô]|\b(de|do|da|dos|das|para|no|na|nos|os|um|uma|ou|com|e|ao|sem|até)\b/i;
   const refazerDe = linhas.filter(function(r){ const pt = String(r[0]), en = String(r[1]), de = String(r[2]);
@@ -119,12 +124,14 @@ function corrigirTraducoes() {
     return de === pt && portugues.test(pt); }).map(function(r){ return String(r[0]); });
   const refazerEn = linhas.filter(function(r){ const pt = String(r[0]), en = String(r[1]);
     if (!pt || CORRECOES[pt]) return false; return !en || (en === pt && portugues.test(pt)); }).map(function(r){ return String(r[0]); });
-  console.log('A refazer: alemão ' + refazerDe.length + ', inglês ' + refazerEn.length);
-  [['de', refazerDe], ['en', refazerEn]].forEach(function(par){
+  const refazerEs = linhas.filter(function(r){ const pt = String(r[0]), es = String(r[3] || '');
+    if (!pt || CORRECOES[pt]) return false; return !es; }).map(function(r){ return String(r[0]); });
+  console.log('A refazer: alemão ' + refazerDe.length + ', inglês ' + refazerEn.length + ', espanhol ' + refazerEs.length);
+  [['de', refazerDe], ['en', refazerEn], ['es', refazerEs]].forEach(function(par){
     for (let i = 0; i < par[1].length; i += 25) {
       const novos = traduzirComClaude(par[1].slice(i, i + 25), par[0]);
       if (novos) guardarTraducoes(par[0], novos); else console.log('Falhou um lote em ' + par[0]);
     }
   });
-  CacheService.getScriptCache().removeAll(['trad_en', 'trad_de']);
+  CacheService.getScriptCache().removeAll(['trad_en', 'trad_de', 'trad_es']);
 }

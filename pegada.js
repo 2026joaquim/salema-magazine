@@ -1,7 +1,7 @@
 /* =====================================================================
    CALCULADORA DA PEGADA DE CARBONO DA ESTADIA
    Usa window.FATORES_CARBONO (fatores-carbono.js).
-   Também pode ir para outro site: pegada.html?embed=1 (&lang=en|de)
+   Também pode ir para outro site: pegada.html?embed=1 (&lang=en|de|es)
    ===================================================================== */
 (function(){
   const F = window.FATORES_CARBONO;
@@ -9,7 +9,7 @@
   const embed = q.has("embed");
   if (embed) document.body.classList.add("embed");
   const pl = (q.get("lang") || "").toLowerCase();
-  if (["pt","en","de"].includes(pl)) { try { localStorage.setItem("lang", pl); } catch (e) {} }
+  if (["pt","en","de","es"].includes(pl)) { try { localStorage.setItem("lang", pl); } catch (e) {} }
 
   const $ = s => document.querySelector(s);
   const kg = v => v >= 1000 ? (v/1000).toLocaleString("pt-PT",{maximumFractionDigits:2}) + " t" : Math.round(v).toLocaleString("pt-PT") + " kg";
