@@ -1263,10 +1263,11 @@ window.REGIAO_INTRO = [
 ];
 window.REGIAO = [
   {id:"nomes-arabes", eyebrow:"História · Salema e Budens", titulo:"Salema e Budens: nomes com sotaque árabe",
+   fotos:[["regiao-salema.jpg","A Salema vista da falésia: a aldeia branca, a praia e a enseada abrigada."]],
    resumo:"Durante mais de 500 anos, esta costa fez parte do Al-Andalus. Os nomes das nossas aldeias ainda guardam esse passado: Salema, a paz; Budens, uma família de outros tempos.",
    texto:[
      "Entre o ano 711 e meados do século XIII, o Algarve foi terra muçulmana, parte do Al-Andalus. O próprio nome Algarve vem do árabe «al-Gharb», o Ocidente. Durante mais de cinco séculos, árabes e berberes viveram aqui ao lado de cristãos e judeus: trouxeram a nora e a açoteia, as amêndoas, os figos e os citrinos, e deixaram centenas de palavras e de nomes de lugares.",
-     "Salema é um deles. A explicação mais bonita, contada na região, liga o nome à palavra árabe «salam»: paz, segurança. Faz sentido: a enseada abrigada da Salema terá sido, desde sempre, um porto seguro para os barcos de pesca, entre as falésias e o mar aberto. Há quem prefira outra explicação, mais marítima: o nome viria da salema, um peixe que vive nestas rochas e cujo nome também tem raízes no árabe. Seja paz ou peixe, o nome veio do Sul.",
+     "Salema é um deles. O nome vem do árabe «salam»: paz, segurança. E faz todo o sentido: a enseada abrigada da Salema foi, desde sempre, um porto seguro para os barcos de pesca, protegida entre as falésias e o mar aberto. Um lugar de paz, como o nome diz.",
      "Budens, a aldeia da nossa freguesia, também terá origem árabe. Segundo a tradição local, o nome lembra uma família ou tribo árabe, os Abudani, que se teria instalado nestes vales férteis, com água e boas terras para cultivar. Os documentos antigos são poucos, e os linguistas ainda discutem estas origens, mas a memória ficou no nome.",
      "Mais tarde, a Salema cresceu como aldeia de pescadores, e assim continua: os barcos ainda descansam no areal ao lado dos banhistas, e é por isso que jornais como o The Guardian a puseram entre as praias mais bonitas do mundo. A freguesia de Budens junta cinco aldeias, Budens, Salema, Burgau, Figueira e Vale de Boi, e a Rota das 5 Aldeias, com o Trilho dos Romanos e dos Piratas e o Trilho dos Dinossauros, liga-as a pé."
    ],
