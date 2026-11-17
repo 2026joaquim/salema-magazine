@@ -1312,7 +1312,7 @@ window.REGIAO = [
      "Para ver um forte inteiro, visite a Fortaleza de Sagres e a Fortaleza do Beliche, a caminho do Cabo de São Vicente."
    ]},
   {id:"museu", eyebrow:"Visitar · Vila do Bispo", titulo:"Museu de Vila do Bispo: a história toda num celeiro",
-   fotos:[["regiao-pegadas-salema.jpg","As pegadas de dinossauro da Salema, um dos temas do museu."],["regiao-vale-boi.jpg","Vale Boi, em Budens: os achados da gruta estão no museu."],["regiao-menir-padrao.jpg","O Menir do Padrão. O concelho tem a maior concentração de menires da Península Ibérica."]],
+   fotos:[["regiao-museu.jpg","O Museu de Vila do Bispo – Celeiro da História, nos antigos celeiros do trigo, com a escultura «O Abraço» à entrada."]],
    resumo:"Tudo o que lê nesta secção, dos dinossauros aos menires, de Vale Boi aos naufrágios, está reunido num só lugar: o Celeiro da História, a 10 minutos do parque.",
    texto:[
      "Nos anos 50, Vila do Bispo era chamada «o celeiro do Algarve». O trigo de toda a região era guardado nos grandes celeiros da Federação Nacional dos Produtores de Trigo, mais tarde EPAC. Quando o trigo deixou de vir, o edifício ficou abandonado. A Câmara recuperou-o e, a 20 de janeiro de 2024, abriu ali o Museu de Vila do Bispo – Celeiro da História. O nome conta a história do próprio edifício: onde antes se guardava o trigo, guarda-se agora a memória da terra.",
