@@ -78,7 +78,8 @@ const table = rows => el("ul",{class:"contacts"}, ...rows.map(r=>el("li",{}, el(
 function extraFor(id){
   if(id==="restaurante") return el("div",{style:"display:flex;flex-direction:column;gap:10px"},
     GALERIAS.restaurante ? gallery(GALERIAS.restaurante) : null,
-    el("a",{class:"btn block wa",style:"text-decoration:none;text-align:center",href:"https://wa.me/"+digits(sec("restaurante").whatsapp),target:"_blank",rel:"noopener",text:"WhatsApp do Nazari: reservar, encomendar ou perguntar"}),
+    el("a",{class:"btn block wa",style:"text-decoration:none;text-align:center;white-space:normal;height:auto;line-height:1.25;padding:12px 18px;display:flex;flex-direction:column;align-items:center;gap:2px;max-width:100%;box-sizing:border-box",href:"https://wa.me/"+digits(sec("restaurante").whatsapp),target:"_blank",rel:"noopener"},
+      el("span",{text:"WhatsApp do Nazari"}), el("small",{style:"font-weight:600;opacity:.9",text:"Reservar mesa, encomendar ou perguntar"})),
     el("div",{class:"card",style:"background:#EEF5EF"}, el("h3",{text:"Festas, grupos e eventos no Nazari"}),
       el("p",{text:"Organizamos aniversários, jantares de grupo, team building, almoços e jantares de Natal, jantares temáticos e workshops, na sala ou na esplanada. Diga-nos a data, o número de pessoas e o que imagina, e enviamos uma proposta por email."}),
       el("button",{class:"btn",type:"button",style:"align-self:flex-start",onclick:()=>openForm("restaurante","eventos"),text:"Pedir proposta"})),
