@@ -1277,7 +1277,7 @@ window.REGIAO = [
      "Respeite os sítios arqueológicos: não escave, não recolha pedras nem objetos. Se encontrar algo que pareça antigo, deixe ficar e avise a Câmara Municipal."
    ]},
   {id:"menires", eyebrow:"Pré-história · Menires de Vila do Bispo", titulo:"Os menires de Vila do Bispo: pedras com 6 mil anos",
-   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/Monte_dos_Amantes_Vila_do_Bispo.jpg?width=800","Menires do Monte dos Amantes, em Vila do Bispo. (Foto: Wikimedia Commons)"]],
+   fotos:[["regiao-menir-padrao.jpg","O Menir do Padrão, perto da Raposeira."],["https://commons.wikimedia.org/wiki/Special:FilePath/Monte_dos_Amantes_Vila_do_Bispo.jpg?width=800","Menires do Monte dos Amantes, em Vila do Bispo. (Foto: Wikimedia Commons)"]],
    resumo:"Muito antes de Stonehenge, os primeiros agricultores desta costa levantaram centenas de pedras sagradas. Vila do Bispo tem uma das maiores concentrações de menires do mundo.",
    texto:[
      "Há cerca de 6 mil anos, no Neolítico, os caçadores deram lugar aos primeiros agricultores e pastores. Foram eles que, nos cerros de Vila do Bispo e da Raposeira, arrancaram, talharam e levantaram grandes pedras de calcário: os menires.",
