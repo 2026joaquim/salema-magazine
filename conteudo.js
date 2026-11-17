@@ -1262,6 +1262,23 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"sagres", eyebrow:"História · Fortaleza de Sagres", titulo:"Sagres: a ponta da Europa que abriu as portas do mundo",
+   resumo:"Nesta ponta de rocha, o Infante D. Henrique olhou para o mar desconhecido. Com a herança dos Templários, lançou a aventura que ligou a Europa a África, à Ásia e às Américas.",
+   texto:[
+     "Durante séculos, o Cabo de São Vicente e a Ponta de Sagres foram o fim do mundo conhecido. Para lá ficava o «Mar Tenebroso», cheio de lendas e de monstros. No século XV, este promontório passou a ser o contrário: o ponto de partida para o desconhecido.",
+     "A história começa com os Templários. Em 1307, o rei de França perseguiu a Ordem do Templo para se apoderar das suas riquezas, e em 1312 o papa extinguiu-a. Os bens deviam passar para outra ordem, mas o rei D. Dinis não deixou que se perdessem. Depois de sete anos de negociações com o papa, criou uma ordem portuguesa, a Ordem de Cristo, aprovada em 1319, que herdou os castelos, as terras e muitos dos cavaleiros do Templo. Mais do que fugir ao papa, foi uma jogada de mestre: em Portugal, os Templários mudaram de nome e continuaram, agora ao serviço do reino.",
+     "Um século depois, o Infante D. Henrique, filho de D. João I e de D. Filipa de Lencastre, tornou-se administrador da Ordem de Cristo. Com a sua riqueza financiou as viagens pelo Atlântico, e a cruz vermelha da Ordem passou a ir pintada nas velas das caravelas. O Infante escolheu esta ponta do Algarve: mandou construir aqui a sua vila, junto ao Cabo de São Vicente, e foi em Sagres que morreu, em 1460.",
+     "Daqui e do porto de Lagos, ali ao lado, os navegadores foram cada vez mais longe: a Madeira e os Açores, o Cabo Bojador, dobrado por Gil Eanes em 1434, e depois toda a costa de África. A caravela, leve e capaz de navegar contra o vento, e a arte de se orientar pelos astros abriram o caminho a Bartolomeu Dias, que dobrou o Cabo da Boa Esperança, e a Vasco da Gama, que chegou à Índia por mar em 1498. Pela primeira vez, os oceanos ligaram os continentes. Começava o mundo global, e Portugal e a Europa abriam as portas do mundo a partir desta ponta de rocha.",
+     "Fala-se muito da «Escola de Sagres», onde sábios e navegadores teriam estudado com o Infante. Os historiadores dizem que nunca existiu como escola: o que houve foi uma rede de marinheiros, cartógrafos e astrónomos que o Infante reuniu e apoiou. A lenda nasceu séculos mais tarde, mas diz bem o que aqui se viveu.",
+     "A fortaleza que hoje se visita foi reforçada no tempo de D. Sebastião, atacada pelo corsário inglês Francis Drake em 1587 e abalada pelo terramoto de 1755. Lá dentro há uma enorme rosa dos ventos feita de pedras no chão, com 43 metros de diâmetro, descoberta nos restauros do século XX e que poderá vir do tempo do Infante, e a pequena igreja de Nossa Senhora da Graça. Lá fora, a falésia a pique, o vento e o Atlântico: o mesmo horizonte que o Infante olhava."
+   ],
+   dicas:[
+     "A Fortaleza de Sagres fica a cerca de 20 minutos de carro do parque. Confirme o horário de abertura antes de ir.",
+     "Percorra o caminho à volta da ponta: as vistas sobre as falésias e o mar são das mais bonitas da costa.",
+     "Ao fim da tarde, siga até ao Cabo de São Vicente para ver o pôr do sol no fim da Europa.",
+     "Leve um casaco: na ponta de Sagres venta quase sempre.",
+     "Não passe as vedações nem se aproxime da beira das falésias."
+   ]},
   {id:"telheiro", eyebrow:"Geologia · Praia do Telheiro, Sagres", titulo:"Telheiro: a falésia onde se leem 70 milhões de anos em falta",
    fotos:[["regiao-telheiro.jpg","A Praia do Telheiro e a Ponta do Telheiro, com as rochas dobradas por baixo e as camadas vermelhas por cima"]],
    resumo:"Na Ponta do Telheiro, junto ao Cabo de São Vicente, a falésia mostra duas eras da Terra encostadas uma à outra. É um dos 100 sítios de património geológico mais importantes do mundo.",
