@@ -1262,6 +1262,35 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"vale-boi", eyebrow:"Pré-história · Vale Boi, Budens", titulo:"Vale Boi: os primeiros vizinhos, há mais de 30 mil anos",
+   resumo:"A três quilómetros do parque, num abrigo de rocha em Vale Boi, viveram caçadores-recolectores do Paleolítico. É o sítio com os vestígios mais antigos do Homo sapiens em todo o sul da Península Ibérica.",
+   texto:[
+     "Imagine o vale de Budens há 30 mil anos. Fazia mais frio, o mar estava muito mais longe, e por estes montes andavam auroques, cavalos, veados e até leões e rinocerontes. Num abrigo de rocha virado a sul, junto à ribeira de Vale Boi, um grupo de caçadores-recolectores fez a sua casa.",
+     "O sítio foi descoberto em 1998 e é escavado há mais de vinte anos por arqueólogos da Universidade do Algarve. É hoje considerado o maior sítio do Paleolítico Superior em Portugal e guarda os vestígios mais antigos do homem moderno, o Homo sapiens, em todo o sul da Península: com cerca de 33 a 34 mil anos.",
+     "Os arqueólogos encontraram milhares de pontas de seta e lâminas de sílex, utensílios de osso, conchas usadas como adorno e restos dos animais caçados e do marisco apanhado na costa. E encontraram arte: uma pequena placa de pedra com cerca de 24 mil anos, com figuras de animais gravadas, uma das primeiras provas de arte do Paleolítico no sul de Portugal.",
+     "Durante milhares de anos, sucessivas gerações voltaram ao mesmo abrigo, até ao tempo dos primeiros agricultores. Antes deles, o concelho já tinha sido terra de Neandertais, com vestígios em sítios como a Lagoa Funda e a Lagoa do Bordoal, e de caçadores ainda mais antigos, do Paleolítico Inferior. A presença humana nesta ponta da Europa perde-se no tempo.",
+     "Da próxima vez que passar por Budens, a caminho da praia, lembre-se: está a pisar um dos lugares onde os humanos vivem há mais tempo em Portugal."
+   ],
+   dicas:[
+     "Vale Boi fica a cerca de 3 km do parque, em Budens. O sítio arqueológico não está aberto a visitas livres: há dias abertos durante as campanhas de escavação, normalmente no verão.",
+     "Alguns achados, como a placa gravada, já foram mostrados em exposições em Vila do Bispo. Pergunte no posto de turismo ou na Câmara se há alguma em curso.",
+     "Respeite os sítios arqueológicos: não escave, não recolha pedras nem objetos. Se encontrar algo que pareça antigo, deixe ficar e avise a Câmara Municipal."
+   ]},
+  {id:"menires", eyebrow:"Pré-história · Menires de Vila do Bispo", titulo:"Os menires de Vila do Bispo: pedras com 6 mil anos",
+   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/Monte_dos_Amantes_Vila_do_Bispo.jpg?width=800","Menires do Monte dos Amantes, em Vila do Bispo. (Foto: Wikimedia Commons)"]],
+   resumo:"Muito antes de Stonehenge, os primeiros agricultores desta costa levantaram centenas de pedras sagradas. Vila do Bispo tem uma das maiores concentrações de menires do mundo.",
+   texto:[
+     "Há cerca de 6 mil anos, no Neolítico, os caçadores deram lugar aos primeiros agricultores e pastores. Foram eles que, nos cerros de Vila do Bispo e da Raposeira, arrancaram, talharam e levantaram grandes pedras de calcário: os menires.",
+     "No concelho estão identificados cerca de 250 menires ou fragmentos, numa área de apenas 42 quilómetros quadrados. É uma das maiores concentrações conhecidas em todo o mundo. Há menires isolados, em pares e em grupos, como os do Padrão e do Milrei, perto da praia da Ingrina, os do Monte dos Amantes, o do Cerro do Camacho e o da Aspradantes, na Raposeira.",
+     "Para que serviam? Ninguém sabe ao certo. Muitos estão no alto dos cerros, virados para o nascer do sol ou para o mar, e alguns têm gravuras: linhas, círculos, serpentes e cajados. Os arqueólogos pensam que marcavam territórios, caminhos e lugares de reunião, e que estavam ligados ao culto do sol, da lua, das estações e da fertilidade da terra, de que dependiam as sementeiras e as colheitas.",
+     "Os menires do sudoeste estão entre os mais antigos da Europa. A hipótese dos investigadores é que o fenómeno megalítico se tenha desenvolvido de sul para norte, e um projeto internacional, «Megalithic Origins», tem escavado aqui para perceber como começou. Por isso há quem chame ao Menir do Padrão, a brincar, «a primeira pedra de Stonehenge»."
+   ],
+   dicas:[
+     "Os menires do Padrão e do Milrei ficam a sul da Raposeira, a caminho da praia da Ingrina, a cerca de 10 minutos de carro do parque.",
+     "Os do Monte dos Amantes e do Cerro do Camacho ficam junto a Vila do Bispo. Há placas a indicar alguns deles.",
+     "Vá ao nascer ou ao pôr do sol: a luz rasante faz aparecer as gravuras.",
+     "Não suba nem se encoste aos menires: são monumentos com milhares de anos."
+   ]},
   {id:"sao-vicente", eyebrow:"História e lenda · Cabo de São Vicente", titulo:"O corpo de São Vicente e os corvos do Cabo",
    fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/LSB.png?width=360","O brasão de Lisboa: o barco com as relíquias de São Vicente e os dois corvos, um à proa e outro à popa. (Brasão: Sérgio Horta, Wikimedia Commons, CC BY-SA 3.0)","brasao"]],
    resumo:"Durante séculos, o corpo de um mártir esteve guardado no fim da Europa, vigiado por corvos. Em 1173, D. Afonso Henriques levou-o para Lisboa, e os corvos foram atrás.",
