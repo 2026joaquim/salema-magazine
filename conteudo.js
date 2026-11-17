@@ -163,7 +163,7 @@ window.RESERVAS_EMAIL="reservas@salemaecocamp.com";
 window.VALES_EMAIL="info@salemaecocamp.com";
 window.TIPOS_ALOJAMENTO=["Glamping (tenda Inländ, yurt, tipi, safari ou dome)","Glamping Eco Lodge","Mobile home (T2 ou T3)","Apartamento ou estúdio","Campismo: tenda","Campismo: autocaravana ou caravana","Ainda não sei"];
 window.CATALOG=[
-  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
+  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"reservas.nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Nova ementa de comida de conforto desde 8 de novembro. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:00; às terças só há pequeno-almoço.",
    itens:[
     {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, até às 21:00", campos:["telefone","data","hora","pessoas","notas"]},
