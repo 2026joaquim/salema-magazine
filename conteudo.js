@@ -1262,6 +1262,21 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"museu", eyebrow:"Visitar · Vila do Bispo", titulo:"Museu de Vila do Bispo: a história toda num celeiro",
+   fotos:[["regiao-pegadas-salema.jpg","As pegadas de dinossauro da Salema, um dos temas do museu."],["regiao-vale-boi.jpg","Vale Boi, em Budens: os achados da gruta estão no museu."],["regiao-menir-padrao.jpg","O Menir do Padrão. O concelho tem a maior concentração de menires da Península Ibérica."]],
+   resumo:"Tudo o que lê nesta secção, dos dinossauros aos menires, de Vale Boi aos naufrágios, está reunido num só lugar: o Celeiro da História, a 10 minutos do parque.",
+   texto:[
+     "Nos anos 50, Vila do Bispo era chamada «o celeiro do Algarve». O trigo de toda a região era guardado nos grandes celeiros da Federação Nacional dos Produtores de Trigo, mais tarde EPAC. Quando o trigo deixou de vir, o edifício ficou abandonado. A Câmara recuperou-o e, a 20 de janeiro de 2024, abriu ali o Museu de Vila do Bispo – Celeiro da História. O nome conta a história do próprio edifício: onde antes se guardava o trigo, guarda-se agora a memória da terra.",
+     "O percurso começa há centenas de milhões de anos, com a geologia da Ponta do Telheiro e as pegadas de dinossauro da Salema. Segue pela pré-história: os caçadores de Vale Boi, os concheiros do Castelejo, os menires e as estelas de guerreiros da Idade do Bronze. Passa pelos romanos da Boca do Rio, uma das maiores fábricas de salga de peixe do Império, e pelo tempo do Al-Andalus, quando árabes, cristãos e judeus viviam lado a lado.",
+     "Depois vem o mar: o Infante D. Henrique e os Descobrimentos, e os naufrágios desta costa. Em 1759, na Batalha de Lagos, o navio-almirante francês «Océan» encalhou e ardeu mesmo em frente à Salema, e os seus canhões fazem parte desta história. O percurso termina nas gentes do cabo: a pesca, os percebes, a agricultura e a máquina que escolhia o trigo nos celeiros.",
+     "É um museu feito para a comunidade e com ela. Em 2025 recebeu o prémio nacional da Associação Portuguesa de Museologia para projetos de mediação educativa e cultural. Tem loja, cafetaria com esplanada, auditório e centro de documentação, e à entrada recebe-nos a escultura «O Abraço», de Teresa Paulino."
+   ],
+   dicas:[
+     "Fica no Sítio das Eiras, em Vila do Bispo, a cerca de 10 minutos de carro do parque.",
+     "A entrada tem sido gratuita. Confirme os horários em museuviladobispo.pt antes de ir.",
+     "Combine a visita com a Igreja Matriz de Vila do Bispo, toda forrada de azulejos, mesmo ali ao lado.",
+     "Ótimo programa para um dia de chuva ou de vento, e muito bom para crianças."
+   ]},
   {id:"nomes-arabes", eyebrow:"História · Salema e Budens", titulo:"Salema e Budens: nomes com sotaque árabe",
    fotos:[["regiao-salema.jpg","A Salema vista da falésia: a aldeia branca, a praia e a enseada abrigada."]],
    resumo:"Durante mais de 500 anos, esta costa fez parte do Al-Andalus. Os nomes das nossas aldeias ainda guardam esse passado: Salema, a paz; Budens, uma família de outros tempos.",
