@@ -1262,6 +1262,23 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"aves", eyebrow:"Natureza · Migração das aves", titulo:"A grande passagem: as aves da Europa a caminho de África",
+   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/Phoenicopterus_roseus,_Lido_de_Thau_cf05.jpg?width=1400","Um bando de flamingos em voo. (Foto: Christian Ferrer, Wikimedia Commons)"],["https://commons.wikimedia.org/wiki/Special:FilePath/The_flight_of_a_griffon.jpg?width=1200","Um grifo a planar. Em outubro e novembro passam por aqui às centenas. (Foto: Artemy Voikhansky, Wikimedia Commons)"]],
+   resumo:"Todos os outonos, milhares de aves de toda a Europa passam por cima de nós a caminho de África. Sagres é um dos grandes corredores migratórios da Europa, e tem o maior festival de observação de aves do país.",
+   texto:[
+     "Entre agosto e novembro acontece por cima das nossas cabeças um dos maiores espetáculos da natureza. Aves que fizeram ninho na Europa, da Escandinávia à Alemanha, de França a Espanha, descem para sul para passar o inverno em África, onde há comida e calor. Muitas delas passam por aqui: Sagres é considerado o terceiro corredor de aves migratórias mais importante da Europa, a seguir aos estreitos do Bósforo, na Turquia, e de Gibraltar.",
+     "As grandes aves planadoras, como grifos, britangos, águias-calçadas, águias-cobreiras, milhafres e cegonhas-pretas, quase não batem as asas. Viajam como os planadores: procuram as correntes de ar quente que sobem da terra aquecida pelo sol, as térmicas, e sobem em espiral até ganharem altura. Depois deslizam, a perder altura devagar, até encontrarem a térmica seguinte. Por isso evitam o mar aberto, onde não há térmicas, e procuram a travessia mais curta para África: o Estreito de Gibraltar, com apenas 14 km.",
+     "É aqui que o nosso cabo entra na história. Muitas aves, sobretudo as jovens na sua primeira viagem, descem pela costa oeste e chegam ao fim da terra, em Sagres e no Cabo de São Vicente. Ali o mar corta-lhes o caminho. Ficam a rodar sobre a península, a ganhar altura nas térmicas, até tomarem o rumo de leste, ao longo da costa do Algarve, em direção a Gibraltar. Às vezes passam mesmo por cima do parque.",
+     "Os grifos são os últimos a partir: os grandes bandos passam sobretudo no fim de outubro e em novembro. Em dias bons contam-se centenas no céu de Sagres, e há registos de mais de 500 grifos num só dia. Com eles aparecem, por vezes, raridades como o grifo-de-Rüppell, um abutre africano, ou a águia-imperial-ibérica. Ao mesmo tempo, no mar, passam alcatrazes, cagarras e tordas-mergulheiras.",
+     "Também os flamingos fazem parte deste vaivém entre a Europa e África. O lugar mais perto do parque para os ver é a Ria de Alvor, numa lagoa de água salgada na margem ocidental da ria, onde não é raro ver mais de 50 flamingos na primavera e no outono. Por vezes aparecem também aqui ao lado, no Paul da Boca do Rio.",
+     "Para celebrar esta passagem, Sagres organiza todos os anos, no início de outubro, o Festival de Observação de Aves & Atividades de Natureza, organizado pela Câmara de Vila do Bispo, pela SPEA-BirdLife e pela Associação Almargem. É o maior evento do género em Portugal: em 2026, na 17.ª edição, teve 314 atividades em quatro dias, com observação de aves em terra e no mar, anilhagem, caminhadas, passeios de barco e a devolução à natureza de aves recuperadas."
+   ],
+   dicas:[
+     "Os melhores dias são de sol, com pouco vento, a partir do fim da manhã, quando as térmicas se formam. Olhe para o céu: os bandos de grifos parecem um redemoinho de pontos escuros.",
+     "Os melhores miradouros são o Cabo de São Vicente e os cerros à volta de Sagres. Leve binóculos e um casaco: na ponta do cabo faz vento.",
+     "Para os flamingos, faça o passadiço da Ria de Alvor (cerca de 5 km, plano, a 30 minutos de carro).",
+     "Marque já o festival no calendário: é sempre no início de outubro. O programa sai em birdwatchingsagres.com."
+   ]},
   {id:"boca-do-rio", eyebrow:"Romanos · Boca do Rio, Budens", titulo:"Boca do Rio: o baú romano do atum",
    fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/ForteAlmadena2.jpg?width=1200","O Forte de Almádena, no alto da falésia, vigia a Boca do Rio."]],
    resumo:"Há 2000 anos, ali onde hoje há um paul e uma praia, havia um porto, uma casa senhorial com mosaicos e uma fábrica de conservas de peixe. O atum desta costa seguia em ânforas para Roma.",
