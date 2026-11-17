@@ -1262,6 +1262,23 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"sao-vicente", eyebrow:"História e lenda · Cabo de São Vicente", titulo:"O corpo de São Vicente e os corvos do Cabo",
+   resumo:"Durante séculos, o corpo de um mártir esteve guardado no fim da Europa, vigiado por corvos. Em 1173, D. Afonso Henriques levou-o para Lisboa, e os corvos foram atrás.",
+   texto:[
+     "Vicente era um jovem diácono de Saragoça, martirizado em Valência no ano de 304, no tempo das perseguições romanas aos cristãos. Conta a lenda que o seu corpo foi lançado aos animais e depois ao mar, mas que os corvos o protegeram e as ondas o devolveram à costa. Depressa se tornou um dos santos mais venerados da Península Ibérica.",
+     "Quando os muçulmanos chegaram à Península, no século VIII, os cristãos de Valência terão fugido com as relíquias do santo e navegado até ao ponto mais extremo que conheciam: o antigo Promontório Sagrado. Ali as esconderam e ergueram um pequeno santuário, sempre vigiado por corvos. O lugar passou a chamar-se Cabo de São Vicente.",
+     "Não é só lenda. No século XII, o geógrafo árabe Al-Idrisi descreveu no cabo uma igreja guardada por corvos, a que chamou «Kanisat al-Ghurab», a Igreja do Corvo. Cristãos e muçulmanos conheciam o lugar e respeitavam-no. Os peregrinos continuaram a chegar, mesmo sob domínio muçulmano.",
+     "Em 1173, D. Afonso Henriques, o primeiro rei de Portugal, mandou buscar o corpo do santo. O Algarve ainda era muçulmano, mas o rei queria as relíquias para Lisboa, conquistada aos mouros em 1147. Diz a tradição que o barco que as levou foi acompanhado por dois corvos durante toda a viagem, um à proa e outro à popa. As relíquias foram depositadas no altar-mor da Sé, e São Vicente tornou-se o padroeiro de Lisboa. Ainda hoje, o barco e os dois corvos estão no brasão da cidade.",
+     "Na Idade Média, as relíquias de um santo eram um tesouro. Davam proteção divina e prestígio, atraíam peregrinos e riqueza e, sobretudo, davam legitimidade. Para um reino acabado de nascer, ter um santo tão famoso numa cidade acabada de conquistar era a prova de que Portugal tinha a bênção do Céu. Os historiadores veem nesta trasladação o símbolo da cristianização definitiva de Lisboa, e a cidade passou a festejar todos os anos a chegada das relíquias.",
+     "O santo nunca deixou de ser da nossa costa: São Vicente é também o padroeiro do Algarve, festejado a 22 de janeiro. E em 2024, depois de 850 anos em Lisboa, um pequeno osso da sua mão voltou ao Algarve, para a Sé de Faro."
+   ],
+   dicas:[
+     "O Cabo de São Vicente fica a cerca de 25 minutos de carro do parque, depois de Sagres.",
+     "O farol foi construído sobre as ruínas do antigo convento franciscano do cabo, herdeiro da Igreja do Corvo.",
+     "Repare nos corvos e nas gralhas que voam sobre as falésias: são os guardiões da lenda.",
+     "Ao pôr do sol há muita gente: chegue mais cedo, leve um casaco e não passe as vedações das falésias.",
+     "Em Lisboa, procure os corvos no brasão da cidade, nos candeeiros e nas calçadas."
+   ]},
   {id:"sagres", eyebrow:"História · Fortaleza de Sagres", titulo:"Sagres: a ponta da Europa que abriu as portas do mundo",
    resumo:"Nesta ponta de rocha, o Infante D. Henrique olhou para o mar desconhecido. Com a herança dos Templários, lançou a aventura que ligou a Europa a África, à Ásia e às Américas.",
    texto:[
