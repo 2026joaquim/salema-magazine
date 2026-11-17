@@ -1263,6 +1263,7 @@ window.REGIAO_INTRO = [
 ];
 window.REGIAO = [
   {id:"sao-vicente", eyebrow:"História e lenda · Cabo de São Vicente", titulo:"O corpo de São Vicente e os corvos do Cabo",
+   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/LSB.png?width=360","O brasão de Lisboa: o barco com as relíquias de São Vicente e os dois corvos, um à proa e outro à popa. (Brasão: Sérgio Horta, Wikimedia Commons, CC BY-SA 3.0)","brasao"]],
    resumo:"Durante séculos, o corpo de um mártir esteve guardado no fim da Europa, vigiado por corvos. Em 1173, D. Afonso Henriques levou-o para Lisboa, e os corvos foram atrás.",
    texto:[
      "Vicente era um jovem diácono de Saragoça, martirizado em Valência no ano de 304, no tempo das perseguições romanas aos cristãos. Conta a lenda que o seu corpo foi lançado aos animais e depois ao mar, mas que os corvos o protegeram e as ondas o devolveram à costa. Depressa se tornou um dos santos mais venerados da Península Ibérica.",
@@ -1280,6 +1281,7 @@ window.REGIAO = [
      "Em Lisboa, procure os corvos no brasão da cidade, nos candeeiros e nas calçadas."
    ]},
   {id:"sagres", eyebrow:"História · Fortaleza de Sagres", titulo:"Sagres: a ponta da Europa que abriu as portas do mundo",
+   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/Fortaleza_de_Sagres_01.JPG?width=1200","A Fortaleza de Sagres, na ponta do promontório. (Foto: Wikimedia Commons)"]],
    resumo:"Nesta ponta de rocha, o Infante D. Henrique olhou para o mar desconhecido. Com a herança dos Templários, lançou a aventura que ligou a Europa a África, à Ásia e às Américas.",
    texto:[
      "Durante séculos, o Cabo de São Vicente e a Ponta de Sagres foram o fim do mundo conhecido. Para lá ficava o «Mar Tenebroso», cheio de lendas e de monstros. No século XV, este promontório passou a ser o contrário: o ponto de partida para o desconhecido.",

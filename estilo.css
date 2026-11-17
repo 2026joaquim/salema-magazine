@@ -492,3 +492,6 @@ nav.tabs a{position:relative}
 .regiao-fig figcaption{font-size:.82rem;color:var(--muted);margin-top:4px}
 .regiao-dicas{background:var(--surface-2);border-radius:12px;padding:12px 14px}
 .regiao-dicas ul{margin:6px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.regiao-fig.brasao{display:flex;flex-direction:column;align-items:center;background:var(--surface-2);border-radius:12px;padding:14px}
+.regiao-fig.brasao img{width:auto;max-width:180px;max-height:220px;border-radius:0}
+.regiao-fig.brasao figcaption{text-align:center}
