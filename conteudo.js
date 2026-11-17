@@ -192,8 +192,8 @@ window.CATALOG=[
    intro:"Aberta das 8:00 às 13:00 e das 14:00 às 18:00. Produtos biológicos e locais. As peças únicas podem ser enviadas por correio para Portugal ou para o estrangeiro: diga-nos o que quer e enviamos o preço.",
    itens:[
     {id:"pao", nome:"Encomendar pão e pastelaria", desc:"Para o dia seguinte · encomendas até às 17h30", thumb:"pao-nicolay.jpg", campos:["data","paes","notas"]},
-    {id:"manta-la", nome:"Manta de lã virgem «Molly», 125 × 170 cm", desc:"40 € · 100 % lã virgem", fotos:["produto-manta-la-molly.jpg"], substitui:["Manta"],
-     detalhe:"Manta de 100 % lã virgem com a ovelha «Molly», em castanho e cru, com franjas. Mede 125 × 170 cm. Quentinha para as noites frescas no parque, no sofá ou na cama dos mais pequenos.",
+    {id:"manta-espinha", nome:"Manta / Blanket, 140 × 180 cm", desc:"30 € · várias cores, com franjas", fotos:["produto-mantas-espinha.jpg"], substitui:["Manta"],
+     detalhe:"Manta tecida em espinha, com franjas, em várias cores: rosa-claro, bordeaux, azul-petróleo, cinzento, castanho, verde, amarelo e cor-de-rosa. Mede 140 × 180 cm. Diga nas notas a cor que prefere, ou escolha na loja.",
      campos:["quantidade","envio","notas"], loja:true},
     {id:"manta-algodao", nome:"Manta / Blanket, 140 × 210 cm", desc:"35 € · 100 % algodão, várias cores", fotos:["produto-mantas-algodao.jpg"],
      detalhe:"Manta tecida em 100 % algodão, com franjas, em vários padrões e cores. Mede 140 × 210 cm. Diga nas notas o padrão que prefere, ou escolha na loja.",
