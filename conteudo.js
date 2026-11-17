@@ -1262,6 +1262,38 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"boca-do-rio", eyebrow:"Romanos · Boca do Rio, Budens", titulo:"Boca do Rio: o baú romano do atum",
+   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/ForteAlmadena2.jpg?width=1200","O Forte de Almádena, no alto da falésia, vigia a Boca do Rio."]],
+   resumo:"Há 2000 anos, ali onde hoje há um paul e uma praia, havia um porto, uma casa senhorial com mosaicos e uma fábrica de conservas de peixe. O atum desta costa seguia em ânforas para Roma.",
+   texto:[
+     "Na época romana, o mar entrava pelo estuário da ribeira de Budens e formava uma grande laguna, onde hoje fica o Paul da Boca do Rio. Nas margens dessa laguna cresceu uma villa marítima: uma grande casa virada ao mar, com mosaicos e paredes pintadas, e ao lado um complexo industrial com grandes tanques de salga, alguns com 27 mil litros cada, e o seu próprio porto. Funcionou sobretudo entre os séculos II e V. Em 2018, uma equipa das universidades do Algarve e de Marburgo encontrou ali o porto romano mais bem conservado de Portugal.",
+     "O tesouro desta costa era o atum. Na primavera, os cardumes passavam junto à costa a caminho do Mediterrâneo. Os pescadores cercavam-nos com redes perto da praia e puxavam-nos para terra, a mesma ideia das armações de atum que aqui continuaram durante séculos. Nos tanques, o peixe era salgado e transformado em molhos e pastas, como o famoso garum, o grande tempero dos romanos.",
+     "Para viajar, o peixe precisava de ânforas. Eram feitas aqui perto, na Praia do Martinhal, em Sagres, o maior centro de olaria romana do Algarve, onde ainda se veem fornos nas arribas. Cheias de conservas, as ânforas seguiam por mar para Roma e para todo o Império.",
+     "A Boca do Rio é, no fundo, um baú. Durante séculos, a areia das dunas guardou tudo. Foi o mar que o abriu: o grande temporal de 1715 e, sobretudo, o maremoto de 1 de novembro de 1755 arrancaram as dunas e puseram as ruínas à vista. Por isso este é hoje um dos melhores lugares da Europa para estudar a força de um tsunami. Conta a memória da terra que as gentes que viviam cá em baixo, junto ao mar, reconstruíram a sua aldeia lá em cima, longe das ondas: Almádena. A povoação era ali, na Boca do Rio.",
+     "No alto da falésia ergue-se o Forte de São Luís de Almádena, construído em 1632. Uma das suas missões era proteger as armações de atum da Boca do Rio. Em 1774 voltou a montar-se ali uma armação, aproveitando as fundações romanas, e ainda restam as ruínas desses edifícios."
+   ],
+   dicas:[
+     "Desça à praia da Boca do Rio na maré baixa: veem-se paredes romanas a sair do talude junto ao areal. Não suba nem pise as ruínas.",
+     "Suba ao Forte de Almádena para a vista sobre a Boca do Rio, a Salema e a costa até Sagres. Cuidado com a beira da falésia.",
+     "Os mosaicos e muitos objetos da Boca do Rio estão no Museu de Vila do Bispo – Celeiro da História.",
+     "O Paul da Boca do Rio é uma zona húmida protegida: leve binóculos para as garças e, com sorte, uma lontra."
+   ]},
+  {id:"fortes", eyebrow:"Costa · Fortes e baterias", titulo:"Os fortes da nossa costa: sentinelas da primeira terra do Reino",
+   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/ForteAlmadena2.jpg?width=1200","Forte de São Luís de Almádena, 1632."],["https://commons.wikimedia.org/wiki/Special:FilePath/Fortaleza_de_Sagres_01.JPG?width=1200","A Fortaleza de Sagres, a cabeça desta rede de defesa."]],
+   resumo:"Almádena, Zavial, Vera Cruz da Figueira, Burgau: ao longo das nossas falésias há uma fila de fortes. Guardavam as aldeias, as armações de atum e as naus que chegavam de longe.",
+   texto:[
+     "Para quem vinha do mar alto, do Atlântico, das Índias, do Brasil ou de África, o Cabo de São Vicente era a primeira terra do Reino de Portugal. Depois de meses de viagem, era aqui que as naus avistavam terra, dobravam o cabo e procuravam abrigo nas baías de Sagres e na costa até Lagos, à espera de bom vento ou para descansar e abastecer. Navios carregados de riquezas, perto de terra, eram um alvo apetecível.",
+     "Por isso, sobretudo no século XVII, depois da Restauração de 1640, a costa foi coberta por uma rede de fortes e baterias ligada à praça de Lagos: Meia Praia, Ponta da Bandeira, Pinhão, Ponta da Piedade, Porto de Mós, Burgau, Almádena, Figueira, Zavial e, mais adiante, Sagres, Beliche e Baleeira. Os inimigos eram os corsários do Norte de África, piratas de várias bandeiras e as armadas de Espanha, Inglaterra ou Holanda.",
+     "O Forte de São Luís de Almádena, também chamado Forte da Boca do Rio, foi construído em 1632, no alto da falésia, com fosso, baluartes, quartéis, uma ermida e baterias alta e baixa. Ficou danificado com o terramoto de 1755 e foi abandonado no século XIX.",
+     "O Forte de Vera Cruz da Figueira, entre a Salema e a Praia da Figueira, é de cerca de 1640. Mostrou para que servia: em maio de 1670, corsários norte-africanos desembarcaram ali de noite para atacar a aldeia da Figueira e foram repelidos. Conta o padre da Figueira que o terramoto de 1755 atirou os seus canhões ao mar, e dois deles foram mais tarde encontrados debaixo de água, junto ao forte.",
+     "A Bateria do Zavial, sobre a praia com o mesmo nome, completava a vigia deste troço da costa. Destes fortes restam hoje sobretudo ruínas, mas continuam no sítio que escolheram: os melhores miradouros da costa."
+   ],
+   dicas:[
+     "Da Salema pode ir a pé pela falésia até ao Forte de Vera Cruz da Figueira: leve água e calçado próprio.",
+     "Os fortes estão em ruínas e à beira de falésias altas: não suba aos muros e não se aproxime da beira.",
+     "Ao pôr do sol, o Forte de Almádena e o Zavial são miradouros perfeitos.",
+     "Para ver um forte inteiro, visite a Fortaleza de Sagres e a Fortaleza do Beliche, a caminho do Cabo de São Vicente."
+   ]},
   {id:"museu", eyebrow:"Visitar · Vila do Bispo", titulo:"Museu de Vila do Bispo: a história toda num celeiro",
    fotos:[["regiao-pegadas-salema.jpg","As pegadas de dinossauro da Salema, um dos temas do museu."],["regiao-vale-boi.jpg","Vale Boi, em Budens: os achados da gruta estão no museu."],["regiao-menir-padrao.jpg","O Menir do Padrão. O concelho tem a maior concentração de menires da Península Ibérica."]],
    resumo:"Tudo o que lê nesta secção, dos dinossauros aos menires, de Vale Boi aos naufrágios, está reunido num só lugar: o Celeiro da História, a 10 minutos do parque.",
