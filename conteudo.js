@@ -163,13 +163,13 @@ window.RESERVAS_EMAIL="reservas@salemaecocamp.com";
 window.VALES_EMAIL="info@salemaecocamp.com";
 window.TIPOS_ALOJAMENTO=["Glamping (tenda Inländ, yurt, tipi, safari ou dome)","Glamping Eco Lodge","Mobile home (T2 ou T3)","Apartamento ou estúdio","Campismo: tenda","Campismo: autocaravana ou caravana","Ainda não sei"];
 window.CATALOG=[
-  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"reservas.nazari@salemaecocamp.com", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
+  {id:"restaurante", nome:"Restaurante Nazari", cor:"--c-rest", email:"reservas.nazari@salemaecocamp.com", whatsapp:"+351 938 903 456", whatsappNome:"WhatsApp do Nazari", telefone:"+351 282 030 672", foto:"nazari-1.jpg", curto:"Mesas, refeições e pequeno-almoço",
    intro:"Cozinha mediterrânica com influências gregas, italianas e do Médio Oriente. Nova ementa de comida de conforto desde 8 de novembro. Cada prato mostra a sua pegada de carbono. Aberto das 8:00 às 21:00; às terças só há pequeno-almoço.",
    itens:[
-    {id:"mesa", nome:"Reservar mesa", desc:"Almoço e jantar, até às 21:00", campos:["telefone","data","hora","pessoas","notas"]},
-    {id:"encomenda", nome:"Encomendar refeição para levar", desc:"Levante no restaurante · caixa 0,5 €. Para já não fazemos entregas no alojamento: em breve teremos entregas!", campos:["telefone","data","hora","pedido"]},
-    {id:"pequeno-almoco", nome:"Pequeno-almoço", fotos:["evento-pequeno-almoco.jpg"], desc:"Buffet 13 € por pessoa · todos os dias, 8:00–10:30 · 27 % de desconto se reservar até à véspera", campos:["telefone","data","hora","pessoas","notas"]},
-    {id:"eventos", nome:"Festas e eventos", desc:"Aniversários, almoços e jantares de Natal, jantares temáticos e workshops", campos:["telefone","tipo","data","pessoas","notas"], tipoLabel:"Que tipo de evento?", tipoOpts:["Aniversário","Almoço de Natal","Jantar de Natal","Almoço ou jantar temático","Workshop","Outro evento"]},
+    {id:"mesa", nome:"Reservar mesa", canal:"wa", desc:"Almoço e jantar, até às 21:00 · por WhatsApp", campos:["telefone","data","hora","pessoas","notas"]},
+    {id:"encomenda", nome:"Encomendar refeição para levar", canal:"wa", desc:"Levante no restaurante · caixa 0,5 €. Para já não fazemos entregas no alojamento: em breve teremos entregas!", campos:["telefone","data","hora","pedido"]},
+    {id:"pequeno-almoco", nome:"Pequeno-almoço", canal:"wa", fotos:["evento-pequeno-almoco.jpg"], desc:"Buffet 13 € por pessoa · todos os dias, 8:00–10:30 · 27 % de desconto se reservar até à véspera", campos:["telefone","data","hora","pessoas","notas"]},
+    {id:"eventos", nome:"Festas, grupos e eventos", canal:"email", desc:"Aniversários, jantares de grupo, team building, Natal e outros eventos · por email", campos:["telefone","tipo","data","pessoas","notas"], tipoLabel:"Que tipo de evento?", tipoOpts:["Aniversário","Jantar ou almoço de grupo","Team building","Almoço de Natal","Jantar de Natal","Almoço ou jantar temático","Workshop","Outro evento"]},
     {id:"perdidos", nome:"Perdidos e achados", desc:"Esqueceu-se de alguma coisa? Vai para a receção", campos:["objeto","data"], destino:"rececao"}
    ]},
   {id:"alma", nome:"Alma Mater", cor:"--c-alma", email:"almamater@salemaecocamp.com", whatsapp:"+351 961 956 143", foto:"alma-mater.jpg", curto:"Massagens, terapias e yoga",

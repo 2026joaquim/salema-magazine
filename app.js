@@ -78,8 +78,9 @@ const table = rows => el("ul",{class:"contacts"}, ...rows.map(r=>el("li",{}, el(
 function extraFor(id){
   if(id==="restaurante") return el("div",{style:"display:flex;flex-direction:column;gap:10px"},
     GALERIAS.restaurante ? gallery(GALERIAS.restaurante) : null,
-    el("div",{class:"card",style:"background:#EEF5EF"}, el("h3",{text:"Festas e eventos no Nazari"}),
-      el("p",{text:"Organizamos aniversários, almoços e jantares de Natal, jantares temáticos e workshops, na sala ou na esplanada. Diga-nos a data, o número de pessoas e o que imagina, e preparamos uma proposta."}),
+    el("a",{class:"btn block wa",style:"text-decoration:none;text-align:center",href:"https://wa.me/"+digits(sec("restaurante").whatsapp),target:"_blank",rel:"noopener",text:"WhatsApp do Nazari: reservar, encomendar ou perguntar"}),
+    el("div",{class:"card",style:"background:#EEF5EF"}, el("h3",{text:"Festas, grupos e eventos no Nazari"}),
+      el("p",{text:"Organizamos aniversários, jantares de grupo, team building, almoços e jantares de Natal, jantares temáticos e workshops, na sala ou na esplanada. Diga-nos a data, o número de pessoas e o que imagina, e enviamos uma proposta por email."}),
       el("button",{class:"btn",type:"button",style:"align-self:flex-start",onclick:()=>openForm("restaurante","eventos"),text:"Pedir proposta"})),
     menuCarta());
   if(id==="alma"){
@@ -208,6 +209,9 @@ function ativExtra(){
 }
 function contactNote(s){
   if(!s.email && !s.whatsapp) return null;
+  if(s.id==="restaurante") return el("p",{class:"note"}, "Mesas, encomendas, pequeno-almoço e dúvidas: ",
+    el("a",{href:"https://wa.me/"+digits(s.whatsapp),target:"_blank",rel:"noopener",text:"WhatsApp "+s.whatsapp}),
+    ". Aniversários, grupos, team building e eventos: ", el("a",{href:"mailto:"+s.email,text:s.email}), ".");
   return el("p",{class:"note"}, "Contacto: ",
     s.email ? el("a",{href:"mailto:"+s.email,text:s.email}) : null,
     s.whatsapp ? " · "+(s.whatsappNome||"WhatsApp do Quiosque de Atividades")+" "+s.whatsapp : null,
@@ -318,8 +322,8 @@ function destinosFor(s, it, assunto, texto){
     else out.push({label:"Ligar para a receção "+(C.TELEFONE_PARQUE||""),href:"tel:"+digits(C.TELEFONE_PARQUE)});
     return out;
   }
-  if(s.whatsapp) out.push({wa:1,label:"Enviar por "+(s.whatsappNome||"WhatsApp"),href:waLink(s.whatsapp,texto)});
-  if(s.email) out.push({label:"Enviar por email para "+s.email,href:mailLink(s.email,assunto,texto)});
+  if(s.whatsapp && it.canal!=="email") out.push({wa:1,label:"Enviar por "+(s.whatsappNome||"WhatsApp"),href:waLink(s.whatsapp,texto)});
+  if(s.email && it.canal!=="wa") out.push({label:"Enviar por email para "+s.email,href:mailLink(s.email,assunto,texto)});
   return out;
 }
 
@@ -700,7 +704,7 @@ const SUGESTOES=["A que horas é o pequeno-almoço?","Como vou a pé para a prai
 function contexto(){
   const t=[];
   t.push("SALEMA ECO CAMP: parque de campismo e glamping ecológico em Budens, Algarve (Quinta dos Carriços, Praia da Salema, 8650-196 Budens), a 1 km da Praia da Salema, no Trilho dos Pescadores da Rota Vicentina. Aberto todo o ano. Telefone "+(C.TELEFONE_PARQUE||"")+".");
-  t.push("CONTACTOS: Receção/Portaria 24 horas +351 282 695 201 ou +351 926 636 033; Restaurante Nazari +351 282 030 672; Eco Store +351 968 727 036; Atividades +351 961 956 143 (só WhatsApp). EMERGÊNCIA: 112 (Número Europeu de Emergência); Linha Saúde 24 +351 808 24 24 24; Bombeiros de Vila do Bispo +351 282 639 285; GNR de Vila do Bispo +351 282 630 010. Numa emergência médica ou de segurança, diga sempre primeiro para ligar o 112.");
+  t.push("CONTACTOS: Receção/Portaria 24 horas +351 282 695 201 ou +351 926 636 033; Restaurante Nazari: mesas, encomendas, pequeno-almoço e dúvidas só por WhatsApp +351 938 903 456; aniversários, jantares de grupo, team building e eventos por email reservas.nazari@salemaecocamp.com; Eco Store +351 968 727 036; Atividades +351 961 956 143 (só WhatsApp). EMERGÊNCIA: 112 (Número Europeu de Emergência); Linha Saúde 24 +351 808 24 24 24; Bombeiros de Vila do Bispo +351 282 639 285; GNR de Vila do Bispo +351 282 630 010. Numa emergência médica ou de segurança, diga sempre primeiro para ligar o 112.");
   t.push("ANÚNCIOS DO MAGAZINE: só anúncios de entreajuda entre hóspedes, no espírito de comunidade e de campismo (boleias, empréstimos, trocas, ajuda, playdates entre crianças com os pais presentes). É proibido fazer anúncios comerciais (vender produtos ou serviços, publicidade, angariar clientes); a equipa retira os que não cumpram. O anúncio fica visível de 1 a 7 dias, à escolha de quem o publica.");
   t.push("CAMPISMO (regras a partir de 20 de novembro de 2026): check-in a qualquer hora, desde que a parcela esteja livre (tanto no campismo livre como na zona 2 com reserva); check-out até às 13:00 para chegadas a partir de 20/11 (quem já estava no parque antes de 20/11 mantém o check-out às 17:00). Cancelamento das parcelas reservadas: as mesmas condições dos alojamentos (política de cancelamento no site). Parcelas reservadas online no site (pequena 15–20 m², média 30–40 m², grande 50–65 m²): a reserva custa 20 €, só para garantir o lugar, descontados no check-in; paga-se o preço diário da tabela; mínimo de 2 noites; a receção atribui a parcela dentro do tipo reservado. A zona 2 é só para quem tem reserva (sem reserva não se acampa nem estaciona na zona 2). O campismo livre continua numa vasta área, sem reserva, por ordem de chegada e sem garantia de lugar, sem estadia mínima. Idades: até aos 5 anos não pagam; dos 6 aos 11 anos pagam como criança; a partir dos 12 anos como adulto; a taxa de resíduos (0,30 € por pessoa e noite) aplica-se a partir dos 6 anos. Descontos: cartões ACSI, ADAC CampCard e Camping Key Europe (21 € por noite em época baixa, não acumulável); cartões Siesta Camper e Mundo Campista 10%, exceto eletricidade; famílias com 3 crianças até aos 11 anos 10%; ciclistas com tenda 10%. Os descontos não são acumuláveis entre si. Estadas de 30 noites ou mais no campismo, de 1 de outubro a 31 de maio: condições especiais, falar com reservas@salemaecocamp.com.");
   if(window.METEO_RESUMO) t.push(window.METEO_RESUMO);
