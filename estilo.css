@@ -471,3 +471,24 @@ nav.tabs a{position:relative}
 .zw-pct{background:var(--c-store);color:#fff;border-radius:99px;padding:1px 7px;font-size:.75rem;font-weight:700}
 .zw-destaque{display:flex;gap:12px;align-items:center}
 .zw-breve{color:var(--muted);font-style:italic}
+
+/* Conheça a nossa região */
+.regiao-intro{display:flex;flex-direction:column;gap:10px}
+.regiao-lista{display:flex;flex-direction:column;gap:14px}
+.regiao-art{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.regiao-art summary{list-style:none;cursor:pointer;display:flex;flex-direction:column}
+.regiao-art summary::-webkit-details-marker{display:none}
+.regiao-capa{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;max-width:100%}
+.regiao-cab{padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.regiao-cab h2{margin:0;font-size:1.25rem;line-height:1.2}
+.regiao-cab p{margin:0;color:var(--muted)}
+.regiao-ler{color:var(--accent);font-weight:700}
+.regiao-art[open] .regiao-ler{display:none}
+.regiao-art[open] .regiao-capa{display:none}
+.regiao-corpo{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;line-height:1.55}
+.regiao-corpo p{margin:0}
+.regiao-fig{margin:0}
+.regiao-fig img{width:100%;border-radius:12px;display:block}
+.regiao-fig figcaption{font-size:.82rem;color:var(--muted);margin-top:4px}
+.regiao-dicas{background:var(--surface-2);border-radius:12px;padding:12px 14px}
+.regiao-dicas ul{margin:6px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}

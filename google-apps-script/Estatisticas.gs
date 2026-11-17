@@ -3,7 +3,7 @@
    Não guarda nomes, telefones, IPs nem identificadores de pessoas.
    Separador "Estatisticas": data | evento | detalhe | total
    ===================================================================== */
-const EVENTOS_OK = ['visita','separador','seccao','pedido','evento','pergunta','anuncio','notificacoes','instalada'];
+const EVENTOS_OK = ['visita','separador','seccao','pedido','evento','pergunta','anuncio','notificacoes','instalada','regiao'];
 
 function estatPost(body) {
   if (body.acao !== 'estat') return null;

@@ -111,6 +111,24 @@ function extraFor(id){
   if(id==="atividades") return ativExtra();
   return null;
 }
+/* ---------- Conheça a nossa região ---------- */
+function renderRegiao(){
+  const intro=$("#regiao-intro"), lista=$("#regiao-lista"); if(!intro||!lista||lista.childElementCount) return;
+  (window.REGIAO_INTRO||[]).forEach(p=>intro.append(el("p",{class:"lead",text:p})));
+  (window.REGIAO||[]).forEach(a=>{
+    const capa=a.fotos&&a.fotos[0];
+    const corpo=el("div",{class:"regiao-corpo"},
+      ...(a.fotos||[]).map(([f,leg])=>el("figure",{class:"regiao-fig"}, el("a",{href:"imagens/"+f,target:"_blank",rel:"noopener"}, img(f,leg)), leg?el("figcaption",{text:leg}):null)),
+      ...(a.texto||[]).map(t=>el("p",{text:t})),
+      a.dicas&&a.dicas.length ? el("div",{class:"regiao-dicas"}, el("b",{text:"Como visitar"}), el("ul",{}, ...a.dicas.map(d=>el("li",{text:d})))) : null);
+    const det=el("details",{class:"regiao-art",id:"regiao-"+a.id},
+      el("summary",{}, capa?img(capa[0],"",{class:"regiao-capa"}):null,
+        el("div",{class:"regiao-cab"}, el("span",{class:"eyebrow",text:a.eyebrow||""}), el("h2",{text:a.titulo}), el("p",{text:a.resumo}), el("span",{class:"regiao-ler",text:"Ler a história ›"}))),
+      corpo);
+    det.addEventListener("toggle",()=>{ if(det.open) try{ estat("regiao",a.titulo); }catch(e){} });
+    lista.append(det);
+  });
+}
 /* ---------- Zero Waste Store (dentro da Eco Store) ---------- */
 function zwNum(p){ const n=parseFloat(String(p||"").replace(/[^\d,.-]/g,"").replace(",",".")); return isNaN(n)?null:n; }
 function diasAte(d){ const hoje=new Date(); const h=Date.UTC(hoje.getFullYear(),hoje.getMonth(),hoje.getDate()); const [y,m,dd]=d.split("-").map(Number); return Math.round((Date.UTC(y,m-1,dd)-h)/864e5); }
@@ -801,13 +819,14 @@ async function loadDados(){
 }
 
 /* ---------- navegação ---------- */
-const VIEWS=["inicio","reservar","anuncios","calcular","parque","ecoliving"];
+const VIEWS=["inicio","reservar","anuncios","regiao","calcular","parque","ecoliving"];
 function route(){
   let v=(location.hash||"#inicio").slice(1); if(!VIEWS.includes(v)) v="inicio";
   VIEWS.forEach(x=>{ const n=$("#v-"+x); if(n) n.hidden=x!==v; });
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   if(v!=="reservar") closeSection();
   if(v==="calcular") abrirCalculadora();
+  if(v==="regiao") renderRegiao();
 }
 /* calculadora de campismo, dentro do Magazine */
 function abrirCalculadora(forcar){

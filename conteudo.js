@@ -1252,3 +1252,29 @@ window.ZERO_WASTE = {
   textoPao: "Zero waste também no pão e nos bolos. A partir das 15:00, o pão e os bolos que sobraram da manhã passam a ser vendidos ao preço de compra, até a loja fechar. E para que não sobre nada: reserve hoje o seu pão para amanhã.",
   textoCosmetica: "A indústria cosmética é uma das que mais pesa no planeta: microplásticos e químicos que acabam nos rios e no mar, montanhas de embalagens de plástico, ingredientes de origem duvidosa e animais usados em testes. Os produtos de cosmética da nossa Eco Store são diferentes. São amigos do ambiente, com ingredientes naturais e embalagens que respeitam a terra. São amigos da sociedade, feitos por pequenos produtores e artesãos, muitos deles aqui do Algarve. E são amigos dos animais. Todas as semanas escolhemos um, com 20% de desconto, para o convidar a experimentar."
 };
+
+/* =====================================================================
+   CONHEÇA A NOSSA REGIÃO — artigos e histórias (separador "Região")
+   {id, titulo, eyebrow, fotos:[[ficheiro, legenda]], resumo, texto:[parágrafos], dicas:[...]}
+   ===================================================================== */
+window.REGIAO_INTRO = [
+  "O Salema Eco Camp fica no extremo sudoeste da Europa, uma terra que já os antigos achavam especial. Gregos e romanos chamavam a esta ponta da Península o Promontório Sagrado, «Promontorium Sacrum»: o fim do mundo conhecido, onde o sol se afundava no oceano.",
+  "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
+];
+window.REGIAO = [
+  {id:"dinossauros", eyebrow:"Geologia · Praia da Salema", titulo:"Pegadas de dinossauros na Praia da Salema",
+   fotos:[["regiao-pegadas-salema.jpg","Pista de pegadas na laje de rocha, junto ao mar"],["regiao-pegada-dinossauro.jpg","Uma pegada de três dedos, vista de perto"]],
+   resumo:"Há cerca de 120 milhões de anos, dinossauros caminharam pela lama onde hoje fica a Praia da Salema. Os seus passos ainda lá estão, gravados na rocha.",
+   texto:[
+     "No Cretácico Inferior, há cerca de 120 milhões de anos, a Salema não tinha praia nem falésias. Era uma planície costeira de lama e lagoas pouco fundas, à beira de um mar quente, e a Península Ibérica tinha outra forma. Por ali passaram dinossauros, e alguns dos seus passos ficaram marcados na lama, que com o tempo endureceu e se transformou em rocha calcária.",
+     "Hoje essas pegadas estão à vista nas lajes de rocha junto às arribas, dos dois lados do areal. São pegadas de três dedos, deixadas sobretudo por iguanodontes: dinossauros herbívoros que andavam sobre duas patas e chegavam a ter vários metros de comprimento. Há também pistas de pequenos dinossauros carnívoros, os terópodes.",
+     "As pegadas da Salema fazem parte de um conjunto de jazidas de dinossauros da costa de Vila do Bispo, como a da Praia Santa, e são um testemunho precioso da pré-história do Algarve: um geossítio que se visita de chinelos, a poucos passos do mar."
+   ],
+   dicas:[
+     "Vá na maré baixa: com a maré cheia, as lajes ficam cobertas pelo mar. Veja a maré no separador Início, em «Tempo, mar e surf».",
+     "Não se aproxime da base das arribas: há risco de queda de pedras.",
+     "As rochas podem estar molhadas e escorregadias: use calçado que agarre.",
+     "Ajude a proteger as pegadas: não as pise, não as risque nem retire pedras. Para as fotografar melhor, molhe-as com um pouco de água do mar.",
+     "A Praia da Salema fica a cerca de 1 km do parque: vá a pé ou no shuttle grátis."
+   ]}
+];
