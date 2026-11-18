@@ -1282,7 +1282,7 @@ window.REGIAO = [
      "Marque já o festival no calendário: é sempre no início de outubro. O programa sai em birdwatchingsagres.com."
    ]},
   {id:"boca-do-rio", eyebrow:"Romanos · Boca do Rio, Budens", titulo:"Boca do Rio: o baú romano do atum",
-   fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/ForteAlmadena2.jpg?width=1200","O Forte de Almádena, no alto da falésia, vigia a Boca do Rio."]],
+   fotos:[["regiao-boca-do-rio.jpg","A praia da Boca do Rio: a ribeira de Budens chega ao mar, junto às ruínas da antiga armação."],["https://commons.wikimedia.org/wiki/Special:FilePath/ForteAlmadena2.jpg?width=1200","O Forte de Almádena, no alto da falésia, vigia a Boca do Rio."]],
    resumo:"Há 2000 anos, ali onde hoje há um paul e uma praia, havia um porto, uma casa senhorial com mosaicos e uma fábrica de conservas de peixe. O atum desta costa seguia em ânforas para Roma.",
    texto:[
      "Na época romana, o mar entrava pelo estuário da ribeira de Budens e formava uma grande laguna, onde hoje fica o Paul da Boca do Rio. Nas margens dessa laguna cresceu uma villa marítima: uma grande casa virada ao mar, com mosaicos e paredes pintadas, e ao lado um complexo industrial com grandes tanques de salga, alguns com 27 mil litros cada, e o seu próprio porto. Funcionou sobretudo entre os séculos II e V. Em 2018, uma equipa das universidades do Algarve e de Marburgo encontrou ali o porto romano mais bem conservado de Portugal.",
