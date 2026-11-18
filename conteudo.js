@@ -1264,18 +1264,22 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
-  {id:"alquerque", eyebrow:"Jogo · Herança árabe", titulo:"Alquerque: o jogo que os mouros nos deixaram",
+  {id:"alquerque", eyebrow:"Jogo · Herança do Sul", titulo:"Alquerque: o jogo ancestral do Sul, de um lado e do outro do mar",
    link:{texto:"Jogar Alquerque agora", url:"alquerque.html"},
-   resumo:"Um tabuleiro de linhas, 24 peças e mil anos de história. O alquerque chegou com o Al-Andalus e é o avô das damas. Pode jogá-lo aqui, contra o computador ou com quem está ao seu lado.",
+   resumo:"Cinco linhas por cinco, umas pedrinhas e mil anos de história. Jogou-se no Algarve, na Andaluzia e no Norte de África, e viajou do Médio Oriente até à Índia e às Américas. Pode jogá-lo aqui, contra o computador ou com quem está ao seu lado.",
    texto:[
-     "O nome vem do árabe «al-qirkat». O jogo já era conhecido no mundo islâmico no século X e chegou à Península Ibérica com o Al-Andalus. Em 1283, o rei Afonso X de Castela descreveu-o no seu famoso Livro dos Jogos, com as regras e os desenhos do tabuleiro.",
-     "Para jogar bastava riscar o tabuleiro no chão, numa pedra ou numa mesa: cinco linhas por cinco, com diagonais. Por isso ainda se encontram tabuleiros gravados em pedras de castelos, igrejas e degraus antigos por toda a Península, deixados por soldados, pastores e crianças que passavam ali o tempo.",
-     "Quando o jogo passou para o tabuleiro de xadrez, nasceram as damas. Os movimentos, os saltos e as capturas que conhece das damas vêm do alquerque.",
-     "As regras são simples: cada jogador tem 12 peças, move-se ao longo das linhas e captura saltando por cima das peças do adversário. Ganha quem ficar com peças no tabuleiro. Experimente: é rápido de aprender e difícil de largar."
+     "Antes dos tabuleiros de madeira e dos ecrãs, bastava um pau e um bocado de chão. Riscavam-se cinco linhas por cinco, cruzavam-se as diagonais, e com doze pedrinhas de cada lado começava o jogo. Assim se jogou o alquerque durante séculos no Sul: na eira depois da ceifa, à sombra de uma figueira, no degrau da igreja, no adro, na areia da praia enquanto se esperava pelo barco.",
+     "O nome conta de onde veio: «al-qirkat», em árabe. O jogo nasceu no Médio Oriente e o primeiro registo escrito está no Livro das Canções, de Abu al-Faraj al-Isfahani, por volta do ano 950. Chegou à Península Ibérica com o Al-Andalus e aqui ficou, tão entranhado como a nora, a açoteia e a amêndoa. Em 1283, o rei Afonso X de Castela registou-o no seu Livro dos Jogos, ao lado do xadrez e dos dados.",
+     "É um jogo do Sul, de um lado e do outro do mar. Jogou-se no Algarve e no Alentejo, na Andaluzia e em Castela, e continua vivo do outro lado do Estreito: em Marrocos, na Argélia, na Tunísia e no Sara jogam-se os seus irmãos, como o kharbaga, o felli e o zamma, também chamado dhamet, de tabuleiros mais largos mas com o mesmo espírito de saltar e capturar.",
+     "E o alquerque viajou ainda mais longe. Para leste, a família chegou à Índia, onde se joga o lau kata kati, ao Sri Lanka, com o peralikatuma, e à Indonésia, com o permainan tabal. Em Madagáscar, o fanorona, o jogo nacional, nasceu de um tabuleiro de alquerque alargado. E para oeste atravessou o Atlântico: foram colonos espanhóis que o levaram para o Novo México, onde o povo zuni o transformou nas suas «serpentes que lutam», o Kolowis Awithlaknannai.",
+     "Há quem diga que é muito mais antigo: há tabuleiros do mesmo género riscados nas lajes do telhado do templo de Kurna, no Egito, construído por volta de 1400 a.C. Mas ninguém sabe quando foram gravados, e o mistério continua.",
+     "Na Europa, o alquerque teve um filho famoso: quando alguém levou as suas regras para o tabuleiro de xadrez, nasceram as damas. Os saltos e as capturas que aprendemos em crianças vêm daqui.",
+     "Jogar alquerque é sentar-se à mesma mesa de mil anos de gente do Sul: lavradores e pescadores, mouros e cristãos, avós e netos. As regras aprendem-se num minuto. Ganhar já é outra conversa."
    ],
    dicas:[
      "Toque em «Jogar Alquerque agora» para jogar no telemóvel, contra o computador ou a dois.",
-     "Para jogar ao ar livre, risque o tabuleiro na areia e use conchas e pedrinhas como peças."
+     "Para jogar ao ar livre, à maneira antiga, risque o tabuleiro na areia e use conchas e pedrinhas como peças.",
+     "Procure tabuleiros gravados na pedra quando visitar castelos e igrejas antigas: às vezes estão num degrau ou num banco de pedra."
    ]},
   {id:"aves", eyebrow:"Natureza · Migração das aves", titulo:"A grande passagem: as aves da Europa a caminho de África",
    fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/Phoenicopterus_roseus,_Lido_de_Thau_cf05.jpg?width=1400","Um bando de flamingos em voo. (Foto: Christian Ferrer, Wikimedia Commons)"],["https://commons.wikimedia.org/wiki/Special:FilePath/The_flight_of_a_griffon.jpg?width=1200","Um grifo a planar. Em outubro e novembro passam por aqui às centenas. (Foto: Artemy Voikhansky, Wikimedia Commons)"]],
