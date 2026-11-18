@@ -1464,6 +1464,6 @@ window.REGIAO = [
      "Não se aproxime da base das arribas: há risco de queda de pedras.",
      "As rochas podem estar molhadas e escorregadias: use calçado que agarre.",
      "Ajude a proteger as pegadas: não as pise, não as risque nem retire pedras. Para as fotografar melhor, molhe-as com um pouco de água do mar.",
-     "A Praia da Salema fica a cerca de 1 km do parque: vá a pé ou no shuttle grátis."
+     "A Praia da Salema fica a cerca de 1,2 km do parque: vá a pé ou no shuttle grátis."
    ]}
 ];
