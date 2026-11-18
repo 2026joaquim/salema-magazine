@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="estilo.css?v=106">
+<link rel="stylesheet" href="estilo.css?v=107">
 <script>/* línguas: na 1.ª visita noutra língua, esconde o texto português até chegar a tradução (máx. 4 s) */
 (function(){try{var l=localStorage.getItem("lang");if(!l){var n=(navigator.languages||[navigator.language||""]).map(function(x){return String(x).slice(0,2).toLowerCase()});l="en";for(var i=0;i<n.length;i++){if(n[i]==="pt"||n[i]==="de"||n[i]==="es"||n[i]==="en"){l=n[i];break;}}}
 if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.className+=" i18n-espera";setTimeout(function(){document.documentElement.classList.remove("i18n-espera")},4000);}}catch(e){}})();</script>
@@ -39,7 +39,7 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
   <section class="block">
     <h1>Aqui, cada gesto conta.</h1>
     <p class="lead">Aqui trabalhamos o turismo do futuro, onde menos é mais. O Salema Eco Camp é um espaço carbono-neutro e zero waste, onde a ecologia e a sustentabilidade estão no centro de tudo o que fazemos. Só o conseguimos com a sua ajuda: separe o lixo, faça compostagem, poupe água e energia.</p>
-    <a href="#parque" data-ir="sustentabilidade">Como trabalhamos a sustentabilidade</a>
+    <a href="#reservar" data-abrir-ser>Como trabalhamos a sustentabilidade</a>
   </section>
   <div class="card push-card" id="push-card" hidden>
     <div class="push-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
@@ -267,34 +267,8 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
   <div class="card sust" id="sustentabilidade">
     <span class="eyebrow">Sustentabilidade</span>
     <h2>Um parque carbono-neutro, feito por todos</h2>
-    <p>No Salema Eco Camp a ecologia está no centro de tudo. É assim que trabalhamos:</p>
-    <div class="sust-nums" id="sust-nums" hidden></div>
-    <p class="eyebrow" style="margin:0">Os nossos números de 2025</p>
-    <ul class="sust-lista">
-      <li><b>Carbono neutro.</b> Em 2025, a pegada de carbono do parque foi de 272,5 toneladas de CO₂e, contando todas as fontes (os três âmbitos). Compensámos 286 toneladas: 13 na conservação das Árvores Gigantes de Lousada, em Portugal, e 273 na reflorestação de terras degradadas em Cerro Largo e Treinta y Tres, no Uruguai.</li>
-      <li><b>Green Key desde 2021.</b> O rótulo internacional de turismo sustentável, renovado todos os anos, a última vez em 2026.</li>
-      <li><b>Energia solar.</b> Dos 434.903 kWh de eletricidade que usámos em 2025, 93.695 kWh (21,5%) vieram dos nossos painéis fotovoltaicos.</li>
-      <li><b>Água tratada e reutilizada.</b> Cerca de 80% da água que usamos é tratada na ETAR do parque e reutilizada a 100% na rega das plantas do parque.</li>
-      <li><b>A caminho do zero desperdício.</b> Em 2025 produzimos 155,5 toneladas de resíduos: 19,3% foram biorresíduos compostados, 7% vidro, 2,6% plástico e metal e 1,4% papel e cartão. O nosso desafio é baixar os 69,7% de indiferenciado, e precisamos da sua ajuda.</li>
-      <li><b>Compostagem.</b> 30 m³ de restos de comida e jardim deram cerca de 15 m³ de composto, que volta à terra nas plantações do parque.</li>
-      <li><b>Pegada de carbono em cada prato</b> do restaurante Nazari, para escolher com consciência.</li>
-      <li><b>Um departamento só para isto:</b> o SER, que cuida da regeneração do vale e organiza tours e workshops.</li>
-    </ul>
-    <div class="eyebrow">A vida que partilha este lugar connosco</div>
-    <div class="sust-nums sust-bio">
-      <div><b>55</b><span>espécies de aves: 20 vivem no parque e 35 passam por cá ao longo do ano</span></div>
-      <div><b>11</b><span>espécies de orquídeas nativas, como Ophrys, Serapias e Anacamptis</span></div>
-      <div><b>32</b><span>espécies de borboletas diurnas</span></div>
-      <div><b>131</b><span>espécies de borboletas noturnas, em mais de 800 registos</span></div>
-    </div>
-    <p class="nota" style="margin:0">Estes resultados são coordenados pela Ângela Ferreira e pela equipa do SER (Sustentabilidade, Ecologia e Regeneração), e feitos por todos: equipa, hóspedes e vizinhos.</p>
-    <div class="eyebrow">Como pode ajudar</div>
-    <div class="sust-gestos">
-      <div><span aria-hidden="true">♻️</span><b>Separe o lixo</b><small>Plástico, papel, vidro e indiferenciado</small></div>
-      <div><span aria-hidden="true">🌱</span><b>Composte</b><small>Restos de comida no compostor</small></div>
-      <div><span aria-hidden="true">💧</span><b>Poupe água</b><small>Duches curtos, torneiras fechadas</small></div>
-      <div><span aria-hidden="true">⚡</span><b>Poupe energia</b><small>Apague luzes e desligue aparelhos</small></div>
-    </div>
+    <p>Os nossos números de 2025, a biodiversidade do parque e a calculadora da sua pegada de carbono estão no SER, a casa da Sustentabilidade, Ecologia e Regeneração.</p>
+    <button type="button" class="btn" data-abrir-ser>Ver no SER ›</button>
   </div>
   <div class="card">
     <h2>Contactos úteis</h2>
@@ -485,10 +459,44 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
   <form id="req-form" novalidate></form>
 </div>
 
-<script src="config.js?v=106"></script>
-<script src="conteudo.js?v=106"></script>
-<script src="app.js?v=106"></script>
-<script src="meteo.js?v=106"></script>
-<script src="i18n.js?v=106"></script>
+<script src="config.js?v=107"></script>
+<script src="conteudo.js?v=107"></script>
+<script src="app.js?v=107"></script>
+<script src="meteo.js?v=107"></script>
+<script src="i18n.js?v=107"></script>
+<template id="tpl-sust">
+  <div class="card sust">
+    <span class="eyebrow">Sustentabilidade</span>
+    <h2>Um parque carbono-neutro, feito por todos</h2>
+    <p>No Salema Eco Camp a ecologia está no centro de tudo. É assim que trabalhamos:</p>
+    <div class="sust-nums" data-sust-nums hidden></div>
+    <p class="eyebrow" style="margin:0">Os nossos números de 2025</p>
+    <ul class="sust-lista">
+      <li><b>Carbono neutro.</b> Em 2025, a pegada de carbono do parque foi de 272,5 toneladas de CO₂e, contando todas as fontes (os três âmbitos). Compensámos 286 toneladas: 13 na conservação das Árvores Gigantes de Lousada, em Portugal, e 273 na reflorestação de terras degradadas em Cerro Largo e Treinta y Tres, no Uruguai.</li>
+      <li><b>Green Key desde 2021.</b> O rótulo internacional de turismo sustentável, renovado todos os anos, a última vez em 2026.</li>
+      <li><b>Energia solar.</b> Dos 434.903 kWh de eletricidade que usámos em 2025, 93.695 kWh (21,5%) vieram dos nossos painéis fotovoltaicos.</li>
+      <li><b>Água tratada e reutilizada.</b> Cerca de 80% da água que usamos é tratada na ETAR do parque e reutilizada a 100% na rega das plantas do parque.</li>
+      <li><b>A caminho do zero desperdício.</b> Em 2025 produzimos 155,5 toneladas de resíduos: 19,3% foram biorresíduos compostados, 7% vidro, 2,6% plástico e metal e 1,4% papel e cartão. O nosso desafio é baixar os 69,7% de indiferenciado, e precisamos da sua ajuda.</li>
+      <li><b>Compostagem.</b> 30 m³ de restos de comida e jardim deram cerca de 15 m³ de composto, que volta à terra nas plantações do parque.</li>
+      <li><b>Pegada de carbono em cada prato</b> do restaurante Nazari, para escolher com consciência.</li>
+      <li><b>Um departamento só para isto:</b> o SER, que cuida da regeneração do vale e organiza tours e workshops.</li>
+    </ul>
+    <div class="eyebrow">A vida que partilha este lugar connosco</div>
+    <div class="sust-nums sust-bio">
+      <div><b>55</b><span>espécies de aves: 20 vivem no parque e 35 passam por cá ao longo do ano</span></div>
+      <div><b>11</b><span>espécies de orquídeas nativas, como Ophrys, Serapias e Anacamptis</span></div>
+      <div><b>32</b><span>espécies de borboletas diurnas</span></div>
+      <div><b>131</b><span>espécies de borboletas noturnas, em mais de 800 registos</span></div>
+    </div>
+    <p class="nota" style="margin:0">Estes resultados são coordenados pela Ângela Ferreira e pela equipa do SER (Sustentabilidade, Ecologia e Regeneração), e feitos por todos: equipa, hóspedes e vizinhos.</p>
+    <div class="eyebrow">Como pode ajudar</div>
+    <div class="sust-gestos">
+      <div><span aria-hidden="true">♻️</span><b>Separe o lixo</b><small>Plástico, papel, vidro e indiferenciado</small></div>
+      <div><span aria-hidden="true">🌱</span><b>Composte</b><small>Restos de comida no compostor</small></div>
+      <div><span aria-hidden="true">💧</span><b>Poupe água</b><small>Duches curtos, torneiras fechadas</small></div>
+      <div><span aria-hidden="true">⚡</span><b>Poupe energia</b><small>Apague luzes e desligue aparelhos</small></div>
+    </div>
+  </div>
+</template>
 </body>
 </html>

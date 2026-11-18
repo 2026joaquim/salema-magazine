@@ -102,7 +102,8 @@ function extraFor(id){
       el("details",{class:"poi"}, el("summary",{text:"As massagens e terapias"}), el("div",{style:"margin-top:8px"}, descs(MASSAGEM_DESC))),
       el("ul",{class:"note",style:"margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px"}, ...ALMA_REGRAS.map(r=>el("li",{text:r}))));
   }
-  if(id==="ser") return el("div",{style:"display:flex;flex-direction:column;gap:10px"}, gallery(GALERIAS.ser), el("p",{class:"note",text:NOTA_SER}));
+  if(id==="ser") return el("div",{style:"display:flex;flex-direction:column;gap:12px"}, gallery(GALERIAS.ser), el("p",{class:"note",text:NOTA_SER}),
+    botaoPegada(), sustCard(), botaoPegada());
   if(id==="store") return el("div",{style:"display:flex;flex-direction:column;gap:10px"}, zeroWaste(), gallery(GALERIAS.store),
     el("details",{class:"poi"}, el("summary",{text:"Pão e pastelaria: produtos e preços"}),
       el("div",{style:"margin-top:8px;display:flex;flex-direction:column;gap:12px"},
@@ -483,8 +484,16 @@ function openVale(){
 document.querySelectorAll("[data-vale]").forEach(b=>b.addEventListener("click",openVale));
 
 /* ---------- painel de sustentabilidade ---------- */
-(function(){ const box=$("#sust-nums"); const n=window.SUSTENTABILIDADE||[]; if(!box||!n.length) return;
-  n.forEach(([num,lab])=>box.append(el("div",{}, el("b",{text:num}), el("span",{text:lab})))); box.hidden=false; })();
+function sustCard(){
+  const t=document.getElementById("tpl-sust"); if(!t) return null;
+  const card=t.content.firstElementChild.cloneNode(true);
+  const box=card.querySelector("[data-sust-nums]"), n=window.SUSTENTABILIDADE||[];
+  if(box&&n.length){ n.forEach(([num,lab])=>box.append(el("div",{}, el("b",{text:num}), el("span",{text:lab})))); box.hidden=false; }
+  return card;
+}
+function irPegada(){ location.hash="calcular"; setTimeout(()=>{ const t=document.getElementById("calc-pegada"); if(t) t.scrollIntoView({behavior:"smooth",block:"start"}); },450); }
+function botaoPegada(){ return el("button",{class:"btn block",type:"button",onclick:irPegada,text:"🌱 Calcule a sua pegada de carbono"}); }
+document.addEventListener("click",e=>{ const a=e.target.closest("[data-abrir-ser]"); if(!a) return; e.preventDefault(); location.hash="reservar"; setTimeout(()=>openSection("ser"),80); });
 document.querySelectorAll("[data-ir]").forEach(a=>a.addEventListener("click",()=>setTimeout(()=>{ const t=document.getElementById(a.dataset.ir); if(t) t.scrollIntoView({behavior:"smooth",block:"start"}); },60)));
 
 /* ---------- shuttle ---------- */
