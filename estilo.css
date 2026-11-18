@@ -498,3 +498,5 @@ nav.tabs a{position:relative}
 /* 4 línguas: ecrãs estreitos */
 @media (max-width:420px){ .lang-sel{gap:0;padding:2px} .lang-sel button{padding:5px 6px;font-size:.68rem} .brand b{font-size:1.1rem} .brand-row img{height:32px} .brand-row{gap:7px} }
 @media (max-width:370px){ .brand b{font-size:1rem} .lang-sel button{padding:4px 5px;font-size:.64rem} }
+.sust-bio div{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--ink)}
+.sust-bio b{color:var(--accent)}

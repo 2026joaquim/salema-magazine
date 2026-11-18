@@ -160,7 +160,16 @@ window.AVISOS=[
   {data:"2026-11-08", ate:"2026-11-12", tipo:"info", setor:"Restaurante Nazari", texto:"O nosso Nazari tem uma nova ementa a partir de hoje: comida de conforto (comfort food) para os dias mais frescos. Tamboril com camarão, bochechas de porco, guisado de grão com damascos, novas pizzas e muito mais, com a pegada de carbono de cada prato. Veja em Reservar › Restaurante Nazari."}
 ].filter(x=>!x.fim||new Date()<new Date(x.fim));
 /* Painel de sustentabilidade: números (aparecem quando houver dados). Ex.: ["120 t","CO₂ compensado em 2025"] */
-window.SUSTENTABILIDADE=[];
+window.SUSTENTABILIDADE=[
+  ["272,5 t","CO₂e de pegada de carbono do parque em 2025, todos os âmbitos"],
+  ["286 t","CO₂e compensadas: mais do que emitimos"],
+  ["2,75 kg","CO₂e por hóspede e por noite"],
+  ["21,5%","da eletricidade vem dos nossos painéis solares (93.695 kWh)"],
+  ["~80%","da água consumida é tratada na ETAR e reutilizada na rega"],
+  ["15 m³","de composto feito no parque com 30 m³ de biorresíduos"],
+  ["Desde 2021","Green Key todos os anos, renovado em 2026"],
+  ["155,5 t","de resíduos em 2025, 30% separados para reciclagem e compostagem"]
+];
 window.RESERVAS_EMAIL="reservas@salemaecocamp.com";
 window.VALES_EMAIL="info@salemaecocamp.com";
 window.TIPOS_ALOJAMENTO=["Glamping (tenda Inländ, yurt, tipi, safari ou dome)","Glamping Eco Lodge","Mobile home (T2 ou T3)","Apartamento ou estúdio","Campismo: tenda","Campismo: autocaravana ou caravana","Ainda não sei"];
@@ -1231,7 +1240,7 @@ window.GALERIAS = {
   store: [["loja-cosmetica-cestos.jpg","Cosmética, cestos e calçado"],["loja-mercearia.jpg","Mercearia biológica"],["loja-entrada.jpg","Mantas e artesanato à entrada"]],
   atividades: [["ativ-ebike.jpg","Bicicletas elétricas"],["ativ-quiosque.jpg","Pranchas e fatos"]]
 };
-window.NOTA_SER = "Certificados Green Key desde 2022, a caminho do Zero Desperdício, com pegada de carbono calculada todos os anos.";
+window.NOTA_SER = "Certificados Green Key desde 2021, a caminho do Zero Desperdício, com pegada de carbono calculada todos os anos.";
 
 /* =====================================================================
    ZERO WASTE STORE — dentro da Eco Store
