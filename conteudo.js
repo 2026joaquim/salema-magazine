@@ -1275,6 +1275,7 @@ window.REGIAO_INTRO = [
 window.REGIAO = [
   {id:"alquerque", eyebrow:"Jogo · Herança do Sul", titulo:"Alquerque: o jogo ancestral do Sul, de um lado e do outro do mar",
    link:{texto:"Jogar Alquerque agora", url:"alquerque.html"},
+   fotos:[["regiao-alquerque.jpg","Um tabuleiro de alquerque gravado numa pedra antiga. Repare nas linhas e nas diagonais riscadas no granito."]],
    resumo:"Cinco linhas por cinco, umas pedrinhas e mil anos de história. Jogou-se no Algarve, na Andaluzia e no Norte de África, e viajou do Médio Oriente até à Índia e às Américas. Pode jogá-lo aqui, contra o computador ou com quem está ao seu lado.",
    texto:[
      "Antes dos tabuleiros de madeira e dos ecrãs, bastava um pau e um bocado de chão. Riscavam-se cinco linhas por cinco, cruzavam-se as diagonais, e com doze pedrinhas de cada lado começava o jogo. Assim se jogou o alquerque durante séculos no Sul: na eira depois da ceifa, à sombra de uma figueira, no degrau da igreja, no adro, na areia da praia enquanto se esperava pelo barco.",
