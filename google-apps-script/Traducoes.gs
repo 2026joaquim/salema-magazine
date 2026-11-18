@@ -135,3 +135,28 @@ function corrigirTraducoes() {
   });
   CacheService.getScriptCache().removeAll(['trad_en', 'trad_de', 'trad_es']);
 }
+
+/* Traduz para espanhol todas as frases da folha que ainda não têm espanhol.
+   Corre no editor uma vez: trabalha ~4,5 minutos e, se faltar, agenda-se
+   sozinha para continuar 1 minuto depois, até acabar. */
+function preencherEspanhol() {
+  const inicio = Date.now();
+  ScriptApp.getProjectTriggers().forEach(function(t){ if (t.getHandlerFunction() === 'preencherEspanhol') ScriptApp.deleteTrigger(t); });
+  const sh = folhaTraducoes(); const n = sh.getLastRow() - 1; if (n < 1) return;
+  const col = COLUNAS_TRAD.indexOf('es');
+  const falta = sh.getRange(2, 1, n, COLUNAS_TRAD.length).getValues()
+    .filter(function(r){ return r[0] && !String(r[col] || '').trim(); }).map(function(r){ return String(r[0]); })
+    .filter(function(t, i, a){ return a.indexOf(t) === i; });
+  console.log('Frases sem espanhol: ' + falta.length);
+  let feitas = 0;
+  for (let i = 0; i < falta.length; i += 40) {
+    if (Date.now() - inicio > 270000) break;
+    const novos = traduzirComClaude(falta.slice(i, i + 40), 'es');
+    if (novos) { guardarTraducoes('es', novos); feitas += Object.keys(novos).length; } else console.log('Falhou um lote');
+  }
+  console.log('Traduzidas agora: ' + feitas);
+  if (feitas < falta.length && feitas > 0) {
+    ScriptApp.newTrigger('preencherEspanhol').timeBased().after(60 * 1000).create();
+    console.log('Continua daqui a 1 minuto.');
+  }
+}
