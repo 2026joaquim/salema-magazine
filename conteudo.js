@@ -168,7 +168,7 @@ window.SUSTENTABILIDADE=[
   ["~80%","da água consumida é tratada na ETAR e reutilizada na rega"],
   ["15 m³","de composto feito no parque com 30 m³ de biorresíduos"],
   ["Desde 2021","Green Key todos os anos, renovado em 2026"],
-  ["155,5 t","de resíduos em 2025, 30% separados para reciclagem e compostagem"]
+  ["40% → 50%","dos resíduos reciclados em 2025, e quase 50% previstos em 2026"]
 ];
 window.RESERVAS_EMAIL="reservas@salemaecocamp.com";
 window.VALES_EMAIL="info@salemaecocamp.com";
