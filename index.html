@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="estilo.css?v=108">
+<link rel="stylesheet" href="estilo.css?v=109">
 <script>/* línguas: na 1.ª visita noutra língua, esconde o texto português até chegar a tradução (máx. 4 s) */
 (function(){try{var l=localStorage.getItem("lang");if(!l){var n=(navigator.languages||[navigator.language||""]).map(function(x){return String(x).slice(0,2).toLowerCase()});l="en";for(var i=0;i<n.length;i++){if(n[i]==="pt"||n[i]==="de"||n[i]==="es"||n[i]==="en"){l=n[i];break;}}}
 if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.className+=" i18n-espera";setTimeout(function(){document.documentElement.classList.remove("i18n-espera")},4000);}}catch(e){}})();</script>
@@ -41,6 +41,7 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
     <p class="lead">Aqui trabalhamos o turismo do futuro, onde menos é mais. O Salema Eco Camp é um espaço carbono-neutro e zero waste, onde a ecologia e a sustentabilidade estão no centro de tudo o que fazemos. Só o conseguimos com a sua ajuda: separe o lixo, faça compostagem, poupe água e energia.</p>
     <a href="#reservar" data-abrir-ser>Como trabalhamos a sustentabilidade</a>
   </section>
+  <div class="card minhas-reservas" data-minhas-reservas hidden></div>
   <div class="card push-card" id="push-card" hidden>
     <div class="push-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
     <div class="push-txt"><b id="push-titulo">Receber as novidades no telemóvel</b><p class="lead" id="push-msg" style="font-size:.88rem">Avisos do parque, eventos e a nova ementa, assim que saem.</p></div>
@@ -214,6 +215,7 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
     <p>Temos um shuttle grátis entre o parque e a Praia da Salema. Há quatro horários por dia, ida e volta: <b translate="no">10:00 · 12:00 · 15:00 · 17:00</b>. Reserve o seu lugar na receção, por WhatsApp.</p>
     <div class="horarios" id="shuttle-horas"></div>
     <button class="btn" type="button" data-open="atividades:shuttle">Reservar o shuttle</button>
+    <div class="minhas-reservas" data-minhas-reservas hidden></div>
   </div>
   <div class="card basecamp">
     <img class="secphoto" src="imagens/basecamp-caminhantes.jpg" alt="Dois caminhantes de mochila no Trilho dos Pescadores" loading="lazy">
@@ -459,11 +461,11 @@ if(l!=="pt"&&!localStorage.getItem("i18n-"+l)){document.documentElement.classNam
   <form id="req-form" novalidate></form>
 </div>
 
-<script src="config.js?v=108"></script>
-<script src="conteudo.js?v=108"></script>
-<script src="app.js?v=108"></script>
-<script src="meteo.js?v=108"></script>
-<script src="i18n.js?v=108"></script>
+<script src="config.js?v=109"></script>
+<script src="conteudo.js?v=109"></script>
+<script src="app.js?v=109"></script>
+<script src="meteo.js?v=109"></script>
+<script src="i18n.js?v=109"></script>
 <template id="tpl-sust">
   <div class="card sust">
     <span class="eyebrow">Sustentabilidade</span>

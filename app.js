@@ -345,6 +345,7 @@ function openForm(sid,iid){
     FIELD.telefone(),
     ...it.campos.filter(c=>c!=="telefone").map(c=>FIELD[c](it)),
     el("p",{class:"note",text:it.fotos?"Isto é um pedido, não um pagamento. A Eco Store confirma consigo a disponibilidade e, se for por correio, o custo do envio.":"Isto é um pedido, não um pagamento. A equipa confirma a disponibilidade e o preço consigo."}),
+    it.anulavel ? el("p",{class:"note anular-nota",text:"Os lugares são limitados. Se mudar de planos, anule a reserva no Magazine (Início › As minhas reservas): o seu lugar fica livre para outra pessoa."}) : null,
     el("div",{class:"msg",id:"f-msg",hidden:""}),
     el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"}))].filter(Boolean));
   const today=new Date().toISOString().slice(0,10);
@@ -366,10 +367,45 @@ function openForm(sid,iid){
     const dest=destinosFor(s,it,"Pedido Magazine: "+it.nome,texto);
     $("#f-msg").hidden=true;
     showSend(f,it.nome,texto,dest);
+    if(it.anulavel){
+      const val=sel=>{ const x=f.querySelector(sel); return x?x.value.trim():""; };
+      const reg={id:Date.now().toString(36), sid:s.id, iid:it.id, nome:it.nome, data:val("#f-data"), hora:val("#f-hora"), pessoas:val("#f-pessoas"),
+        destino:val("#f-destino"), quem:val("#f-nome"), cliente:val("#f-cliente"), wa:it.destino==="rececao"?(C.WHATSAPP_RECECAO||""):(s.whatsapp||"")};
+      f.querySelectorAll(".sendrow a").forEach(l=>l.addEventListener("click",()=>{ guardarReserva(reg); },{once:true}));
+    }
   };
   openSheet(); setTimeout(()=>$("#f-cliente")?.focus(),50);
 }
 document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{ const [s,i]=b.dataset.open.split(":"); openForm(s,i); }));
+
+/* ---------- as minhas reservas (shuttle e transfers): guardadas só neste telemóvel ---------- */
+const RES_KEY="minhas-reservas";
+function lerReservas(){ try{ return JSON.parse(localStorage.getItem(RES_KEY)||"[]"); }catch(e){ return []; } }
+function gravarReservas(l){ try{ localStorage.setItem(RES_KEY,JSON.stringify(l)); }catch(e){} desenharReservas(); }
+function guardarReserva(r){ const l=lerReservas().filter(x=>x.id!==r.id); l.push(r); gravarReservas(l); }
+function reservaAtiva(r){ if(!r.data) return Date.now()-parseInt(r.id,36)<3*864e5; const fim=new Date(r.data+"T"+(r.hora||"23:59")); fim.setHours(fim.getHours()+2); return fim>new Date(); }
+function dataPT(d){ return d?d.split("-").reverse().join("/"):""; }
+function resumoReserva(r){ return [r.nome, r.data?dataPT(r.data):"", r.hora?("às "+r.hora):"", r.pessoas?(r.pessoas+(r.pessoas==="1"?" pessoa":" pessoas")):"", r.destino].filter(Boolean).join(" · "); }
+function anularReserva(r){
+  const txt=["Olá! Quero ANULAR a minha reserva feita pelo Salema Eco Camp Magazine:", resumoReserva(r), r.quem?("Nome: "+r.quem):"", r.cliente?("N.º de inscrição: "+r.cliente):"", "", "Assim o lugar fica livre para outra pessoa. Obrigado!"].filter(x=>x!=="").join("\n");
+  try{ estat("pedido","Anulação: "+r.nome); }catch(e){}
+  if(r.wa) window.open(waLink(r.wa,txt),"_blank","noopener");
+  else location.href="tel:"+digits(C.TELEFONE_PARQUE||"");
+  gravarReservas(lerReservas().filter(x=>x.id!==r.id));
+}
+function desenharReservas(){
+  const l=lerReservas().filter(reservaAtiva);
+  document.querySelectorAll("[data-minhas-reservas]").forEach(box=>{
+    box.replaceChildren(); box.hidden=!l.length; if(!l.length) return;
+    box.append(el("span",{class:"eyebrow",text:"As minhas reservas"}),
+      ...l.map(r=>el("div",{class:"minha-res"},
+        el("div",{}, el("b",{text:r.nome}), el("small",{text:resumoReserva(r).replace(r.nome+" · ","")})),
+        el("button",{class:"btn small ghost",type:"button",onclick:()=>{ if(confirm("Anular esta reserva? Vamos abrir o WhatsApp com a mensagem pronta para enviar.")) anularReserva(r); },text:"Anular reserva"}))),
+      el("small",{class:"note",text:"Mudou de planos? Anule: o lugar fica livre para outra pessoa."}));
+  });
+}
+try{ localStorage.setItem(RES_KEY,JSON.stringify(lerReservas().filter(reservaAtiva))); }catch(e){}
+desenharReservas();
 
 /* ---------- avarias ---------- */
 function openAvaria(){

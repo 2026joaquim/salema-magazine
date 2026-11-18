@@ -265,8 +265,8 @@ window.CATALOG=[
    itens:[
     {id:"prancha", nome:"Prancha de surf", desc:"1 dia 20 € · 2 dias 30 € · 3 dias 40 € · dia extra 10 € · com fato", campos:["periodo","quantidade"]},
     {id:"fato", nome:"Fato de surf", desc:"1 dia 10 € · 2 dias 18 € · 3 dias 24 €", campos:["periodo","quantidade","tamanho"]},
-    {id:"shuttle", nome:"Shuttle grátis para a Praia da Salema", desc:"Grátis · 10:00, 12:00, 15:00 e 17:00, ida e volta · reserva na receção", destino:"rececao", campos:["data","hora","pessoas","notas"]},
-    {id:"transfer", nome:"Transfer para as praias", desc:"Ida e volta", campos:["data","hora","pessoas","destino"]},
+    {id:"shuttle", nome:"Shuttle grátis para a Praia da Salema", desc:"Grátis · 10:00, 12:00, 15:00 e 17:00, ida e volta · reserva na receção", destino:"rececao", anulavel:true, campos:["data","hora","pessoas","notas"]},
+    {id:"transfer", nome:"Transfer para as praias", desc:"Ida e volta", anulavel:true, campos:["data","hora","pessoas","destino"]},
     {id:"bicicleta", nome:"Bicicleta", desc:"1 h 6 € · meio dia 10 € · 1 dia 18 €", campos:["periodo","quantidade"]},
     {id:"ebike", nome:"Bicicleta elétrica", desc:"Meio dia 15 € · 1 dia 22 €", campos:["periodo","quantidade"]},
     {id:"tour", nome:"Passeios, tours e aulas de surf", desc:"Golfinhos, grutas, kayak, surf, jipe, aves e mais · veja o preçário", campos:["tipo","data","pessoas","notas"], tipoLabel:"Que atividade?", tipoOpts:OUTDOOR.flatMap(([e,,l])=>l.map(a=>a[0]+" · "+e+" · "+a[1]))}
