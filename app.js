@@ -123,6 +123,7 @@ function renderRegiao(){
     const corpo=el("div",{class:"regiao-corpo"},
       ...(a.fotos||[]).map(([f,leg,tipo])=>el("figure",{class:"regiao-fig"+(tipo?" "+tipo:"")}, el("a",{href:fotoURL(f),target:"_blank",rel:"noopener"}, img(f,leg)), leg?el("figcaption",{text:leg}):null)),
       ...(a.texto||[]).map(t=>el("p",{text:t})),
+      a.link ? el("a",{class:"btn block",style:"text-decoration:none;text-align:center",href:a.link.url,text:a.link.texto}) : null,
       a.dicas&&a.dicas.length ? el("div",{class:"regiao-dicas"}, el("b",{text:"Como visitar"}), el("ul",{}, ...a.dicas.map(d=>el("li",{text:d})))) : null);
     const det=el("details",{class:"regiao-art",id:"regiao-"+a.id},
       el("summary",{}, capa?img(capa[0],"",{class:"regiao-capa"}):null,

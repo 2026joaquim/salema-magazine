@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#274F37">
+<title>Alquerque · Salema Eco Camp</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css?v=103">
+<style>
+  .jogo{display:flex;flex-direction:column;gap:14px;padding-block:18px 28px;max-width:560px;margin-inline:auto}
+  .jogo h1{color:var(--title);margin:0}
+  .modos{display:flex;gap:8px;flex-wrap:wrap}
+  .modos button{flex:1;min-width:0;white-space:normal;line-height:1.15;padding-inline:10px;height:auto;min-height:44px}
+  .modos button[aria-pressed="true"]{background:var(--accent);color:#fff}
+  .estado{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;min-height:2.2em}
+  .estado .ficha{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:inset 0 -2px 0 rgba(0,0,0,.25)}
+  .tabuleiro{background:#C9A77A;border-radius:18px;padding:3%;box-shadow:inset 0 0 0 3px #A9845A, 0 6px 18px rgba(0,0,0,.15);touch-action:manipulation}
+  .tabuleiro svg{display:block;width:100%;height:auto}
+  .contas{display:flex;justify-content:space-between;font-weight:700;color:var(--muted)}
+  .regras{font-size:.95rem}
+  .regras li{margin-block:4px}
+  .acoes{display:flex;gap:8px;flex-wrap:wrap}
+  .fim{background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:14px;text-align:center;font-weight:700;font-size:1.15rem}
+</style>
+<script src="config.js?v=103"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand-row"><img id="logo" src="imagens/logo.png" alt="Salema Eco Camp"><div class="brand" translate="no"><b>Salema Eco Camp</b><span>Magazine</span></div></div>
+  <div class="who">Praia da Salema · Algarve</div>
+</div></header>
+
+<main><div class="wrap jogo">
+  <a class="so-magazine" href="./#regiao">← Voltar ao Magazine</a>
+  <div>
+    <span class="eyebrow">Jogo tradicional</span>
+    <h1>Alquerque</h1>
+    <p>O avô das damas, jogado no Al-Andalus há mais de mil anos. Jogue contra o computador ou com alguém ao seu lado.</p>
+  </div>
+
+  <div class="modos" role="group" aria-label="Modo de jogo">
+    <button type="button" class="btn ghost" id="m-pc" aria-pressed="true">Contra o computador</button>
+    <button type="button" class="btn ghost" id="m-2" aria-pressed="false">2 jogadores</button>
+  </div>
+
+  <div class="estado" aria-live="polite"><span class="ficha" id="e-ficha"></span><span id="e-texto"></span></div>
+  <div class="tabuleiro"><svg id="tab" viewBox="-46 -46 492 492" role="img" aria-label="Tabuleiro de Alquerque"></svg></div>
+  <div class="contas"><span id="c-claras"></span><span id="c-escuras"></span></div>
+  <div class="fim" id="fim" hidden></div>
+  <div class="acoes">
+    <button type="button" class="btn" id="novo">Novo jogo</button>
+    <button type="button" class="btn ghost" id="desfazer">Desfazer jogada</button>
+  </div>
+
+  <section class="card regras">
+    <h2 class="eyebrow">Como se joga</h2>
+    <ul>
+      <li>Cada jogador tem 12 peças. As claras começam.</li>
+      <li>Na sua vez, mova uma peça ao longo das linhas para o ponto vizinho livre: para a frente ou para o lado, nunca para trás.</li>
+      <li>Para capturar, salte por cima de uma peça adversária vizinha para o ponto livre logo a seguir, em linha reta. Captura-se em qualquer direção, também para trás.</li>
+      <li>Depois de capturar, se a mesma peça puder capturar outra vez, continua a saltar.</li>
+      <li>Se puder capturar, é obrigado a fazê-lo.</li>
+      <li>Ganha quem capturar todas as peças do adversário, ou deixar o adversário sem jogadas.</li>
+    </ul>
+  </section>
+</div></main>
+
+<script>
+(function(){
+  const N=5, P=100, CLARA=1, ESCURA=2;
+  const svg=document.getElementById("tab"), NS="http://www.w3.org/2000/svg";
+  const id=(r,c)=>r*N+c, rc=i=>[Math.floor(i/N), i%N];
+  const dentro=(r,c)=>r>=0&&r<N&&c>=0&&c<N;
+  const DIRS=[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[-1,1],[1,-1],[1,1]];
+  const dirsDe=(r,c)=>(r+c)%2===0?DIRS:DIRS.slice(0,4);
+  /* a frente das claras é para cima (r-1); das escuras para baixo (r+1) */
+  const avanca=(cor,dr)=>cor===CLARA?dr<=0:dr>=0;
+
+  let tab, vez, sel, emCadeia, modoPC=true, historico=[], acabou=false, aPensar=false;
+
+  function inicial(){
+    const t=Array(25).fill(0);
+    for(let r=0;r<5;r++) for(let c=0;c<5;c++){
+      if(r<2) t[id(r,c)]=ESCURA; else if(r>2) t[id(r,c)]=CLARA;
+      else if(c<2) t[id(r,c)]=ESCURA; else if(c>2) t[id(r,c)]=CLARA;
+    }
+    return t;
+  }
+  function capturasDe(t,i){
+    const cor=t[i], [r,c]=rc(i), out=[];
+    for(const [dr,dc] of dirsDe(r,c)){
+      const r1=r+dr,c1=c+dc,r2=r+2*dr,c2=c+2*dc;
+      if(dentro(r2,c2) && t[id(r1,c1)] && t[id(r1,c1)]!==cor && !t[id(r2,c2)]) out.push({de:i,para:id(r2,c2),come:id(r1,c1)});
+    }
+    return out;
+  }
+  function simplesDe(t,i){
+    const cor=t[i], [r,c]=rc(i), out=[];
+    for(const [dr,dc] of dirsDe(r,c)){
+      const r1=r+dr,c1=c+dc;
+      if(dentro(r1,c1) && !t[id(r1,c1)] && avanca(cor,dr)) out.push({de:i,para:id(r1,c1)});
+    }
+    return out;
+  }
+  function jogadas(t,cor,soPeca){
+    const pecas=soPeca!=null?[soPeca]:t.map((v,i)=>v===cor?i:-1).filter(i=>i>=0);
+    const caps=pecas.flatMap(i=>capturasDe(t,i));
+    if(caps.length||soPeca!=null) return caps;
+    return pecas.flatMap(i=>simplesDe(t,i));
+  }
+  const conta=(t,cor)=>t.filter(v=>v===cor).length;
+  const outra=cor=>cor===CLARA?ESCURA:CLARA;
+
+  /* ---------- desenho ---------- */
+  function desenhar(){
+    svg.innerHTML="";
+    const linha=(a,b)=>{ const [r1,c1]=rc(a),[r2,c2]=rc(b); const l=document.createElementNS(NS,"line");
+      l.setAttribute("x1",c1*P);l.setAttribute("y1",r1*P);l.setAttribute("x2",c2*P);l.setAttribute("y2",r2*P);
+      l.setAttribute("stroke","#5B3F22");l.setAttribute("stroke-width","4");l.setAttribute("stroke-linecap","round"); svg.append(l); };
+    for(let r=0;r<5;r++) for(let c=0;c<5;c++){ const i=id(r,c);
+      if(c<4) linha(i,id(r,c+1)); if(r<4) linha(i,id(r+1,c));
+      if((r+c)%2===0){ if(r<4&&c<4) linha(i,id(r+1,c+1)); if(r<4&&c>0) linha(i,id(r+1,c-1)); } }
+    const possiveis=acabou||aPensar||(modoPC&&vez===ESCURA)?[]:jogadas(tab,vez,emCadeia);
+    const origens=new Set(possiveis.map(j=>j.de));
+    const destinos=sel!=null?possiveis.filter(j=>j.de===sel):[];
+    for(let i=0;i<25;i++){
+      const [r,c]=rc(i), g=document.createElementNS(NS,"g"); g.style.cursor="pointer";
+      const alvo=document.createElementNS(NS,"circle"); alvo.setAttribute("cx",c*P);alvo.setAttribute("cy",r*P);alvo.setAttribute("r",46);alvo.setAttribute("fill","transparent"); g.append(alvo);
+      const ponto=document.createElementNS(NS,"circle"); ponto.setAttribute("cx",c*P);ponto.setAttribute("cy",r*P);ponto.setAttribute("r",7);ponto.setAttribute("fill","#5B3F22"); g.append(ponto);
+      const d=destinos.find(j=>j.para===i);
+      if(d){ const m=document.createElementNS(NS,"circle"); m.setAttribute("cx",c*P);m.setAttribute("cy",r*P);m.setAttribute("r",18);
+        m.setAttribute("fill",d.come!=null?"#C0392B":"#2E7D4F"); m.setAttribute("opacity",".75"); g.append(m); }
+      if(tab[i]){
+        const p=document.createElementNS(NS,"circle"); p.setAttribute("cx",c*P);p.setAttribute("cy",r*P);p.setAttribute("r",34);
+        p.setAttribute("fill",tab[i]===CLARA?"#F4EBDD":"#3A2A1C"); p.setAttribute("stroke",tab[i]===CLARA?"#B79E7E":"#1E140C"); p.setAttribute("stroke-width","3"); g.append(p);
+        const q=document.createElementNS(NS,"circle"); q.setAttribute("cx",c*P);q.setAttribute("cy",r*P);q.setAttribute("r",22);q.setAttribute("fill","none");
+        q.setAttribute("stroke",tab[i]===CLARA?"#D9C8AE":"#5A4532"); q.setAttribute("stroke-width","3"); g.append(q);
+        if(i===sel||origens.has(i)){ const h=document.createElementNS(NS,"circle"); h.setAttribute("cx",c*P);h.setAttribute("cy",r*P);h.setAttribute("r",40);
+          h.setAttribute("fill","none"); h.setAttribute("stroke",i===sel?"#2E7D4F":"#E8B33D"); h.setAttribute("stroke-width",i===sel?"6":"4"); g.append(h); }
+      }
+      g.addEventListener("click",()=>clicar(i)); svg.append(g);
+    }
+    const fic=document.getElementById("e-ficha"); fic.style.background=vez===CLARA?"#F4EBDD":"#3A2A1C";
+    let txt;
+    if(acabou) txt="Fim do jogo";
+    else if(aPensar) txt="O computador está a pensar…";
+    else if(emCadeia!=null) txt="Continue a capturar com a mesma peça";
+    else if(modoPC) txt=vez===CLARA?"A sua vez (claras)":"Vez do computador";
+    else txt=vez===CLARA?"Vez das claras":"Vez das escuras";
+    if(!acabou&&!aPensar&&possiveis.some(j=>j.come!=null)&&emCadeia==null) txt+=" · captura obrigatória";
+    document.getElementById("e-texto").textContent=txt;
+    document.getElementById("c-claras").textContent="Claras: "+conta(tab,CLARA);
+    document.getElementById("c-escuras").textContent="Escuras: "+conta(tab,ESCURA);
+    document.getElementById("desfazer").disabled=!historico.length||aPensar;
+  }
+
+  /* ---------- jogo ---------- */
+  function aplicar(t,j){ const n=t.slice(); n[j.para]=n[j.de]; n[j.de]=0; if(j.come!=null) n[j.come]=0; return n; }
+  function guardar(){ historico.push({tab:tab.slice(),vez,emCadeia}); if(historico.length>200) historico.shift(); }
+  function executar(j){
+    tab=aplicar(tab,j); sel=null;
+    if(j.come!=null && capturasDe(tab,j.para).length){ emCadeia=j.para; sel=j.para; }
+    else { emCadeia=null; vez=outra(vez); }
+    verificarFim(); desenhar();
+    if(!acabou && modoPC && vez===ESCURA) setTimeout(jogaPC,450);
+  }
+  function verificarFim(){
+    if(emCadeia!=null) return;
+    if(!conta(tab,vez) || !jogadas(tab,vez).length){
+      acabou=true; const venc=outra(vez);
+      const f=document.getElementById("fim"); f.hidden=false;
+      f.textContent = modoPC ? (venc===CLARA?"Parabéns, ganhou! 🎉":"O computador ganhou. Tente outra vez!")
+                             : (venc===CLARA?"Ganharam as claras! 🎉":"Ganharam as escuras! 🎉");
+    }
+  }
+  function clicar(i){
+    if(acabou||aPensar||(modoPC&&vez===ESCURA)) return;
+    const poss=jogadas(tab,vez,emCadeia);
+    if(sel!=null){ const j=poss.find(x=>x.de===sel&&x.para===i); if(j){ guardar(); executar(j); return; } }
+    if(emCadeia!=null) return;
+    sel = poss.some(x=>x.de===i) ? i : null; desenhar();
+  }
+
+  /* ---------- computador: procura a melhor sequência, com um passo de antecipação ---------- */
+  function sequencias(t,cor){
+    const res=[];
+    function seguir(tt,peca,caminho,comidas){
+      const caps=capturasDe(tt,peca);
+      if(!caps.length){ res.push({tab:tt,caminho,comidas}); return; }
+      for(const c of caps) seguir(aplicar(tt,c),c.para,caminho.concat([c]),comidas+1);
+    }
+    const js=jogadas(t,cor);
+    for(const j of js){ if(j.come!=null) seguir(aplicar(t,j),j.para,[j],1); else res.push({tab:aplicar(t,j),caminho:[j],comidas:0}); }
+    return res;
+  }
+  function avaliar(t){ return conta(t,ESCURA)-conta(t,CLARA); }
+  function melhorResposta(t,cor){
+    const seqs=sequencias(t,cor); if(!seqs.length) return cor===CLARA?50:-50;
+    let melhor=cor===CLARA?Infinity:-Infinity;
+    for(const s of seqs){ const v=avaliar(s.tab); melhor=cor===CLARA?Math.min(melhor,v):Math.max(melhor,v); }
+    return melhor;
+  }
+  function jogaPC(){
+    aPensar=true; desenhar();
+    setTimeout(()=>{
+      const seqs=sequencias(tab,ESCURA);
+      let melhor=-Infinity, escolhas=[];
+      for(const s of seqs){
+        let v=melhorResposta(s.tab,CLARA);
+        const [r]=rc(s.caminho[s.caminho.length-1].para); v+=r*0.01;
+        if(v>melhor+1e-9){ melhor=v; escolhas=[s]; } else if(Math.abs(v-melhor)<1e-9) escolhas.push(s);
+      }
+      const s=escolhas[Math.floor(Math.random()*escolhas.length)];
+      aPensar=false;
+      if(!s){ verificarFim(); desenhar(); return; }
+      guardar();
+      let k=0; const passo=()=>{ const j=s.caminho[k++]; tab=aplicar(tab,j); sel=null; desenhar();
+        if(k<s.caminho.length) setTimeout(passo,380); else { emCadeia=null; vez=CLARA; verificarFim(); desenhar(); } };
+      passo();
+    },250);
+  }
+
+  function novo(){ tab=inicial(); vez=CLARA; sel=null; emCadeia=null; historico=[]; acabou=false; aPensar=false; document.getElementById("fim").hidden=true; desenhar(); }
+  function desfazer(){
+    if(!historico.length||aPensar) return;
+    let h=historico.pop();
+    if(modoPC){ while(h.vez===ESCURA && historico.length) h=historico.pop(); }
+    tab=h.tab; vez=h.vez; emCadeia=h.emCadeia; sel=emCadeia; acabou=false; document.getElementById("fim").hidden=true; desenhar();
+  }
+  function modo(pc){ modoPC=pc; document.getElementById("m-pc").setAttribute("aria-pressed",String(pc)); document.getElementById("m-2").setAttribute("aria-pressed",String(!pc)); novo(); }
+  document.getElementById("novo").onclick=novo;
+  document.getElementById("desfazer").onclick=desfazer;
+  document.getElementById("m-pc").onclick=()=>modo(true);
+  document.getElementById("m-2").onclick=()=>modo(false);
+  novo();
+})();
+</script>
+<script src="i18n.js?v=103"></script>
+</body>
+</html>

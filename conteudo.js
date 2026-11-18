@@ -1264,6 +1264,19 @@ window.REGIAO_INTRO = [
   "O geógrafo grego Estrabão, citando Artemidoro, conta que ninguém podia passar ali a noite, porque à noite o lugar pertencia aos deuses. Aqui contamos as histórias desta terra onde os deuses dormiam: a natureza, as pedras, o mar, a história e as pessoas."
 ];
 window.REGIAO = [
+  {id:"alquerque", eyebrow:"Jogo · Herança árabe", titulo:"Alquerque: o jogo que os mouros nos deixaram",
+   link:{texto:"Jogar Alquerque agora", url:"alquerque.html"},
+   resumo:"Um tabuleiro de linhas, 24 peças e mil anos de história. O alquerque chegou com o Al-Andalus e é o avô das damas. Pode jogá-lo aqui, contra o computador ou com quem está ao seu lado.",
+   texto:[
+     "O nome vem do árabe «al-qirkat». O jogo já era conhecido no mundo islâmico no século X e chegou à Península Ibérica com o Al-Andalus. Em 1283, o rei Afonso X de Castela descreveu-o no seu famoso Livro dos Jogos, com as regras e os desenhos do tabuleiro.",
+     "Para jogar bastava riscar o tabuleiro no chão, numa pedra ou numa mesa: cinco linhas por cinco, com diagonais. Por isso ainda se encontram tabuleiros gravados em pedras de castelos, igrejas e degraus antigos por toda a Península, deixados por soldados, pastores e crianças que passavam ali o tempo.",
+     "Quando o jogo passou para o tabuleiro de xadrez, nasceram as damas. Os movimentos, os saltos e as capturas que conhece das damas vêm do alquerque.",
+     "As regras são simples: cada jogador tem 12 peças, move-se ao longo das linhas e captura saltando por cima das peças do adversário. Ganha quem ficar com peças no tabuleiro. Experimente: é rápido de aprender e difícil de largar."
+   ],
+   dicas:[
+     "Toque em «Jogar Alquerque agora» para jogar no telemóvel, contra o computador ou a dois.",
+     "Para jogar ao ar livre, risque o tabuleiro na areia e use conchas e pedrinhas como peças."
+   ]},
   {id:"aves", eyebrow:"Natureza · Migração das aves", titulo:"A grande passagem: as aves da Europa a caminho de África",
    fotos:[["https://commons.wikimedia.org/wiki/Special:FilePath/Phoenicopterus_roseus,_Lido_de_Thau_cf05.jpg?width=1400","Um bando de flamingos em voo. (Foto: Christian Ferrer, Wikimedia Commons)"],["https://commons.wikimedia.org/wiki/Special:FilePath/The_flight_of_a_griffon.jpg?width=1200","Um grifo a planar. Em outubro e novembro passam por aqui às centenas. (Foto: Artemy Voikhansky, Wikimedia Commons)"]],
    resumo:"Todos os outonos, milhares de aves de toda a Europa passam por cima de nós a caminho de África. Sagres é um dos grandes corredores migratórios da Europa, e tem o maior festival de observação de aves do país.",
