@@ -145,7 +145,7 @@
     let ling = window.I18N_LANG || pl; if (!ling) { try { ling = localStorage.getItem("lang") || ""; } catch (e) {} }
     const iso = dt => dt.toISOString().slice(0,10);
     $("#r-reservar").href = "https://www.salemaecocamp.com/" + (ling === "en" || ling === "de" || ling === "es" ? "en/" : "") +
-      "?accommodation_types=683719;683720;683721&checkin=" + iso(chegada) + "&checkout=" + iso(saida) + "&adults=" + Math.max(1, est.adultos);
+      "?accommodation_types=683719;683720;683721&checkin=" + iso(chegada) + "&checkout=" + iso(saida) + "&adults=" + Math.max(1, est.adultos) + "#sec-reservar";
     altura();
   }
 
