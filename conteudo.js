@@ -188,7 +188,7 @@ window.CATALOG=[
     {id:"por", nome:"Caminhada do pôr do sol", desc:"Fim de tarde", campos:["data","pessoas"]},
     {id:"regeneracao", nome:"Workshops de regeneração", desc:"Datas anunciadas no Magazine", campos:["data","pessoas","notas"]}
    ]},
-  {id:"store", nome:"Eco Store", cor:"--c-store", foto:"loja-fachada.jpg", email:"sales@salemaecostore.com", whatsapp:"+351 968 727 036", whatsappNome:"WhatsApp da Eco Store", curto:"Pão, produtos biológicos e peças únicas",
+  {id:"store", retirados:["molly"] /* produtos da folha a não mostrar: basta uma palavra do nome */, nome:"Eco Store", cor:"--c-store", foto:"loja-fachada.jpg", email:"sales@salemaecostore.com", whatsapp:"+351 968 727 036", whatsappNome:"WhatsApp da Eco Store", curto:"Pão, produtos biológicos e peças únicas",
    intro:"Aberta das 8:00 às 13:00 e das 14:00 às 18:00. Produtos biológicos e locais. As peças únicas podem ser enviadas por correio para Portugal ou para o estrangeiro: diga-nos o que quer e enviamos o preço.",
    itens:[
     {id:"pao", nome:"Encomendar pão e pastelaria", desc:"Para o dia seguinte · encomendas até às 17h30", thumb:"pao-nicolay.jpg", campos:["data","paes","notas"]},
