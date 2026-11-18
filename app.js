@@ -345,7 +345,7 @@ function openForm(sid,iid){
     FIELD.telefone(),
     ...it.campos.filter(c=>c!=="telefone").map(c=>FIELD[c](it)),
     el("p",{class:"note",text:it.fotos?"Isto é um pedido, não um pagamento. A Eco Store confirma consigo a disponibilidade e, se for por correio, o custo do envio.":"Isto é um pedido, não um pagamento. A equipa confirma a disponibilidade e o preço consigo."}),
-    it.anulavel ? el("p",{class:"note anular-nota",text:"Os lugares são limitados. Se mudar de planos, anule a reserva no Magazine (Início › As minhas reservas): o seu lugar fica livre para outra pessoa."}) : null,
+    it.anulavel ? el("p",{class:"note anular-nota",text:"Se mudar de planos, anule a reserva no Magazine (Início › As minhas reservas). Assim a equipa não fica à sua espera e organiza melhor as viagens."}) : null,
     el("div",{class:"msg",id:"f-msg",hidden:""}),
     el("div",{class:"actions"}, cancelBtn(), el("button",{class:"btn",type:"submit",text:"Preparar mensagem"}))].filter(Boolean));
   const today=new Date().toISOString().slice(0,10);
@@ -387,7 +387,7 @@ function reservaAtiva(r){ if(!r.data) return Date.now()-parseInt(r.id,36)<3*864e
 function dataPT(d){ return d?d.split("-").reverse().join("/"):""; }
 function resumoReserva(r){ return [r.nome, r.data?dataPT(r.data):"", r.hora?("às "+r.hora):"", r.pessoas?(r.pessoas+(r.pessoas==="1"?" pessoa":" pessoas")):"", r.destino].filter(Boolean).join(" · "); }
 function anularReserva(r){
-  const txt=["Olá! Quero ANULAR a minha reserva feita pelo Salema Eco Camp Magazine:", resumoReserva(r), r.quem?("Nome: "+r.quem):"", r.cliente?("N.º de inscrição: "+r.cliente):"", "", "Assim o lugar fica livre para outra pessoa. Obrigado!"].filter(x=>x!=="").join("\n");
+  const txt=["Olá! Quero ANULAR a minha reserva feita pelo Salema Eco Camp Magazine:", resumoReserva(r), r.quem?("Nome: "+r.quem):"", r.cliente?("N.º de inscrição: "+r.cliente):"", "", "Assim não ficam à minha espera. Obrigado!"].filter(x=>x!=="").join("\n");
   try{ estat("pedido","Anulação: "+r.nome); }catch(e){}
   if(r.wa) window.open(waLink(r.wa,txt),"_blank","noopener");
   else location.href="tel:"+digits(C.TELEFONE_PARQUE||"");
@@ -401,7 +401,7 @@ function desenharReservas(){
       ...l.map(r=>el("div",{class:"minha-res"},
         el("div",{}, el("b",{text:r.nome}), el("small",{text:resumoReserva(r).replace(r.nome+" · ","")})),
         el("button",{class:"btn small ghost",type:"button",onclick:()=>{ if(confirm("Anular esta reserva? Vamos abrir o WhatsApp com a mensagem pronta para enviar.")) anularReserva(r); },text:"Anular reserva"}))),
-      el("small",{class:"note",text:"Mudou de planos? Anule: o lugar fica livre para outra pessoa."}));
+      el("small",{class:"note",text:"Mudou de planos? Anule, para a equipa não ficar à sua espera."}));
   });
 }
 try{ localStorage.setItem(RES_KEY,JSON.stringify(lerReservas().filter(reservaAtiva))); }catch(e){}
