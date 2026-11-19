@@ -506,3 +506,4 @@ nav.tabs a{position:relative}
 .minha-res small{color:var(--muted)}
 .minha-res .btn{flex:none;color:var(--danger,#B3261E);border-color:currentColor}
 .shuttle .minhas-reservas{margin-top:10px;text-align:left}
+.mt-cam{font-size:.8rem;font-weight:700;color:var(--accent);text-decoration:none;margin-top:2px;align-self:flex-start}
