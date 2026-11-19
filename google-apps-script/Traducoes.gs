@@ -7,7 +7,7 @@
    ===================================================================== */
 const LINGUAS = { en: 'English (UK)', de: 'German (Deutsch, formal Sie)', es: 'Spanish (Spain, español de España, trato de usted)' };
 const COLUNAS_TRAD = ['pt', 'en', 'de', 'es'];
-const LIMITE_TRADUCOES_DIA = 3000;
+const LIMITE_TRADUCOES_DIA = 6000;
 
 function traducoesGet(acao, e) {
   if (acao !== 'dicionario') return null;
@@ -29,9 +29,9 @@ function traducoesPost(body) {
     const chaveDia = 'TRAD_' + Utilities.formatDate(new Date(), FUSO, 'yyyy-MM-dd');
     const usados = parseInt(props.getProperty(chaveDia) || '0', 10);
     if (usados + falta.length <= LIMITE_TRADUCOES_DIA) {
-      props.setProperty(chaveDia, String(usados + falta.length));
-      const novos = traduzirComClaude(falta, lang);
-      if (novos) { guardarTraducoes(lang, novos); Object.keys(novos).forEach(function(k){ dic[k] = novos[k]; }); }
+      const novos = traduzirEmLotes(falta, lang);
+      const n = Object.keys(novos).length;
+      if (n) { props.setProperty(chaveDia, String(usados + n)); guardarTraducoes(lang, novos); Object.keys(novos).forEach(function(k){ dic[k] = novos[k]; }); }
     }
   }
   const out = {}; textos.forEach(function(t){ if (dic[t]) out[t] = dic[t]; });
@@ -72,6 +72,15 @@ function guardarTraducoes(lang, novos) {
     if (acrescentar.length) sh.getRange(sh.getLastRow() + 1, 1, acrescentar.length, COLUNAS_TRAD.length).setNumberFormat('@').setValues(acrescentar);
     CacheService.getScriptCache().remove('trad_' + lang);
   } finally { lock.releaseLock(); }
+}
+/* Divide em lotes pequenos (até ~3500 caracteres): textos longos num lote grande
+   ultrapassavam o tamanho da resposta e a tradução falhava toda. */
+function traduzirEmLotes(textos, lang) {
+  const out = {}; let lote = [], chars = 0;
+  function enviar() { if (!lote.length) return; const r = traduzirComClaude(lote, lang); if (r) Object.keys(r).forEach(function(k){ out[k] = r[k]; }); lote = []; chars = 0; }
+  textos.forEach(function(t){ if (lote.length && (chars + t.length > 3500 || lote.length >= 25)) enviar(); lote.push(t); chars += t.length; });
+  enviar();
+  return out;
 }
 function traduzirComClaude(textos, lang) {
   const chave = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_API_KEY');
@@ -151,7 +160,7 @@ function preencherEspanhol() {
   let feitas = 0;
   for (let i = 0; i < falta.length; i += 40) {
     if (Date.now() - inicio > 270000) break;
-    const novos = traduzirComClaude(falta.slice(i, i + 40), 'es');
+    const novos = traduzirEmLotes(falta.slice(i, i + 40), 'es');
     if (novos) { guardarTraducoes('es', novos); feitas += Object.keys(novos).length; } else console.log('Falhou um lote');
   }
   console.log('Traduzidas agora: ' + feitas);

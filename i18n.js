@@ -63,7 +63,10 @@
   let aPedir=false;
   async function pedir(){
     if(aPedir){ agendar(); return; }
-    const lista=[...pend].filter(k=>!dic[k]).slice(0,80); lista.forEach(k=>pend.delete(k));
+    /* lotes pequenos: textos longos (artigos) num lote grande faziam a tradução falhar */
+    const lista=[]; let chars=0;
+    for(const k of pend){ if(dic[k]){ pend.delete(k); continue; } if(lista.length&&(chars+k.length>3500||lista.length>=25)) break; lista.push(k); chars+=k.length; }
+    lista.forEach(k=>pend.delete(k));
     if(!lista.length) return;
     aPedir=true;
     try{
