@@ -507,3 +507,8 @@ nav.tabs a{position:relative}
 .minha-res .btn{flex:none;color:var(--danger,#B3261E);border-color:currentColor}
 .shuttle .minhas-reservas{margin-top:10px;text-align:left}
 .mt-cam{font-size:.8rem;font-weight:700;color:var(--accent);text-decoration:none;margin-top:2px;align-self:flex-start}
+
+/* botão "Jogos de sempre" na secção Região */
+.jogos-entrada{margin-top:10px;display:flex;flex-direction:column;gap:6px;background:var(--surface);border:2px solid var(--accent);border-radius:var(--r);padding:14px 16px;text-decoration:none;color:inherit}
+.jogos-entrada b{font-family:var(--display);font-size:1.3rem;line-height:1.2;color:var(--title)}
+.jogos-entrada span:not(.eyebrow):not(.regiao-ler){color:var(--muted)}

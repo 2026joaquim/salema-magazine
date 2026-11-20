@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#274F37">
+<title>Shisima · Salema Eco Camp</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css?v=113">
+<link rel="stylesheet" href="jogos.css?v=113">
+<script src="config.js?v=113"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand-row"><img id="logo" src="imagens/logo.png" alt="Salema Eco Camp"><div class="brand" translate="no"><b>Salema Eco Camp</b><span>Magazine</span></div></div>
+  <div class="who">Praia da Salema · Algarve</div>
+</div></header>
+
+<main><div class="wrap jogo">
+  <a class="voltar" href="jogos.html">← Todos os jogos</a>
+  <div>
+    <span class="eyebrow">Jogo tradicional · Quénia</span>
+    <h1>Shisima</h1>
+    <p>«Shisima» quer dizer «extensão de água» em kisukuma. As crianças do Quénia jogam-no com tampas e pedrinhas e chamam às peças «imbalavali», os pirilampos. Jogue contra o computador ou com alguém ao seu lado.</p>
+  </div>
+
+  <div class="modos" role="group" aria-label="Modo de jogo">
+    <button type="button" class="btn ghost" id="m-pc" aria-pressed="true">Contra o computador</button>
+    <button type="button" class="btn ghost" id="m-2" aria-pressed="false">2 jogadores</button>
+  </div>
+
+  <div class="estado" aria-live="polite"><span class="ficha" id="e-ficha"></span><span id="e-texto"></span></div>
+  <div class="tabuleiro"><svg id="tab" viewBox="-340 -340 680 680" role="img" aria-label="Tabuleiro de Shisima"></svg></div>
+  <div class="fim" id="fim" hidden></div>
+  <div class="acoes">
+    <button type="button" class="btn" id="novo">Novo jogo</button>
+    <button type="button" class="btn ghost" id="desfazer">Desfazer jogada</button>
+  </div>
+
+  <section class="card regras">
+    <h2 class="eyebrow">Como se joga</h2>
+    <ul>
+      <li>Cada jogador tem 3 peças, de lados opostos do tabuleiro. As claras começam.</li>
+      <li>Na sua vez, mova uma peça para um ponto vizinho livre, ao longo das linhas. Pode ir para o ponto do meio e sair dele.</li>
+      <li>Ganha quem alinhar as suas 3 peças numa reta que passe pelo ponto do meio.</li>
+      <li>Quem ficar sem poder mexer perde. Se a partida se arrastar muito, é empate.</li>
+    </ul>
+  </section>
+  <p class="curiosidade">O ponto do meio é o mais poderoso: quem o ocupa controla quase todas as linhas. Mas não se deixe ficar lá parado, ou o adversário prende-o!</p>
+</div></main>
+
+<script src="shisima-logica.js?v=113"></script>
+<script>
+(function(){
+  const L=ShisimaLogica, P1=L.P1, P2=L.P2;
+  const svg=document.getElementById("tab"), NS="http://www.w3.org/2000/svg", RAIO=270;
+  function xy(i){ if(i===8) return [0,0]; const a=(-90+45*i)*Math.PI/180; return [Math.round(RAIO*Math.cos(a)),Math.round(RAIO*Math.sin(a))]; }
+  const COR={[P1]:["#F4EBDD","#B79E7E","#D9C8AE"],[P2]:["#3A2A1C","#1E140C","#5A4532"]};
+  let s, modoPC=true, hist=[], acabou=false, aPensar=false, sel=null, ultima=null;
+  function el(tag,att){ const e=document.createElementNS(NS,tag); for(const k in att) e.setAttribute(k,att[k]); return e; }
+  const nomeCor=p=>p===P1?"claras":"escuras";
+  const humano=()=>!(modoPC&&s.vez===P2)&&!acabou&&!aPensar;
+
+  function desenhar(){
+    svg.innerHTML="";
+    const traco={stroke:"#5B3F22","stroke-width":"6","stroke-linecap":"round","stroke-linejoin":"round",fill:"none"};
+    const pts=[0,1,2,3,4,5,6,7].map(i=>xy(i).join(",")).join(" ");
+    svg.append(el("polygon",{points:pts,...traco}));
+    for(const k of [0,1,2,3]){ const a=xy(k), b=xy(k+4); svg.append(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],...traco})); }
+    const mov=humano()?L.jogadas(s):[];
+    const origens=new Set(mov.map(j=>j.de));
+    const destinos=sel!=null?mov.filter(j=>j.de===sel).map(j=>j.para):[];
+    for(let i=0;i<9;i++){
+      const [x,y]=xy(i), g=el("g",{}); g.style.cursor="pointer";
+      g.append(el("circle",{cx:x,cy:y,r:40,fill:"transparent"}));
+      g.append(el("circle",{cx:x,cy:y,r:i===8?13:9,fill:"#5B3F22"}));
+      if(destinos.includes(i)) g.append(el("circle",{cx:x,cy:y,r:18,fill:"#2E7D4F",opacity:".75"}));
+      if(s.t[i]){
+        const c=COR[s.t[i]];
+        g.append(el("circle",{cx:x,cy:y,r:32,fill:c[0],stroke:c[1],"stroke-width":"3"}));
+        g.append(el("circle",{cx:x,cy:y,r:20,fill:"none",stroke:c[2],"stroke-width":"3"}));
+        if(i===sel) g.append(el("circle",{cx:x,cy:y,r:38,fill:"none",stroke:"#2E7D4F","stroke-width":"6"}));
+        else if(origens.has(i)) g.append(el("circle",{cx:x,cy:y,r:38,fill:"none",stroke:"#E8B33D","stroke-width":"4"}));
+        if(i===ultima) g.append(el("circle",{cx:x,cy:y,r:6,fill:s.t[i]===P1?"#C0392B":"#E8B33D"}));
+      }
+      g.addEventListener("click",()=>clicar(i)); svg.append(g);
+    }
+    const fic=document.getElementById("e-ficha"); fic.style.background=s.vez===P1?"#F4EBDD":"#3A2A1C";
+    let txt;
+    if(acabou) txt="Fim do jogo";
+    else if(aPensar) txt="O computador está a pensar…";
+    else if(modoPC&&s.vez===P2) txt="Vez do computador";
+    else txt=(modoPC?"A sua vez":"Vez das "+nomeCor(s.vez))+": escolha uma peça e depois o ponto para onde a quer mover";
+    document.getElementById("e-texto").textContent=txt;
+    document.getElementById("desfazer").disabled=!hist.length||aPensar;
+  }
+
+  function executar(j){
+    hist.push(s); if(hist.length>300) hist.shift();
+    s=L.aplicar(s,j); sel=null; ultima=j.para;
+    verificarFim(); desenhar();
+    if(!acabou&&modoPC&&s.vez===P2) setTimeout(jogaPC,500);
+  }
+  function verificarFim(){
+    const r=L.fim(s); if(!r.acabou) return;
+    acabou=true; const f=document.getElementById("fim"); f.hidden=false;
+    if(r.venc===0) f.textContent="Empate. A partida arrastou-se demasiado!";
+    else if(modoPC) f.textContent=r.venc===P1?"Parabéns, ganhou! 🎉":"O computador ganhou. Tente outra vez!";
+    else f.textContent="Ganharam as "+nomeCor(r.venc)+"! 🎉";
+  }
+  function clicar(i){
+    if(!humano()) return;
+    const mov=L.jogadas(s);
+    if(sel!=null){ const j=mov.find(x=>x.de===sel&&x.para===i); if(j){ executar(j); return; } }
+    sel=mov.some(x=>x.de===i)?i:null; desenhar();
+  }
+  function jogaPC(){
+    aPensar=true; desenhar();
+    setTimeout(()=>{ const j=L.escolher(s,4); aPensar=false; if(!j){ verificarFim(); desenhar(); return; } executar(j); },250);
+  }
+
+  function novo(){ s=L.novo(); hist=[]; sel=null; ultima=null; acabou=false; aPensar=false; document.getElementById("fim").hidden=true; desenhar(); }
+  function desfazer(){
+    if(!hist.length||aPensar) return;
+    s=hist.pop();
+    if(modoPC) while(s.vez===P2&&hist.length) s=hist.pop();
+    sel=null; ultima=null; acabou=false; document.getElementById("fim").hidden=true; desenhar();
+  }
+  function modo(pc){ modoPC=pc; document.getElementById("m-pc").setAttribute("aria-pressed",String(pc)); document.getElementById("m-2").setAttribute("aria-pressed",String(!pc)); novo(); }
+  document.getElementById("novo").onclick=novo;
+  document.getElementById("desfazer").onclick=desfazer;
+  document.getElementById("m-pc").onclick=()=>modo(true);
+  document.getElementById("m-2").onclick=()=>modo(false);
+  novo();
+})();
+</script>
+<script src="i18n.js?v=113"></script>
+</body>
+</html>

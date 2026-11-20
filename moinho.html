@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#274F37">
+<title>Moinho · Salema Eco Camp</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css?v=113">
+<link rel="stylesheet" href="jogos.css?v=113">
+<script src="config.js?v=113"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand-row"><img id="logo" src="imagens/logo.png" alt="Salema Eco Camp"><div class="brand" translate="no"><b>Salema Eco Camp</b><span>Magazine</span></div></div>
+  <div class="who">Praia da Salema · Algarve</div>
+</div></header>
+
+<main><div class="wrap jogo">
+  <a class="voltar" href="jogos.html">← Todos os jogos</a>
+  <div>
+    <span class="eyebrow">Jogo tradicional · Europa</span>
+    <h1>Moinho</h1>
+    <p>Três quadrados, uma ideia simples: fazer três em linha. Jogado há mais de dois mil anos, de Roma às aldeias do Norte. Jogue contra o computador ou com alguém ao seu lado.</p>
+  </div>
+
+  <div class="modos" role="group" aria-label="Modo de jogo">
+    <button type="button" class="btn ghost" id="m-pc" aria-pressed="true">Contra o computador</button>
+    <button type="button" class="btn ghost" id="m-2" aria-pressed="false">2 jogadores</button>
+  </div>
+
+  <div class="estado" aria-live="polite"><span class="ficha" id="e-ficha"></span><span id="e-texto"></span></div>
+  <div class="tabuleiro"><svg id="tab" viewBox="-340 -340 680 680" role="img" aria-label="Tabuleiro de Moinho"></svg></div>
+  <div class="contas"><span id="c-claras"></span><span id="c-escuras"></span></div>
+  <div class="fim" id="fim" hidden></div>
+  <div class="acoes">
+    <button type="button" class="btn" id="novo">Novo jogo</button>
+    <button type="button" class="btn ghost" id="desfazer">Desfazer jogada</button>
+  </div>
+
+  <section class="card regras">
+    <h2 class="eyebrow">Como se joga</h2>
+    <ul>
+      <li>Cada jogador tem 9 peças. As claras começam.</li>
+      <li><b>Primeiro colocam-se as peças:</b> cada um, à vez, coloca uma peça num ponto livre, até as 9 estarem no tabuleiro.</li>
+      <li><b>Depois movem-se:</b> na sua vez, deslize uma peça para um ponto vizinho livre, ao longo das linhas.</li>
+      <li>Quando alinha <b>três peças suas</b> numa linha, faz um <b>moinho</b> e tira do tabuleiro uma peça do adversário. Não pode tirar peças que estejam num moinho, a não ser que todas estejam.</li>
+      <li>Quando só lhe restarem <b>3 peças</b>, pode <b>voar</b>: mover uma peça para qualquer ponto livre.</li>
+      <li>Perde quem ficar com menos de 3 peças ou sem poder mexer nenhuma.</li>
+    </ul>
+  </section>
+</div></main>
+
+<script src="moinho-logica.js?v=113"></script>
+<script>
+(function(){
+  const L=MoinhoLogica, P1=L.P1, P2=L.P2;
+  const svg=document.getElementById("tab"), NS="http://www.w3.org/2000/svg";
+  const R=[300,200,100];
+  function xy(i){
+    const r=R[Math.floor(i/8)], k=i%8;
+    const X=[-r,0,r,r,r,0,-r,-r], Y=[-r,-r,-r,0,r,r,r,0];
+    return [X[k],Y[k]];
+  }
+  const COR={[P1]:["#F4EBDD","#B79E7E","#D9C8AE"],[P2]:["#3A2A1C","#1E140C","#5A4532"]};
+
+  let s, modoPC=true, hist=[], acabou=false, aPensar=false, sel=null, pend=null, ultima=null;
+
+  function el(tag,att){ const e=document.createElementNS(NS,tag); for(const k in att) e.setAttribute(k,att[k]); return e; }
+  const nomeCor=p=>p===P1?"claras":"escuras";
+  const humano=()=>!(modoPC&&s.vez===P2)&&!acabou&&!aPensar;
+
+  function opcoes(){
+    /* o que o jogador pode tocar agora */
+    const o={origens:new Set(),destinos:new Set(),tirar:new Set()};
+    if(!humano()) return o;
+    const f=L.fase(s,s.vez);
+    if(pend){ for(const j of L.jogadas(s)) if(j.de===pend.de&&j.para===pend.para&&j.tira>=0) o.tirar.add(j.tira); return o; }
+    const b=L.base(s);
+    if(f==="colocar"){ b.forEach(j=>o.destinos.add(j.para)); return o; }
+    b.forEach(j=>o.origens.add(j.de));
+    if(sel!=null) b.filter(j=>j.de===sel).forEach(j=>o.destinos.add(j.para));
+    return o;
+  }
+
+  function desenhar(){
+    svg.innerHTML="";
+    const traco={stroke:"#5B3F22","stroke-width":"6","stroke-linecap":"round",fill:"none"};
+    for(const r of R) svg.append(el("rect",{x:-r,y:-r,width:2*r,height:2*r,...traco,"stroke-linejoin":"round"}));
+    for(const k of [1,3,5,7]){ const a=xy(k), b=xy(16+k); svg.append(el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],...traco})); }
+    const o=opcoes();
+    /* enquanto escolhe a peça a tirar, mostra já a jogada feita */
+    const T=s.t.slice(); if(pend){ if(pend.de>=0) T[pend.de]=0; T[pend.para]=s.vez; }
+    for(let i=0;i<24;i++){
+      const [x,y]=xy(i), g=el("g",{}); g.style.cursor="pointer";
+      g.append(el("circle",{cx:x,cy:y,r:34,fill:"transparent"}));
+      g.append(el("circle",{cx:x,cy:y,r:9,fill:"#5B3F22"}));
+      if(o.destinos.has(i)) g.append(el("circle",{cx:x,cy:y,r:17,fill:"#2E7D4F",opacity:".75"}));
+      if(T[i]){
+        const c=COR[T[i]];
+        g.append(el("circle",{cx:x,cy:y,r:27,fill:c[0],stroke:c[1],"stroke-width":"3"}));
+        g.append(el("circle",{cx:x,cy:y,r:17,fill:"none",stroke:c[2],"stroke-width":"3"}));
+        if(i===sel) g.append(el("circle",{cx:x,cy:y,r:33,fill:"none",stroke:"#2E7D4F","stroke-width":"6"}));
+        else if(o.origens.has(i)) g.append(el("circle",{cx:x,cy:y,r:33,fill:"none",stroke:"#E8B33D","stroke-width":"4"}));
+        if(o.tirar.has(i)) g.append(el("circle",{cx:x,cy:y,r:33,fill:"none",stroke:"#C0392B","stroke-width":"6"}));
+        if(i===ultima) g.append(el("circle",{cx:x,cy:y,r:6,fill:T[i]===P1?"#C0392B":"#E8B33D"}));
+      }
+      g.addEventListener("click",()=>clicar(i)); svg.append(g);
+    }
+    const fic=document.getElementById("e-ficha"); fic.style.background=s.vez===P1?"#F4EBDD":"#3A2A1C";
+    let txt;
+    const f=L.fase(s,s.vez);
+    if(acabou) txt="Fim do jogo";
+    else if(aPensar) txt="O computador está a pensar…";
+    else if(modoPC&&s.vez===P2) txt="Vez do computador";
+    else {
+      const quem=modoPC?"A sua vez":"Vez das "+nomeCor(s.vez);
+      if(pend) txt="Moinho! Toque numa peça do adversário para a tirar";
+      else if(f==="colocar") txt=quem+": coloque uma peça";
+      else if(f==="voar") txt=quem+": pode voar! Mova uma peça para qualquer ponto livre";
+      else txt=quem+": mova uma peça";
+    }
+    document.getElementById("e-texto").textContent=txt;
+    const tx=p=>{ const n=L.contar(T,p); return n+" no tabuleiro"+(s.por[p]-(pend&&p===s.vez&&pend.de<0?1:0)?" · "+(s.por[p]-(pend&&p===s.vez&&pend.de<0?1:0))+" por colocar":""); };
+    document.getElementById("c-claras").textContent="Claras: "+tx(P1);
+    document.getElementById("c-escuras").textContent="Escuras: "+tx(P2);
+    document.getElementById("desfazer").disabled=!hist.length||aPensar;
+  }
+
+  function executar(j){
+    hist.push(s); if(hist.length>300) hist.shift();
+    s=L.aplicar(s,j); sel=null; pend=null; ultima=j.para;
+    verificarFim(); desenhar();
+    if(!acabou&&modoPC&&s.vez===P2) setTimeout(jogaPC,450);
+  }
+  function verificarFim(){
+    const r=L.fim(s); if(!r.acabou) return;
+    acabou=true; const f=document.getElementById("fim"); f.hidden=false;
+    if(r.venc===0) f.textContent="Empate. Ninguém conseguiu tirar vantagem.";
+    else if(modoPC) f.textContent=r.venc===P1?"Parabéns, ganhou! 🎉":"O computador ganhou. Tente outra vez!";
+    else f.textContent="Ganharam as "+nomeCor(r.venc)+"! 🎉";
+  }
+  function clicar(i){
+    if(!humano()) return;
+    const o=opcoes();
+    if(pend){
+      if(o.tirar.has(i)) executar({de:pend.de,para:pend.para,tira:i});
+      return;
+    }
+    const f=L.fase(s,s.vez);
+    let de=-1, para=null;
+    if(f==="colocar"){ if(o.destinos.has(i)) para=i; }
+    else if(sel!=null&&o.destinos.has(i)){ de=sel; para=i; }
+    else { sel=o.origens.has(i)?i:null; desenhar(); return; }
+    if(para==null) return;
+    const js=L.jogadas(s).filter(j=>j.de===de&&j.para===para);
+    if(js[0].tira>=0){ pend={de,para}; sel=null;
+      /* mostra a peça já colocada/movida enquanto escolhe a que tira */
+      desenhar(); return; }
+    executar(js[0]);
+  }
+  function jogaPC(){
+    aPensar=true; desenhar();
+    setTimeout(()=>{
+      const j=L.escolher(s); aPensar=false;
+      if(!j){ verificarFim(); desenhar(); return; }
+      executar(j);
+    },250);
+  }
+
+  function novo(){ s=L.novo(); hist=[]; sel=null; pend=null; ultima=null; acabou=false; aPensar=false; document.getElementById("fim").hidden=true; desenhar(); }
+  function desfazer(){
+    if(!hist.length||aPensar) return;
+    s=hist.pop();
+    if(modoPC) while(s.vez===P2&&hist.length) s=hist.pop();
+    sel=null; pend=null; ultima=null; acabou=false; document.getElementById("fim").hidden=true; desenhar();
+  }
+  function modo(pc){ modoPC=pc; document.getElementById("m-pc").setAttribute("aria-pressed",String(pc)); document.getElementById("m-2").setAttribute("aria-pressed",String(!pc)); novo(); }
+  document.getElementById("novo").onclick=novo;
+  document.getElementById("desfazer").onclick=desfazer;
+  document.getElementById("m-pc").onclick=()=>modo(true);
+  document.getElementById("m-2").onclick=()=>modo(false);
+  novo();
+})();
+</script>
+<script src="i18n.js?v=113"></script>
+</body>
+</html>
