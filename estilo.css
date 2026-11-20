@@ -514,3 +514,8 @@ nav.tabs a{position:relative}
 .jogos-banner-t b{font-family:var(--display);font-size:1.25rem;line-height:1.2}
 .jogos-banner-t span{font-size:.9rem;line-height:1.35;opacity:.92}
 .jogos-banner-b{flex:none;background:#fff;color:var(--brand);font-family:var(--display);font-weight:700;border-radius:999px;padding:8px 16px}
+
+/* botões de atalho em Calcular */
+.calc-botoes{display:flex;gap:8px;flex-wrap:wrap}
+.calc-botoes .btn{flex:1;min-width:140px;white-space:normal;line-height:1.15;min-height:44px}
+#calc-estadia,#calc-pegada{scroll-margin-top:76px}

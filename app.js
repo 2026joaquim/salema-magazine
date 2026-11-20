@@ -1008,3 +1008,6 @@ setInterval(loadDados, 5*60*1000);
 if("serviceWorker" in navigator && location.protocol==="https:"){
   addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 }
+
+/* atalhos em Calcular: saltar para a calculadora da estadia ou da pegada de carbono */
+document.querySelectorAll("[data-ir]").forEach(b=>b.addEventListener("click",()=>{ const t=document.getElementById(b.dataset.ir); if(t) t.scrollIntoView({behavior:"smooth",block:"start"}); }));
