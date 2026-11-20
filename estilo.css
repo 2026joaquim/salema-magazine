@@ -508,7 +508,9 @@ nav.tabs a{position:relative}
 .shuttle .minhas-reservas{margin-top:10px;text-align:left}
 .mt-cam{font-size:.8rem;font-weight:700;color:var(--accent);text-decoration:none;margin-top:2px;align-self:flex-start}
 
-/* botão "Jogos de sempre" na secção Região */
-.jogos-entrada{margin-top:10px;display:flex;flex-direction:column;gap:6px;background:var(--surface);border:2px solid var(--accent);border-radius:var(--r);padding:14px 16px;text-decoration:none;color:inherit}
-.jogos-entrada b{font-family:var(--display);font-size:1.3rem;line-height:1.2;color:var(--title)}
-.jogos-entrada span:not(.eyebrow):not(.regiao-ler){color:var(--muted)}
+/* banner verde "Jogos de sempre" no topo de Calcular */
+.jogos-banner{display:flex;align-items:center;gap:12px;background:var(--brand);color:var(--brand-ink);border-radius:var(--r);padding:14px 16px;text-decoration:none;margin-bottom:12px}
+.jogos-banner-t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.jogos-banner-t b{font-family:var(--display);font-size:1.25rem;line-height:1.2}
+.jogos-banner-t span{font-size:.9rem;line-height:1.35;opacity:.92}
+.jogos-banner-b{flex:none;background:#fff;color:var(--brand);font-family:var(--display);font-weight:700;border-radius:999px;padding:8px 16px}
