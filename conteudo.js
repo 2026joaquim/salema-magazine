@@ -144,7 +144,7 @@ window.EVENTOS=[
    preco:"Gratuito · sem limite de participantes",
    contacto:{texto:"Inscrições por WhatsApp", wa:"+351 961 956 143"}},
   {datas:["2026-11-27","2026-11-28","2026-11-29"], hora:"a partir das 12:00", tipo:"Festa na região", local:"Espaço Multiusos de Aljezur",
-   titulo:"Festival da Batata-Doce de Aljezur",
+   titulo:"Festival da Batata-Doce de Aljezur", cartaz:"evento-batata-doce.jpg",
    descricao:"De 27 a 29 de novembro, Aljezur celebra a Batata-Doce Lira, ex-líbris do concelho, com gastronomia, produtores locais, produtos regionais e música. Para continuar nos sabores do Algarve, descubra o chá de alfarroba Alkarub: feito à mão com as variedades Mulata e Preta de Lagos, sem cafeína e sem açúcares adicionados. Nas lojas parceiras da região e em alkarub.pt.",
    preco:"2 € por dia · 3 € o passe de 3 dias (inclui 1 € em produtos no stand da Associação de Produtores) · grátis para menores de 13 anos e maiores de 65",
    contacto:{texto:"Chá Alkarub: alkarub.pt", url:"https://alkarub.pt"}},
